@@ -10,6 +10,11 @@
 body{
     background-color: black;
 }
+
+input {
+    padding: 10px;
+}
+
 .left-container p {
     color: white;
 }
