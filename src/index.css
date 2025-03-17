@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: black;
+}
+.left-container p {
+    color: white;
+}
+.right-container p {
+    color: white;
+}
+
