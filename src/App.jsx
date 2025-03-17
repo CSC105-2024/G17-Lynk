@@ -5,6 +5,7 @@ import SignUpPage from "./pages/SignUpPage";
 const App = () => {
   return (
     <>
+      <LogInPage/>
       <SignUpPage/>
     </>
   )
