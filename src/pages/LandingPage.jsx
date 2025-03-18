@@ -4,6 +4,7 @@ import heroimg from '../images/hero.svg';
 import playlistImage from '../images/playlist.svg'
 import managementImage from '../images/linkManage.svg'
 import filteringImage from '../images/filtering.svg'
+import lynklogo from '../images/SVG/main logos/Final-05.svg'
 const LandingPage = () => {
   return (
     <div className="min-h-screen bg-black py-8 px-4 sm:px-6 lg:px-8">
@@ -54,7 +55,7 @@ const LandingPage = () => {
       </div>
       <div className="md:w-1/2 md:mr-8 mt-8 md:mt-0 md:order-1">
         <img
-          src={managementImage} // Replace with your image source
+          src={managementImage}
           alt="Efficient Link Management"
           className="w-full h-auto rounded-lg shadow-md"
         />
@@ -105,6 +106,14 @@ const LandingPage = () => {
     </div>
   </div>
 </section>
+
+{/*Footer*/}
+<div className="font-sans flex items-center justify-between">
+      <img src={lynklogo} alt="lynk Logo" className="w-36" />
+      <div className="text-sm text-gray-800 font-medium">
+        ©2025lynk.com
+      </div>
+    </div>
 
       </div>
     </div>
