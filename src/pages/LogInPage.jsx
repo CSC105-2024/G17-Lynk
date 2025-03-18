@@ -34,7 +34,7 @@ const LogInPage = () => {
     </button>
     <p className="text-gray-400 text-center mt-2">
       Don't have an account?{' '}
-      <a href="#" className="text-blue-500 underline">Sign up</a>
+      <a href="#" className="text-sky-500 underline">Sign up</a>
     </p>
   </div>
 </div>
