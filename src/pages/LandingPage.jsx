@@ -1,5 +1,6 @@
 import React from 'react';
-
+import darklogo from '../images/SVG/Final-07.svg';
+import heroimg from '../images/hero.svg';
 const LandingPage = () => {
   return (
     <div className="min-h-screen bg-black py-8 px-4 sm:px-6 lg:px-8">
@@ -7,7 +8,7 @@ const LandingPage = () => {
         {/* Header */}
         <div className="flex items-center">
           <img
-            src="../images/SVG/Final-07.svg"
+            src={darklogo}
             alt="logo"
             className="w-[270px] h-[150px]"
           />
@@ -30,7 +31,7 @@ const LandingPage = () => {
 
             <div className="ml-8">
               <img
-                src="../images/choong-deng-xiang-lI74I8dVNZo-unsplash 1.svg" 
+                src={heroimg}
                 alt="Description"
                 className="w-full h-auto max-w-md"
               />
