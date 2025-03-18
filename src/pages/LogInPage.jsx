@@ -16,16 +16,16 @@ const LogInPage = () => {
   //   return
   // }
   return (
-    <div className="flex items-center justify-center min-h-screen bg-black text-white">
-      {/* Left Section */}
-      <div className="w-1/2 flex flex-col items-center text-center gap-3">
+    <div className="flex flex-col md:flex-row items-center justify-center min-h-screen bg-black text-white p-10">
+      {/* Hero Section */}
+      <div className="w-auto flex flex-col items-center text-center gap-3">
         <img src={DarkLogo} alt="LYNk Logo" />
         <p className="text-3xl font-bold">Welcome to LYNk!</p>
-        <p className="text-xl">We List What You Wish</p>
+        <p className="text-2xl">We List What You Wish</p>
       </div>
 
-      {/* Right Section */}
-      <div className="w-96 flex flex-col gap-10 p-8 bg-black text-white rounded-lg shadow-lg mx-auto text-center">
+      {/* Form Section */}
+      <div className="w-full flex flex-col gap-10 p-8 bg-black text-white rounded-lg shadow-lg mx-auto text-center">
           <h1 className="text-3xl font-semibold text-center">Login</h1>
           <form className="space-y-4 flex flex-col gap-3">
             <input
