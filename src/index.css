@@ -1,7 +1,8 @@
 @import "tailwindcss";
 
 body{
-    background-color: green;
+   background: black;
+   font-family: "Reem Kufi",sans-serif;
 }
 
 input {
