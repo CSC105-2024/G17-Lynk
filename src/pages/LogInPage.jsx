@@ -1,7 +1,20 @@
 import React from 'react';
 import DarkLogo from '../images/LogoDarkTransparent.svg';
-
+import { useNavigate } from 'react-router-dom';
 const LogInPage = () => {
+  const navigate = useNavigate();
+
+
+  function handle_SignUp(){
+    navigate('/signup')
+    return;
+  }
+
+  // will handle later route to dashboard
+  // function handle_HomePage(){
+  //   navigate('/')
+  //   return
+  // }
   return (
     <div className="flex items-center justify-center min-h-screen bg-black text-white">
       {/* Left Section */}
@@ -34,7 +47,7 @@ const LogInPage = () => {
     </button>
     <p className="text-gray-400 text-center mt-2">
       Don't have an account?{' '}
-      <a href="#" className="text-sky-500 underline">Sign up</a>
+      <a href="#" className="text-sky-500 underline" onClick={handle_SignUp}>Sign up</a>
     </p>
   </div>
 </div>
