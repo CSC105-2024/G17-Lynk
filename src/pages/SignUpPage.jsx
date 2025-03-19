@@ -59,7 +59,7 @@ const SignUpPage = () => {
                 placeholder ="Email:"
                 className="w-full h-12 px-4 bg-gray-300 text-black rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
-              {/* {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>} */}
+              {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
             </div>
 
             <div className="flex flex-col text-left">
@@ -69,13 +69,13 @@ const SignUpPage = () => {
                 placeholder="Password:"
                 className="w-full h-12 px-4 bg-gray-300 text-black rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
-              {/* <div className="text-left text-sm text-red-500 space-y-1 mt-1">
+              <div className="text-left text-sm text-red-500 space-y-1 mt-1">
                 {errors.password?.message?.includes("8 characters") && <p>❌ Password must be at least 8 characters</p>}
                 {errors.password?.message?.includes("one uppercase") && <p>❌ Must have at least one uppercase letter</p>}
                 {errors.password?.message?.includes("one lowercase") && <p>❌ Must have at least one lowercase letter</p>}
                 {errors.password?.message?.includes("one number") && <p>❌ Must have at least one number</p>}
                 {errors.password?.message?.includes("one special") && <p>❌ Must have at least one special character (@$!%*?&)</p>}
-              </div> */}
+              </div>
             </div>
             
             <div className="flex flex-col text-left">
