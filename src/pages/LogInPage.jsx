@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import FormInput from "../components/FormInput";
+import {button} from '../styles/styles';
 
 // Validation Schema
 const userSchema = z.object({
@@ -37,62 +39,38 @@ const LogInPage = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-black text-white px-10">
-      <div className="flex justify-center items-center gap-20 max-w-5xl w-full">
+    <div className="flex flex-col lg:flex-row items-center justify-center min-h-screen bg-black text-white gap-10 lg:gap-20 p-10 md:px-30 ">
+      {/* <div className="flex justify-center items-center gap-20 max-w-5xl w-full"> */}
         
-        {/* Left Section */}
-        <div className="flex flex-col items-center text-center w-1/2">
-          <img src={DarkLogo} alt="LYNk Logo" className="w-48" />
-          <p className="text-3xl font-bold mt-4">Welcome to LYNk!</p>
-          <p className="text-xl text-gray-300">We List What You Wish</p>
+        {/* Hero Section */}
+        <div className="flex flex-col items-center justify-center gap-5 text-center w-full lg:w-1/2">
+          <img src={DarkLogo} alt="LYNk Logo" className="w-1/2 md:w-1/3 lg:w-1/2 xl:w-1/3" />
+          <p className="text-3xl md:text-4xl lg:text-5xl font-bold mt-4">Welcome to LYNk!</p>
+          <p className="text-xl md:text-2xl lg:text-3xltext-gray-300">We List What You Wish</p>
         </div>
 
-        {/* Right Section */}
-        <div className="w-[400px] flex flex-col gap-8 p-8 bg-[#111] text-white rounded-lg shadow-lg text-center">
-          <h1 className="text-3xl font-semibold">Login</h1>
+        {/* Form Section */}
+        <div className="w-full lg:w-1/2 p-0 md:p-10 flex justify-center">
+        <div className="w-full md:w-2/3 lg:w-md flex flex-col gap-8 p-8 bg-[#111] text-white rounded-lg shadow-lg text-center items-center">
+          <h1 className="text-4xl md:text-5xl font-semibold">Login</h1>
           
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            <div className="flex flex-col text-left">
-              <input
-                {...register("email")}
-                type="email"
-                placeholder ="Email:"
-                className="w-full h-12 px-4 bg-gray-300 text-black rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
-            </div>
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 flex flex-col w-full">
+      
+            <FormInput type="email" placeholder="Email" error={errors.email} func={register("email")}/>
 
-            <div className="flex flex-col text-left">
-              <input
-                {...register("password")}
-                type="password"
-                placeholder="Password:"
-                className="w-full h-12 px-4 bg-gray-300 text-black rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              <div className="text-left text-sm text-red-500 space-y-1 mt-1">
-                {errors.password?.message?.includes("8 characters") && <p>❌ Password must be at least 8 characters</p>}
-                {errors.password?.message?.includes("one uppercase") && <p>❌ Must have at least one uppercase letter</p>}
-                {errors.password?.message?.includes("one lowercase") && <p>❌ Must have at least one lowercase letter</p>}
-                {errors.password?.message?.includes("one number") && <p>❌ Must have at least one number</p>}
-                {errors.password?.message?.includes("one special") && <p>❌ Must have at least one special character (@$!%*?&)</p>}
-              </div>
-            </div>
-
-            <button
-              type="submit"
-              className="w-1/2 h-12 bg-white text-black font-semibold rounded-lg hover:bg-gray-200 transition"
-            >
-              Login
-            </button>
+            <FormInput type="password" placeholder="Password" error={errors.password} func={register("password")}/>
+            <button type="submit" className={`${button} mt-8 mx-auto`}>Login</button>
           </form>
 
           {/* Sign-up redirect */}
-          <p className="text-gray-400">
+          <p className="text-gray-400 text-sm md:text-base">
             Don't have an account?{" "}
             <span className="text-sky-500 underline cursor-pointer" onClick={handle_SignUp}>Sign up</span>
           </p>
         </div>
-      </div>
+        </div>
+        
+      {/* </div> */}
     </div>
   );
 };

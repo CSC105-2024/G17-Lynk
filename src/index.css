@@ -1,13 +1,18 @@
 @import "tailwindcss";
 
+*{
+    box-sizing: border-box;
+    font-family: "Reem Kufi", sans-serif;
+}
+
 body{
    background: black;
    font-family: "Reem Kufi",sans-serif;
 }
 
-input {
+/* input {
     padding: 10px;
-}
+} */
 
 .left-container p {
     color: white;

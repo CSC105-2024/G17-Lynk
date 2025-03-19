@@ -4,8 +4,15 @@ import heroimg from '../images/hero.svg';
 import playlistImage from '../images/playlist.svg'
 import managementImage from '../images/linkManage.svg'
 import filteringImage from '../images/filtering.svg'
-import lynklogo from '../images/SVG/main logos/Final-05.svg'
 const LandingPage = () => {
+  const navigate = useNavigate()
+
+  function handle_LogIn() {
+    navigate('/login');
+  }
+  function handle_SignUp() {
+    navigate('/signup');
+  }
   return (
     <div className="min-h-screen bg-black py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
@@ -16,7 +23,7 @@ const LandingPage = () => {
             alt="logo"
             className="w-[270px] h-[150px]"
           />
-          <button className="ml-auto bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-blue-700">
+          <button onClick={handle_LogIn} className="ml-auto bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-blue-700">
             Login
           </button>
         </div>
@@ -28,7 +35,7 @@ const LandingPage = () => {
               <p className="mt-4 text-lg text-gray-300">
                 Save, Organize, and Access Your Web Favorites with Ease
               </p>
-              <button className="mt-12 bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700">
+              <button onClick={handle_SignUp} className="mt-12 bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700">
                 Save your links now
               </button>
             </header>
