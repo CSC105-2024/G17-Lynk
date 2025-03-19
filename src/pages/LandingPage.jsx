@@ -1,5 +1,9 @@
 import React from 'react';
-
+import darklogo from '../images/SVG/Final-07.svg';
+import heroimg from '../images/hero.svg';
+import playlistImage from '../images/playlist.svg'
+import managementImage from '../images/linkManage.svg'
+import filteringImage from '../images/filtering.svg'
 const LandingPage = () => {
   return (
     <div className="min-h-screen bg-black py-8 px-4 sm:px-6 lg:px-8">
@@ -7,7 +11,7 @@ const LandingPage = () => {
         {/* Header */}
         <div className="flex items-center">
           <img
-            src="../images/SVG/Final-07.svg"
+            src={darklogo}
             alt="logo"
             className="w-[270px] h-[150px]"
           />
@@ -30,7 +34,7 @@ const LandingPage = () => {
 
             <div className="ml-8">
               <img
-                src="../images/choong-deng-xiang-lI74I8dVNZo-unsplash 1.svg" 
+                src={heroimg}
                 alt="Description"
                 className="w-full h-auto max-w-md"
               />
@@ -38,45 +42,70 @@ const LandingPage = () => {
           </div>
         </div>
 
-        {/* Introduction */}
-        <section className="mb-12">
-          <h2 className="text-2xl font-bold text-white mb-4">Introducing Link Playlists</h2>
-          <p className="text-gray-300">
-            Our Link Playlists feature allows you to group related URLs into organized collections, making it easier than ever to organize and access your favorite content. Whether you’re planning research or simply sharing a list of must-visit websites, Link Playlists provide a seamless way to bundle links together in one place.
-          </p>
-        </section>
+{/* Feature 1: Efficient Link Management */}
+<section className="py-12 bg-black">
+  <div className="max-w-6xl mx-auto px-4">
+    <div className="flex flex-col md:flex-row items-center justify-between">
+      <div className="md:w-1/2 md:order-2 text-left">
+        <h2 className="text-2xl font-bold text-white mb-4">Efficient Link Management</h2>
+        <p className="text-gray-300">
+          Our platform helps you save time by keeping all your important links in one place. Stay organized with customizable folders and tags, and enjoy seamless sharing and collaboration tools to enhance your productivity and digital life.
+        </p>
+      </div>
+      <div className="md:w-1/2 md:mr-8 mt-8 md:mt-0 md:order-1">
+        <img
+          src={managementImage} // Replace with your image source
+          alt="Efficient Link Management"
+          className="w-full h-auto rounded-lg shadow-md"
+        />
+      </div>
+    </div>
+  </div>
+</section>
 
-        {/* Features */}
-        <section className="mb-12">
-          <h2 className="text-2xl font-bold text-white mb-4">Efficient Link Management</h2>
-          <p className="text-gray-300 mb-6">
-            Our platform helps you save time by keeping all your important links in one place. Stay organized with customizable folders and tags, and enjoy seamless sharing and collaboration tools to enhance your productivity and digital life.
-          </p>
+       {/* Feature 2: Link Playlists */}
+       <section className="py-12 bg-black">
+  <div className="max-w-6xl mx-auto px-4">
+    <div className="flex flex-col md:flex-row items-center justify-between">
+      <div className="md:w-1/2 text-left">
+        <h2 className="text-2xl font-bold text-white mb-4">Introducing Link Playlists</h2>
+        <p className="text-gray-300">
+          Our Link Playlists feature allows you to group related URLs into organized collections, making it easier than ever to organize and access your favorite content. Whether you’re planning research or simply sharing a list of must-visit websites, Link Playlists provide a seamless way to bundle links together in one place.
+        </p>
+      </div>
+      <div className="md:w-1/2 md:mr-8 mt-8 md:mt-0 ml-40 ">
+        <img
+          src={playlistImage} 
+          alt="Link Playlists"
+          className="w-full h-auto rounded-lg shadow-md"
+        /> 
+      </div>
+    </div>
+  </div>
+</section>
 
-          <h2 className="text-2xl font-bold text-white mb-4">Smart Filtering</h2>
-          <p className="text-gray-300 mb-6">
-            Easily find what you need with our powerful filtering options. Categorize your links by Prototyping, UI Design, or React.js, and access them with ease. Stay organized and efficient with customizable filters that adapt to your workflow.
-          </p>
+{/* Feature 3: Smart Filtering */}
+<section className="py-12 bg-black">
+  <div className="max-w-6xl mx-auto px-4">
+    <div className="flex flex-col md:flex-row-reverse items-center justify-between">
+      <div className="md:w-1/2 text-left">
+        <h2 className="text-2xl font-bold text-white mb-4">Smart Filtering</h2>
+        <p className="text-gray-300">
+          Easily find what you need with our powerful filtering options. Categorize your links by Prototyping, UI Design, or React.js, and access them with ease. Stay organized and efficient with customizable filters that adapt to your workflow.
+        </p>
+        
+      </div>
+      <div className="md:w-1/2 md:ml-8 mt-8 md:mt-0 mr-40">
+        <img
+          src={filteringImage}
+          alt="Smart Filtering"
+          className="w-full h-auto rounded-lg shadow-md"
+        />
+      </div>
+    </div>
+  </div>
+</section>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="bg-gray-800 p-6 rounded-lg shadow-md">
-              <h3 className="font-semibold text-white">Filter by Category</h3>
-              <ul className="mt-4 space-y-2">
-                <li className="text-gray-300">Prototyping</li>
-                <li className="text-gray-300">UI Design</li>
-                <li className="text-gray-300">React.js</li>
-              </ul>
-            </div>
-            <div className="bg-gray-800 p-6 rounded-lg shadow-md">
-              <h3 className="font-semibold text-white">Filter by Tags</h3>
-              <ul className="mt-4 space-y-2">
-                <li className="text-gray-300">Product</li>
-                <li className="text-gray-300">User Experience</li>
-                <li className="text-gray-300">Leadership</li>
-              </ul>
-            </div>
-          </div>
-        </section>
       </div>
     </div>
   );
