@@ -4,6 +4,9 @@ import heroimg from '../images/hero.svg';
 import playlistImage from '../images/playlist.svg'
 import managementImage from '../images/linkManage.svg'
 import filteringImage from '../images/filtering.svg'
+import lynklogo from '../images/SVG/main logos/Final-05.svg'
+import { useNavigate } from 'react-router-dom'; 
+
 const LandingPage = () => {
   const navigate = useNavigate()
 
