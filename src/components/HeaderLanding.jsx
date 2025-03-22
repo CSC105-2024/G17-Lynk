@@ -6,7 +6,7 @@ const HeaderLanding = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="flex flex-wrap items-center justify-between py-4 px-10 md:px-15 lg:px-20 xl:px-60 ">
+    <div className="flex flex-wrap items-center justify-between py-4 px-10 md:px-15 lg:px-20 xl:px-40 ">
       <img src={darklogo} alt="logo" className=" h-auto"/>
       <button
         onClick={() => navigate('/login')}
