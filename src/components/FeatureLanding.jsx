@@ -1,20 +1,21 @@
 import React from 'react';
+import { paragraph, title as titleStyle } from "../styles/styles";
 
-const FeatureLanding = ({ title, description, image, reverse }) => (
-    <section className="py-8 sm:py-12 bg-black">
+const FeatureLanding = ({ title, description, image, reverse, headerStyle }) => (
+    <section className={"py-8 sm:py-12 bg-black px-10 md:px-15 lg:px-20 xl:px-60"}>
     <div
-      className={`max-w-6xl mx-auto px-4 flex flex-col ${
-        reverse ? 'sm:flex-row-reverse' : 'sm:flex-row'
-      } items-center justify-between`}
+    className={`flex flex-col sm:flex-row sm:justify-between sm:items-center gap-10 ${
+     reverse ? 'sm:flex-row-reverse' : 'sm:flex-row'
+    } items-center justify-between`}
     >
       {/* Text Section */}
-      <div className="sm:w-1/2 text-center sm:text-left mb-8 sm:mb-0">
-        <h2 className="text-xl sm:text-2xl font-bold text-white mb-4">{title}</h2>
-        <p className="text-sm sm:text-base text-gray-300">{description}</p>
+      <div className={`w-full md:w-md lg:w-lg xl:w-xl text-center ${reverse ? 'sm:text-right' : 'sm:text-left'} flex flex-col gap-5 md:gap-12`}>
+        <h2 className={`${titleStyle} text-white`} style={{color: headerStyle}}>{title}</h2>
+        <p className={`${paragraph}  text-gray-200`}>{description}</p>
       </div>
 
       {/* Image Section */}
-      <div className="sm:w-1/2">
+      <div className="w-full md:w-md h-auto">
         <img src={image} alt={title} className="w-full max-w-xs sm:max-w-md h-auto rounded-lg shadow-md" />
       </div>
     </div>
