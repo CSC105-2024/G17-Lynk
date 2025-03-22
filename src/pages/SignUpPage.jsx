@@ -41,9 +41,9 @@ const SignUpPage = () => {
   };
 
   const SignUp = (
-    <div className="flex flex-col items-center justify-center text-white w-full gap-3">
+    <div className="flex flex-col items-center justify-center text-white w-full md:w-2xl gap-3 p-20 rounded-2xl" style={{backgroundColor: "var(--third-dark-color)"}}>
     <h1 className={`${title} mb-6`}>Create an Account</h1>
-    <div className="w-full max-w-xs">
+    <div className="w-full">
       <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
       <FormInput type="email" placeholder="Email" error={errors.email} func={register("email")}/>
         <FormInput type="password" placeholder="Password" error={errors.password} func={register("password")}/>

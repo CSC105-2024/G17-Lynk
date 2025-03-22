@@ -1,7 +1,7 @@
 import React from 'react'
-import {btn, btnFill, btnOutline} from "../styles/styles"
+import {btnFill, btnOutline} from "../styles/styles"
 
-const Button = ({text, variant, className}) => {
+const Button = ({text, variant, className, type}) => {
   if (variant === "btnOutline"){
     variant = btnOutline
   }
@@ -10,7 +10,7 @@ const Button = ({text, variant, className}) => {
   }
   
   return (
-    <button className={`${variant} ${className}`} type="submit">{text}</button>
+    <button className={`${variant} ${className}`} type={`${type}`}>{text}</button>
   )
 }
 
