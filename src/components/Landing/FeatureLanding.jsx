@@ -1,7 +1,8 @@
 import React from 'react';
-import { paragraph, title as titleStyle } from "../styles/styles";
+import { paragraph, title as titleStyle } from "../../styles/styles";
 
 const FeatureLanding = ({ title, description, image, reverse, headerStyle }) => (
+  
     <section className={"py-8 sm:py-12 lg:py-20 bg-black px-10 md:px-15 lg:px-20 xl:px-40"}>
     <div
     className={`flex flex-col sm:flex-row sm:justify-between sm:items-center gap-10 ${

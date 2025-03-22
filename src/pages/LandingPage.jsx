@@ -1,12 +1,12 @@
 import React from 'react';
-import HeaderLanding from '../components/HeaderLanding';
-import HeroLanding from '../components/HeroLanding';
-import FeatureLanding from '../components/FeatureLanding';
-import FooterLanding from '../components/FooterLanding';
+import HeaderLanding from '../components/Landing/HeaderLanding';
+import HeroLanding from '../components/Landing/HeroLanding';
+import FeatureLanding from '../components/Landing/FeatureLanding';
+import FooterLanding from '../components/Landing/FooterLanding';
 
-import playlistImage from '../images/playlist.svg';
-import managementImage from '../images/linkManage.svg';
-import filteringImage from '../images/filtering.svg';
+import playlistImage from '../images/SVG/playlist.svg';
+import managementImage from '../images/SVG/link-manage.svg';
+import filteringImage from '../images/SVG/filtering.svg';
 import { useNavigate } from 'react-router-dom';
 const LandingPage = () => {
   const navigate = useNavigate();

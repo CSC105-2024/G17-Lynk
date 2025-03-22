@@ -1,5 +1,5 @@
 import React from 'react'
-import { paragraph } from "../styles/styles";
+import { paragraph } from "../../styles/styles"
 
 const FormInput = ({type, placeholder, error, func}) => {
   return (

@@ -1,11 +1,10 @@
 import React from 'react';
-import DarkLogo from '../images/LogoDarkTransparent.svg';
 import { useNavigate } from 'react-router-dom';
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import AuthLayout from "../components/AuthLayout";
-import FormInput from "../components/FormInput";
+import AuthLayout from "../components/Form/AuthLayout";
+import FormInput from "../components/Form/FormInput";
 import Button from "../components/Button";
 import {title } from "../styles/styles";
 
@@ -40,8 +39,10 @@ const LogInPage = () => {
     console.log("Form Submitted:", data);
   };
 
+  // Login form
+
   const Login = (
-    <div className="flex flex-col items-center justify-center text-white w-xs md:w-md lg:w-2xl gap-3 p-5 md:p-10 sm:p-20 rounded-2xl" style={{backgroundColor: "var(--third-dark-color)"}}>
+    <div className="flex flex-col items-center justify-center text-white w-xs md:w-md lg:w-2xl gap-3 p-5 sm:p-10 md:p-20 rounded-2xl" style={{backgroundColor: "var(--third-dark-color)"}}>
     <h1 className={`${title} mb-6`}>Login</h1>
     <div className="w-full">
       <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
@@ -59,6 +60,8 @@ const LogInPage = () => {
     </p>
   </div>
   )
+
+  // Passing Login form to AuthLayout component to complete Login Page
   
   return (
     <AuthLayout AuthForm={Login}/>

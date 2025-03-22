@@ -2,7 +2,6 @@ export const btn = "p-2 rounded-lg cursor-pointer w-50 transition duration-300 t
 
 export const btnOutline = `${btn} border-[var(--primary-color)] border-3 text-[var(--primary-color)] hover:bg-[var(--primary-color)] hover:text-white`;
 
-// Use the CSS variable directly in Tailwind's arbitrary value syntax
 export const btnFill = `${btn} bg-[var(--primary-color)] text-white hover:bg-blue-700`;
 
 export const title = "text-2xl md:text-3xl/12 lg:text-4xl/15 xl:text-6xl/20 font-bold ";
