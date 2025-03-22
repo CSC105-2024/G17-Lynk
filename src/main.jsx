@@ -5,7 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LogInPage from './pages/LogInPage.jsx';
 import SignUpPage from './pages/SignUpPage.jsx';
 import LandingPage from './pages/LandingPage.jsx';
-import Test from "./pages/Test.jsx";
+
 const router = createBrowserRouter([
   {
     path: "/",
