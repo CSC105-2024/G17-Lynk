@@ -8,7 +8,7 @@ const FormInput = ({type, placeholder, error, func}) => {
         {...func}
         type={type}
         placeholder={placeholder}
-        className={`w-full h-12 px-4 bg-gray-300 text-black rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${paragraph}`}
+        className={`w-full h-10 sm:h-12 px-4 bg-gray-300 text-black rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${paragraph}`}
       />
       {error && <span className="text-red-500 text-sm mt-1">{error.message}</span>}
     </div>

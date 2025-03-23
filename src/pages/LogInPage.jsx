@@ -42,7 +42,7 @@ const LogInPage = () => {
   // Login form
 
   const Login = (
-    <div className="flex flex-col items-center justify-center text-white w-xs md:w-md lg:w-2xl gap-3 p-5 sm:p-10 md:p-20 rounded-2xl" style={{backgroundColor: "var(--third-dark-color)"}}>
+    <div className="flex flex-col items-center justify-center text-white w-xs md:w-md lg:w-xl gap-3 p-5 sm:p-10 xl:p-15 rounded-2xl" style={{backgroundColor: "var(--third-dark-color)"}}>
     <h1 className={`${title} mb-6`}>Login</h1>
     <div className="w-full">
       <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>

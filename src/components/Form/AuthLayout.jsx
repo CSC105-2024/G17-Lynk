@@ -8,7 +8,7 @@ const AuthLayout = ({AuthForm}) => {
 
         {/* Left */}
         <div className="flex flex-col items-center justify-center text-white w-full p-5 gap-5">
-          <div className="w-1/3 lg:w-1/2">
+          <div className="w-1/3 sm:w-1/4 lg:w-1/2">
             <img src={darkLogo} alt="LYNk Logo" className="w-full" />
             </div>
           <div className="flex flex-col gap-3 text-center">
