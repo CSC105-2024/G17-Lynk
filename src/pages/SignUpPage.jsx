@@ -42,7 +42,7 @@ const SignUpPage = () => {
   // Sign up form
   const SignUp = (
 
-    <div className="flex flex-col items-center justify-center text-white w-xs md:w-md lg:w-xl xl:w-2xl gap-3 p-5 sm:p-10 xl:p-15 rounded-2xl" style={{backgroundColor: "var(--third-dark-color)"}}>
+    <div className="flex flex-col items-center justify-center text-white w-xs md:w-md lg:w-xl gap-3 p-5 sm:p-10 xl:p-15 rounded-2xl" style={{backgroundColor: "var(--third-dark-color)"}}>
     <h1 className={`${title} mb-6`}>Create an Account</h1>
 
     <div className="w-full">
