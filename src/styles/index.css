@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+:root{
+    --primary-color: #1A5EDB;
+    --secondary-color: #1D987C;
+    --yellow-color: #FCD300;
+    --red-color: #FE564B;
+    --light-color: #fff;
+    --black-color: #000000;
+    --sec-dark-color: #0D0C0C;
+    --third-dark-color: #121212;
+    --fourth-dark-color: #252525;
+    --fifth-dark-color: #3D3C3C;
+}
+
+*{
+    box-sizing: border-box;
+    font-family: "Reem Kufi", sans-serif;
+}
+
+body{
+   background: black;
+   font-family: "Reem Kufi",sans-serif;
+}
+
+/* input {
+    padding: 10px;
+} */
+
+.left-container p {
+    color: white;
+}
+.right-container p {
+    color: white;
+}
+
