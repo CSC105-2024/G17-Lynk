@@ -9,6 +9,7 @@ import Test from './pages/Test.jsx';
 import App from './App';
 import Dashboard from './pages/Dashboard';
 import Pinboard from './pages/Pinboard';
+import Linksboard from './pages/Linksboard';
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
       {
         path: 'pins',
         element: <Pinboard />,
+      },
+      {
+        path: 'links',
+        element: <Linksboard />,
       },
     ],
   },
