@@ -1,5 +1,5 @@
 export const btn =
-  'py-2 px-4 rounded-lg cursor-pointer w-auto transition duration-300 text-sm md:text-base';
+  'py-1 px-4 rounded-lg cursor-pointer w-auto transition duration-300 text-sm md:text-base';
 
 export const btnOutline = `${btn} border-[var(--primary-color)] border-3 text-[var(--primary-color)] hover:bg-[var(--primary-color)] hover:text-white`;
 

@@ -14,14 +14,16 @@
   --third-dark-color: #121212;
   --fourth-dark-color: #252525;
   --fifth-dark-color: #3d3c3c;
-  --dashboard-bg-color: #121212;
-  --sidebar-bg-color: #252525;
+  --dashboard-bg-color: #000000;
+  --sidebar-bg-color: #0d0c0c;
   --text-color: #fff;
   --main-bg-color: #000000;
-  --info-card-bg-color: #252525;
-  --info-icon-bg-color: #3d3c3c;
-  --searchbar-bg-color: #3d3c3c;
+  --info-card-bg-color: #0d0c0c;
+  --info-icon-bg-color: #121212;
+  --searchbar-bg-color: #252525;
   --hover-sidemenu-bg: #1a5edb;
+  --link-card-bg: #0d0c0c;
+  --chip-bg: rgba(255, 255, 255, 0.4);
 
   --radius: 0.625rem;
   --background: oklch(1 0 0);
