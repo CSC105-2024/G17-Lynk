@@ -6,8 +6,21 @@ import LogInPage from './pages/LogInPage.jsx';
 import SignUpPage from './pages/SignUpPage.jsx';
 import LandingPage from './pages/LandingPage.jsx';
 import Test from './pages/Test.jsx';
+import App from './App';
+import Dashboard from './pages/Dashboard';
 
 const router = createBrowserRouter([
+  {
+    path: '/app', // Home route
+    element: <App />, // Render the App component
+    children: [
+      {
+        path: 'dashboard',
+        element: <Dashboard />,
+      },
+    ],
+  },
+  ,
   {
     path: '/',
     element: <LandingPage />,

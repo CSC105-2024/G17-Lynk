@@ -1,8 +1,10 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
+import Layout from '@/components/Layout';
 
 const Test = () => {
-  return <Button variant='destructive'>Destructive</Button>;
+  // return <div> hih</div>;
+  return <Layout />;
 };
 
 export default Test;
