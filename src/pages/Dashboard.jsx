@@ -6,7 +6,7 @@ import { MdHome, MdTimelapse } from 'react-icons/md';
 
 const Dashboard = () => {
   return (
-    <div className='bg-[var(--dashboard-bg-color)] '>
+    <div className='bg-[var(--dashboard-bg-color)]'>
       <DisplayCard icon={<MdHome />} title='Dashboard' subTitle='dkkdkdd'>
         <InfoCard />
       </DisplayCard>

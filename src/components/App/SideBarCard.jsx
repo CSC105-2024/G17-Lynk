@@ -5,7 +5,7 @@ import { Separator } from '@/components/ui/separator';
 
 const SideBarCard = () => {
   return (
-    <div className='bg-[var(--sidebar-bg-color)] min-w-60 hidden sm:block py-2 px-5'>
+    <div className='bg-[var(--sidebar-bg-color)] min-w-60 hidden md:block py-2 px-5'>
       <div className='w-20'>
         <img src='/logo-dark-v2.svg' alt='Logo' />
       </div>

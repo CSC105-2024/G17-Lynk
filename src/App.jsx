@@ -13,8 +13,8 @@ const App = () => {
       {/* <LandingPage /> */}
       <div className='min-h-screen flex text-[var(--text-color)] bg-[var(--main-bg-color)]'>
         <SideBarCard />
-        <div className='flex flex-col flex-grow'>
-          <NavBarCard className='' />
+        <div className='flex flex-col flex-grow bg-[var(--main-bg-color)]'>
+          <NavBarCard />
           <Separator />
           <main className='flex-grow  bg-[var(--dashboard-bg-color)] p-5'>
             <Outlet />
