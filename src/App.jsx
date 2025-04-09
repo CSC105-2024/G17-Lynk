@@ -11,12 +11,12 @@ const App = () => {
   return (
     <>
       {/* <LandingPage /> */}
-      <div className='min-h-screen grid grid-cols-[1fr_3fr]'>
-        <SideBarCard className='' />
-        <div className='flex flex-col'>
+      <div className='min-h-screen flex'>
+        <SideBarCard />
+        <div className='flex flex-col flex-grow'>
           <NavBarCard className='' />
           <Separator />
-          <main className='flex-1 text-[var(--text-color)] bg-[var(--dashboard-bg-color)] p-5'>
+          <main className='flex-grow text-[var(--text-color)] bg-[var(--dashboard-bg-color)] p-5'>
             <Outlet />
           </main>
         </div>
