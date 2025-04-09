@@ -20,7 +20,7 @@ const router = createBrowserRouter([
         element: <Dashboard />,
       },
       {
-        path: 'pin',
+        path: 'pins',
         element: <Pinboard />,
       },
     ],
