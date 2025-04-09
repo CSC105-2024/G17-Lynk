@@ -8,6 +8,7 @@ import LandingPage from './pages/LandingPage.jsx';
 import Test from './pages/Test.jsx';
 import App from './App';
 import Dashboard from './pages/Dashboard';
+import Pinboard from './pages/Pinboard';
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
       {
         path: 'dashboard',
         element: <Dashboard />,
+      },
+      {
+        path: 'pin',
+        element: <Pinboard />,
       },
     ],
   },

@@ -1,11 +1,11 @@
 import React from 'react';
 import Button from '../Button';
 import Chip from './Chip';
+// iconLink = 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSMEonWCKdNWyW8tTji8fAJ2rOKRq2kFbkjJYtV3fBLIoD154i--dpCYmv4vziO5IDyhri1',
+// linkName = 'React Icons',
 
-const LinkCard = ({
-  iconLink = 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSMEonWCKdNWyW8tTji8fAJ2rOKRq2kFbkjJYtV3fBLIoD154i--dpCYmv4vziO5IDyhri1',
-  linkName = 'React Icons',
-}) => {
+const LinkCard = ({ data }) => {
+  const { iconLink, linkName, playlists, tags, link, createdAt } = data;
   return (
     <div className='bg-[var(--link-card-bg)] rounded-lg m-3 py-3 px-10'>
       <div className='flex items-center gap-2 mb-2'>
@@ -17,33 +17,31 @@ const LinkCard = ({
         <div className='flex '>
           <p className='w-3/10 min-w-[30%]'>Playlists:</p>
           <div className='flex flex-nowrap gap-1 overflow-auto [scrollbar-width:none]'>
-            <Chip name='KMUTT' />
-            <Chip name='KMUTT' />
-            <Chip name='KMUTT' />
-            <Chip name='KMUTT' />
-            <Chip name='KMUTT' />
+            {playlists.map((playlist, index) => (
+              <Chip key={index} name={playlist} />
+            ))}
           </div>
         </div>
         <div className='flex'>
           <p className='w-3/10 min-w-[30%]'>Link:</p>
           <a
-            href='https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSMEonWCKdNWyW8tTji8fAJ2rOKRq2kFbkjJYtV3fBLIoD154i--dpCYmv4vziO5IDyhri1'
+            href={link}
             className='block max-w-xs overflow-hidden text-ellipsis whitespace-nowrap'
           >
-            {' '}
-            https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSMEonWCKdNWyW8tTji8fAJ2rOKRq2kFbkjJYtV3fBLIoD154i--dpCYmv4vziO5IDyhri1
+            {link}
           </a>
         </div>
         <div className='flex'>
           <p className='w-3/10 min-w-[30%]'>Tags:</p>
           <div className='flex flex-nowrap gap-1 overflow-auto [scrollbar-width:none]'>
-            <Chip name='#KMUTT' />
-            <Chip name='#KMUTT' />
+            {tags.map((tag, index) => (
+              <Chip key={index} name={tag} />
+            ))}
           </div>
         </div>
         <div className='flex'>
           <p className='w-3/10 min-w-[30%]'>Created at:</p>
-          <p>2023-10-10</p>
+          <p>{createdAt.toLocaleString()}</p>
         </div>
       </div>
     </div>
