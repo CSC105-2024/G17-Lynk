@@ -15,9 +15,11 @@
   --fourth-dark-color: #252525;
   --fifth-dark-color: #3d3c3c;
   --dashboard-bg-color: #121212;
+  --sidebar-bg-color: #252525;
   --text-color: #fff;
   --info-card-bg-color: #252525;
   --info-icon-bg-color: #3d3c3c;
+  --hover-sidemenu-bg: #1a5edb;
 
   --radius: 0.625rem;
   --background: oklch(1 0 0);
