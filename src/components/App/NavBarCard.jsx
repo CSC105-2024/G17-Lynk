@@ -6,11 +6,11 @@ import { IoMenu } from 'react-icons/io5';
 
 const NavBarCard = () => {
   return (
-    <div className='bg-amber-950 px-5 py-2 flex items-center gap-10 justify-end flex-wrap'>
+    <div className='px-5 py-2 flex items-center gap-10 justify-end flex-wrap'>
       <div className='text-3xl p-3 block sm:hidden'>
         <IoMenu />
       </div>
-      <div className='flex-grow flex items-center gap-2 bg-amber-800 rounded-xl py-2 px-4'>
+      <div className='flex-grow flex items-center gap-2 rounded-xl py-2 px-4 bg-[var(--searchbar-bg-color)]'>
         <IoMdSearch />
         <input
           type='text'
