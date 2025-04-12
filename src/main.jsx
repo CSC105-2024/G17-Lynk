@@ -10,6 +10,7 @@ import App from './App';
 import Dashboard from './pages/Dashboard';
 import Pinboard from './pages/Pinboard';
 import Linksboard from './pages/Linksboard';
+import Playlistboard from './pages/Playlistboard';
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
       {
         path: 'links',
         element: <Linksboard />,
+      },
+      {
+        path: 'playlists/:playlistId',
+        element: <Playlistboard />,
       },
     ],
   },
