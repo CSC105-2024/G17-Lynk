@@ -44,7 +44,7 @@ const SideBarCard = () => {
             return (
               <SideBarMenuLink
                 key={index}
-                icon={<IconComponent />}
+                icon={IconComponent ? <IconComponent /> : null}
                 name={playlist.name}
                 number={playlist.number}
                 link={`/app/playlists/${playlist.id}`}
