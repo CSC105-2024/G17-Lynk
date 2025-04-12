@@ -8,12 +8,12 @@ const Playlistboard = () => {
   const bookmarkData = dummyData;
   const playlistData = dummyPlaylist;
   const { playlistId } = useParams();
-  const iconLink = playlistData[playlistId].iconLink;
+  const iconLink = playlistData[playlistId - 1].iconLink;
   const IconComponent = APP_ICONS[iconLink];
   return (
     <div>
-      <div>{<IconComponent />}</div>
-      <h2>{playlistData[playlistId].name}</h2>
+      <div>{IconComponent ? <IconComponent /> : null}</div>
+      <h2>{playlistData[playlistId - 1].name}</h2>
       {bookmarkData.map((item, idx) => (
         <LinkCard key={idx} data={item} />
       ))}
