@@ -1,3 +1,5 @@
+// import APP_ICONS from '../constants/icons';
+
 export const dummyData = [
   {
     iconLink:
@@ -34,4 +36,58 @@ export const dummyData = [
     tags: ['library', 'research', 'resources'],
     createdAt: new Date('2023-07-10T11:00:00Z'),
   },
+];
+
+export const dummyPlaylist = [
+  {
+    id: 1,
+    name: 'KMUTT',
+    number: 3,
+    iconLink: 'camera',
+  },
+  {
+    id: 2,
+    name: 'KUTT',
+    number: 13,
+    iconLink: 'camera',
+  },
+  {
+    id: 3,
+    name: 'K3MUTT',
+    number: 32,
+    iconLink: 'camera',
+  },
+  {
+    id: 4,
+    name: 'KMUreTT',
+    number: 31,
+    iconLink: 'camera',
+  },
+  {
+    id: 5,
+    name: 'KMUdafTT',
+    number: 53,
+    iconLink: 'camera',
+  },
+  {
+    id: 6,
+    name: 'KMUTeaT',
+    number: 43,
+    iconLink: 'camera',
+  },
+  {
+    id: 7,
+    name: 'KMUdTT',
+    number: 30,
+    iconLink: 'camera',
+  },
+];
+export const dummyTags = [
+  { id: 1, name: '#Tag1' },
+  { id: 2, name: '#Tag2' },
+  { id: 3, name: '#Tag3' },
+  { id: 4, name: '#Tag4' },
+  { id: 5, name: '#Tag5' },
+  { id: 6, name: '#Tag6' },
+  { id: 7, name: '#Tag7' },
 ];

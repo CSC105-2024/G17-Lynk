@@ -4,8 +4,11 @@ import { MdHome, MdTimelapse } from 'react-icons/md';
 import { Separator } from '@/components/ui/separator';
 import { TiPin } from 'react-icons/ti';
 import { MdOutlineDatasetLinked } from 'react-icons/md';
+import { dummyPlaylist } from '@/services/data.js';
+import APP_ICONS from '@/constants/icons.js';
 
 const SideBarCard = () => {
+  const playlists = dummyPlaylist;
   return (
     <div className='bg-[var(--sidebar-bg-color)] min-w-60 hidden md:block py-2 px-5'>
       <div className='w-20'>
@@ -32,13 +35,36 @@ const SideBarCard = () => {
         />
       </div>
       <Separator />
+      {/* PLAYLIST  */}
       <div className='m-3'>
         <h2 className='text-lg'>Playlist</h2>
-        <SideBarMenuLink icon={<MdHome />} name='KMUTT' number='3' />
-        <SideBarMenuLink icon={<MdHome />} name='Tutorial' number='3' />
-        <SideBarMenuLink icon={<MdHome />} name='Visit Later' number='3' />
+        {playlists.map((playlist, index) => {
+          {
+            const IconComponent = APP_ICONS[playlist.iconLink];
+            return (
+              <SideBarMenuLink
+                key={index}
+                icon={<IconComponent />}
+                name={playlist.name}
+                number={playlist.number}
+                link={`/app/playlists/${playlist.id}`}
+              />
+            );
+          }
+        })}
+
+        {/* {playlists.map((playlist, index) => (
+          <SideBarMenuLink
+            key={index}
+            icon={`<${playlist.iconLink}/>`}
+            name={playlist.name}
+            number={playlist.number}
+            link={`/app/playlists/${playlist.id}`}
+          />
+        ))} */}
       </div>
       <Separator />
+      {/* TAGS */}
       <div className='text-xs m-3'>
         <h2 className='text-lg'>Tags</h2>
         <p>#Tag1</p>

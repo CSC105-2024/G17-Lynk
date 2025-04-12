@@ -2,7 +2,6 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 import LandingPage from './pages/LandingPage';
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
-import AppSidebar from '@/components/AppSidebar';
 import NavBarCard from './components/App/NavBarCard';
 import SideBarCard from './components/App/SideBarCard';
 import { Separator } from '@/components/ui/separator';
