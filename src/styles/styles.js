@@ -5,6 +5,8 @@ export const btnOutline = `${btn} border-[var(--primary-color)] border-3 text-[v
 
 export const btnFill = `${btn} bg-[var(--primary-color)] text-white hover:bg-blue-700`;
 
+export const btnNotFilled = `${btn} text-white hover:bg-[var(--btn-hover-bg-primary)]`;
+
 export const title =
   'text-2xl md:text-3xl/12 lg:text-4xl/15 xl:text-5xl/20 font-bold ';
 

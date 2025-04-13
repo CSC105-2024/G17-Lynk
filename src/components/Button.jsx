@@ -1,20 +1,28 @@
-import React from 'react'
-import {btnFill, btnOutline} from "../styles/styles"
+import React from 'react';
+import { btnFill, btnOutline, btnNotFilled } from '../styles/styles';
+import MorePopover from './App/MorePopover';
 
 // Button component
-const Button = ({text, variant, className, type}) => {
-
+const Button = ({ text, variant, className, type, onClick }) => {
   //Check if variant is btnOutline or btnFill
-  if (variant === "btnOutline"){
-    variant = btnOutline
-  }
-  else { //Default to btnFill
+  if (variant === 'btnOutline') {
+    variant = btnOutline;
+  } else if (variant === 'btnNotFilled') {
+    variant = btnNotFilled;
+  } else {
+    //Default to btnFill
     variant = btnFill;
   }
-  
-  return (
-    <button className={`${variant} ${className}`} type={`${type}`}>{text}</button>
-  )
-}
 
-export default Button
+  return (
+    <button
+      className={`${variant} ${className}`}
+      type={`${type}`}
+      onClick={onClick}
+    >
+      {text}
+    </button>
+  );
+};
+
+export default Button;

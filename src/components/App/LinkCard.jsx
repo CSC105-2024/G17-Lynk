@@ -1,17 +1,19 @@
 import React from 'react';
 import Button from '../Button';
 import Chip from './Chip';
+import MorePopover from './MorePopover';
 // iconLink = 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSMEonWCKdNWyW8tTji8fAJ2rOKRq2kFbkjJYtV3fBLIoD154i--dpCYmv4vziO5IDyhri1',
 // linkName = 'React Icons',
 
-const LinkCard = ({ data }) => {
-  const { iconLink, linkName, playlists, tags, link, createdAt } = data;
+const LinkCard = ({ data, onDelete }) => {
+  const { key, iconLink, linkName, playlists, tags, link, createdAt } = data;
   return (
-    <div className='bg-[var(--link-card-bg)] rounded-lg m-3 py-3 px-10'>
+    <div className='bg-[var(--link-card-bg)] rounded-lg m-3 py-3 px-10 hover:bg-[var(--link-card-hover-bg)]'>
       <div className='flex items-center gap-2 mb-2'>
         <img src={iconLink} alt='icon' className='h-5' />
         <p className='flex-grow'>{linkName}</p>
-        <Button text='More...' />
+        {/* <Button text='More...' action='more' /> */}
+        <MorePopover onDelete={() => onDelete(key)} />
       </div>
       <div className='grid sm:grid-cols-2 gap-2 text-sm'>
         <div className='flex '>
