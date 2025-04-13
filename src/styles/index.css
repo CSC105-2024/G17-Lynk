@@ -23,7 +23,11 @@
   --searchbar-bg-color: #252525;
   --hover-sidemenu-bg: #1a5edb;
   --link-card-bg: #0d0c0c;
+  --link-card-hover-bg: #121212;
   --chip-bg: rgba(255, 255, 255, 0.4);
+  --popover-bg: #3d3c3c;
+  --btn-hover-bg-primary: #1a5edb41;
+  --btn-hover-bg-red: #fe574b41;
 
   --radius: 0.625rem;
   --background: oklch(1 0 0);
