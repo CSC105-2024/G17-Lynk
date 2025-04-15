@@ -3,7 +3,7 @@ import PopoverContent from './PopoverContent';
 import Button from '../Button';
 import EditLinkModal from '@/components/App/Edit';
 
-const MorePopover = ({ onDelete }) => {
+const MorePopover = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showLinkModal, setShowLinkModal] = useState(false);
@@ -37,6 +37,11 @@ const MorePopover = ({ onDelete }) => {
     }, 3000);
   };
 
+  const handleDeleteLink = () => {
+    console.log('Deleted Link!');
+    setIsOpen(false);
+  };
+
   return (
     <>
       <div className='relative'>
@@ -64,12 +69,7 @@ const MorePopover = ({ onDelete }) => {
                 variant='btnNotFilled'
                 className='hover:bg-[var(--btn-hover-bg-red)]'
                 text='Delete'
-                onClick={() => {
-                  onDelete();
-                  setIsOpen(false);
-                  // Handle delete action here
-                  console.log('Link deleted');
-                }}
+                onClick={handleDeleteLink}
               />
             </div>
           </PopoverContent>
