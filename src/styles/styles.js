@@ -1,11 +1,11 @@
 export const btn =
   'py-1 px-4 rounded-lg cursor-pointer w-auto transition duration-300 text-sm md:text-base';
 
-export const btnOutline = `${btn} border-[var(--primary-color)] border-3 text-[var(--primary-color)] hover:bg-[var(--primary-color)] hover:text-white`;
+export const btnOutline = `${btn} border-[var(--btn-primary-outline-border-color)] border-3 text-[var(btn-primary-outline-text-color)] hover:bg-[var(--btn-primary-outline-hover-color)] hover:text-[var(--btn-primary-outline-hover-text-color)]`;
 
-export const btnFill = `${btn} bg-[var(--primary-color)] text-white hover:bg-blue-700`;
+export const btnFill = `${btn} bg-[var(--btn-primary-default-bg-color)] text-[var(--btn-primary-default-text-color)] hover:bg-[var(--btn-primary-default-text-color)] hover:text-[var(--btn-primary-default-bg-color)]`;
 
-export const btnNotFilled = `${btn} text-white hover:bg-[var(--btn-hover-bg-primary)]`;
+export const btnNotFilled = `${btn} text-[var(--btn-primary-default-text-color)] hover:bg-[var(--btn-primary-default-bg-color)] `;
 
 export const title =
   'text-2xl md:text-3xl/12 lg:text-4xl/15 xl:text-5xl/20 font-bold ';

@@ -18,7 +18,10 @@ const Button = ({ text, variant, className, type, onClick }) => {
     <button
       className={`${variant} ${className}`}
       type={`${type}`}
-      onClick={onClick}
+      onClick={() => {
+        // Some Scaleable or Translating Action for Button Animation
+        onClick();
+      }}
     >
       {text}
     </button>
