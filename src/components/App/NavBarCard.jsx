@@ -1,10 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '../Button';
 import { FaCircleUser } from 'react-icons/fa6';
 import { IoMdSearch } from 'react-icons/io';
 import { IoMenu } from 'react-icons/io5';
-
+import ModalLink from '@/components/App/ModalLink';
+import ModalPlaylist from '@/components/App/ModalPlaylist';
 const NavBarCard = () => {
+  const [showLinkModal, setShowLinkModal] = useState(false);
+  const [showPlaylistModal, setShowPlaylistModal] = useState(false);
+
+  const [playlists, setPlaylists] = useState([]);
+
+  const openLinkModal = () => setShowLinkModal(true);
+  const closeLinkModal = () => setShowLinkModal(false);
+
+  const openPlaylistModal = () => setShowPlaylistModal(true);
+  const closePlaylistModal = () => setShowPlaylistModal(false);
+
+  const handleCreatePlaylist = (playlist) => {
+    console.log('Created playlist:', playlist);
+    setPlaylists([...playlists, playlist]);
+  };
+
   return (
     <div className='px-5 py-2 flex items-center gap-10 flex-wrap '>
       <div className='text-3xl p-3 block md:hidden'>
@@ -18,9 +35,16 @@ const NavBarCard = () => {
           className='focus:outline-none flex-grow'
         />
       </div>
-      <Button text='New Link' className='' />
-      <Button text='New Playlist' className='' />
+      <Button text='New Link' onClick={openLinkModal} />
+      <Button text='New Playlist' onClick={openPlaylistModal} />
       <FaCircleUser className='text-2xl' />
+
+      <ModalLink show={showLinkModal} handleClose={closeLinkModal} />
+      <ModalPlaylist
+        isOpen={showPlaylistModal}
+        onClose={closePlaylistModal}
+        onCreate={handleCreatePlaylist}
+      />
     </div>
   );
 };
