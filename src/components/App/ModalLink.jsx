@@ -2,7 +2,7 @@ import React from 'react';
 
 const ModalLink = ({ show, handleClose }) => {
   const showHideClassName = show
-    ? 'fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center'
+    ? 'fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50'
     : 'hidden';
 
   return (
