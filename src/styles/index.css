@@ -29,6 +29,8 @@
   --btn-hover-bg-primary: #1a5edb41;
   --btn-hover-bg-red: #fe574b41;
   --link-pin-bg-colour: #1d987c;
+  --active-sidemenu-bg: #1a5edb; /* Light gray - adjust as needed */
+  --active-sidemenu-text: #fff; /* Dark gray - adjust as needed */
 
   --radius: 0.625rem;
   --background: oklch(1 0 0);
