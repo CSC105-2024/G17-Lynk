@@ -1,6 +1,5 @@
 import React from 'react';
-import { btnFill, btnOutline, btnNotFilled } from '../styles/styles';
-import MorePopover from './App/MorePopover';
+import { btnFill, btnOutline, btnNotFilled, btnDanger } from '../styles/styles';
 
 // Button component
 const Button = ({ text, variant, className, type, onClick }) => {
@@ -9,6 +8,8 @@ const Button = ({ text, variant, className, type, onClick }) => {
     variant = btnOutline;
   } else if (variant === 'btnNotFilled') {
     variant = btnNotFilled;
+  } else if (variant === 'btnDanger') {
+    variant = btnDanger;
   } else {
     //Default to btnFill
     variant = btnFill;

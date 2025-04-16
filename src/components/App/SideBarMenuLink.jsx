@@ -5,7 +5,6 @@ const SideBarMenuLink = ({ icon, name, number, link }) => {
   return (
     <NavLink
       to={link}
-      // className='flex items-center hover:bg-[var(--hover-sidemenu-bg)] my-2 py-1 px-4 rounded-lg cursor-pointer'
       className={({ isActive }) =>
         `flex items-center hover:bg-[var(--hover-sidemenu-bg)] my-2 py-1 px-4 rounded-lg cursor-pointer ${
           isActive
