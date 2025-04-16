@@ -10,7 +10,7 @@ const Dashboard = () => {
   const data = dummyData;
 
   return (
-    <div className='bg-[var(--dashboard-bg-color)] min-h-screen p-4'>
+    <div className='bg-[var(--dashboard-bg-color)] min-h-screen py-2 px-3'>
       {/* Display Cards */}
       <DisplayCard
         icon={<MdHome />}

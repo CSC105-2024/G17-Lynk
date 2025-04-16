@@ -28,7 +28,7 @@ const LinkCard = ({ data, onDelete }) => {
           <p className='w-3/10 min-w-[30%]'>Link:</p>
           <a
             href={link}
-            className='block max-w-xs overflow-hidden text-ellipsis whitespace-nowrap'
+            className='block max-w-xs overflow-hidden text-ellipsis whitespace-nowrap underline'
           >
             {link}
           </a>

@@ -37,6 +37,8 @@
   --footer-bg-color: #0d0c0c;
 
   /* APP  */
+
+  /* Colors  */
   --dashboard-bg-color: #000000;
   --sidebar-bg-color: #0d0c0c;
   --app-text-color: #fff;
@@ -57,6 +59,7 @@
   --active-sidemenu-text: #fff;
   --modal-bg-color: #121212;
   --modal-input-bg-color: #252525;
+  --seperator-color: #3d3c3c;
 
   --radius: 0.625rem;
   --background: oklch(1 0 0);
