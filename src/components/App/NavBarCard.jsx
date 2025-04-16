@@ -23,7 +23,7 @@ const NavBarCard = () => {
   };
 
   return (
-    <div className='px-5 py-2 flex items-center gap-10 flex-wrap '>
+    <div className='px-8 py-3 flex items-center gap-10 flex-wrap '>
       <div className='text-3xl p-3 block md:hidden'>
         <IoMenu />
       </div>

@@ -10,11 +10,11 @@ import APP_ICONS from '@/constants/icons.js';
 const SideBarCard = () => {
   const playlists = dummyPlaylist;
   return (
-    <div className='bg-[var(--sidebar-bg-color)] min-w-60 hidden md:block py-2 px-5'>
-      <div className='w-20'>
+    <div className='bg-[var(--sidebar-bg-color)] min-w-60 hidden md:block py-3 px-5'>
+      <div className='w-25'>
         <img src='/logo-dark-v2.svg' alt='Logo' />
       </div>
-      <div className='m-3'>
+      <div className='mt-5 mb-8'>
         <SideBarMenuLink
           icon={<MdHome />}
           name='Dashboard'
@@ -34,10 +34,10 @@ const SideBarCard = () => {
           link='/app/pins'
         />
       </div>
-      <Separator />
+      <Separator className='bg-[var(--seperator-color)]' />
       {/* PLAYLIST  */}
-      <div className='m-3'>
-        <h2 className='text-lg'>Playlist</h2>
+      <div className='mt-3 mb-8 text-sm'>
+        <h2 className='text-lg mb-3'>Playlist</h2>
         {playlists.map((playlist, index) => {
           {
             const IconComponent = APP_ICONS[playlist.iconLink];
@@ -63,13 +63,16 @@ const SideBarCard = () => {
           />
         ))} */}
       </div>
-      <Separator />
+      <Separator className='bg-[var(--seperator-color)]' />
+
       {/* TAGS */}
-      <div className='text-xs m-3'>
+      <div className='text-sm mt-3 mb-8'>
         <h2 className='text-lg'>Tags</h2>
-        <p>#Tag1</p>
-        <p>#Tag1</p>
-        <p>#Tag1</p>
+        <div className='px-5 my-2 py-1 flex flex-col gap-2'>
+          <p>#Tag1</p>
+          <p>#Tag1</p>
+          <p>#Tag1</p>
+        </div>
       </div>
     </div>
   );
