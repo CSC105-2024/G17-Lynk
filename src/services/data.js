@@ -47,7 +47,7 @@ export const dummyPlaylist = [
   },
   {
     id: 2,
-    name: 'KUTT',
+    name: 'KMUTT',
     number: 13,
     iconLink: 'camera',
   },
