@@ -66,8 +66,7 @@ const MorePopover = () => {
                 onClick={openEditModal}
               />
               <Button
-                variant='btnNotFilled'
-                className='hover:bg-[var(--btn-hover-bg-red)]'
+                variant='btnDanger'
                 text='Delete'
                 onClick={handleDeleteLink}
               />

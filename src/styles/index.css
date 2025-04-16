@@ -30,6 +30,7 @@
   /* LANDING  */
   --landing-bg-color: #000;
   --landing-hero-bg-color: #000;
+  --feature-bg-color: #000;
   --yellow-color: #fcd300;
   --red-color: #fe564b;
   --secondary-color: #1d987c;
@@ -38,20 +39,24 @@
   /* APP  */
   --dashboard-bg-color: #000000;
   --sidebar-bg-color: #0d0c0c;
-  --text-color: #fff;
+  --app-text-color: #fff;
+  --app-secondary-text-color: #9b9b9b;
   --main-bg-color: #000000;
   --info-card-bg-color: #0d0c0c;
-  --info-icon-bg-color: #121212;
+  --info-card-icon-bg-color: #121212;
+  --info-card-icon-color: #1a5edb;
   --searchbar-bg-color: #252525;
   --hover-sidemenu-bg: #1a5edb;
   --link-card-bg: #0d0c0c;
   --link-card-hover-bg: #121212;
-  --chip-bg: rgba(255, 255, 255, 0.4);
+  --chip-bg: rgba(255, 255, 255, 0.2);
   --popover-bg: #3d3c3c;
   --btn-hover-bg-red: #fe574b41;
   --link-pin-bg-colour: #1d987c;
-  --active-sidemenu-bg: #1a5edb; /* Light gray - adjust as needed */
-  --active-sidemenu-text: #fff; /* Dark gray - adjust as needed */
+  --active-sidemenu-bg: #1a5edb;
+  --active-sidemenu-text: #fff;
+  --modal-bg-color: #121212;
+  --modal-input-bg-color: #252525;
 
   --radius: 0.625rem;
   --background: oklch(1 0 0);

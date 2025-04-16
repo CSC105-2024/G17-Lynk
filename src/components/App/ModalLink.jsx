@@ -1,20 +1,27 @@
+import { btn, btnFill } from '@/styles/styles';
 import React from 'react';
+import Button from '../Button';
 
 const ModalLink = ({ show, handleClose }) => {
   const showHideClassName = show
-    ? 'fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50'
+    ? 'fixed inset-0 bg-[var(--main-bg-color)] bg-opacity-50 flex justify-center items-center z-50'
     : 'hidden';
+
+  const handleCreate = () => {
+    console.log('create new link');
+    handleClose();
+  };
 
   return (
     <div className={showHideClassName}>
-      <div className='bg-gray-800 rounded-lg p-8 w-full max-w-md'>
+      <div className='bg-[var(--modal-bg-color)] rounded-lg p-8 w-full max-w-md'>
         <div className='flex justify-between items-center mb-4'>
           <h2 className='text-white text-lg font-semibold'>
             Create a New Link
           </h2>
           <button
             onClick={handleClose}
-            className='text-gray-500 hover:text-white'
+            className='cursor-pointer text-[var(--app-secondary-text-color)] hover:text-[var(--app-text-color)]'
           >
             <svg
               className='h-6 w-6'
@@ -44,7 +51,7 @@ const ModalLink = ({ show, handleClose }) => {
             type='text'
             id='link'
             placeholder='e.g. https://example.com'
-            className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white'
+            className='shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-[var(--modal-input-bg-color)] text-[var(--app-text-color)]'
           />
         </div>
 
@@ -57,7 +64,7 @@ const ModalLink = ({ show, handleClose }) => {
           </label>
           <select
             id='playlist'
-            className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white'
+            className='shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-[var(--modal-input-bg-color)] text-[var(--app-text-color)]'
           >
             <option>Dropdown</option>
           </select>
@@ -74,7 +81,7 @@ const ModalLink = ({ show, handleClose }) => {
             type='text'
             id='name'
             placeholder='e.g. Example Link Name'
-            className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white'
+            className='shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-[var(--modal-input-bg-color)] text-[var(--app-text-color)]'
           />
         </div>
 
@@ -87,7 +94,7 @@ const ModalLink = ({ show, handleClose }) => {
           </label>
           <select
             id='tag'
-            className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white'
+            className='shadow appearance-none border rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline  bg-[var(--modal-input-bg-color)] text-[var(--app-text-color)]'
           >
             <option>Dropdown</option>
           </select>
@@ -103,17 +110,19 @@ const ModalLink = ({ show, handleClose }) => {
           <textarea
             id='description'
             placeholder="What's the reason for saving this link?"
-            className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-gray-700 text-white'
+            className='shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-[var(--modal-input-bg-color)] text-[var(--app-text-color)]'
           />
         </div>
 
         <div className='flex items-center justify-between'>
-          <button
-            className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
+          {/* <button
+            className={`${btn} ${btnFill}`}
+            // className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
             type='button'
           >
             Create
-          </button>
+          </button> */}
+          <Button type='submit' text='Create' onClick={handleCreate} />
         </div>
       </div>
     </div>

@@ -10,7 +10,7 @@ const App = () => {
   return (
     <>
       {/* <LandingPage /> */}
-      <div className='min-h-screen flex text-[var(--text-color)] bg-[var(--main-bg-color)]'>
+      <div className='min-h-screen flex text-[var(--app-text-color)] bg-[var(--main-bg-color)]'>
         <SideBarCard />
         <div className='flex flex-col flex-grow bg-[var(--main-bg-color)]'>
           <NavBarCard />
