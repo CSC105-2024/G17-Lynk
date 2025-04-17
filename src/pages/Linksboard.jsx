@@ -2,6 +2,8 @@ import DefaultWelcomeCard from '@/components/App/DefaultWelcomeCard';
 import LinkCard from '@/components/App/LinkCard';
 import React from 'react';
 import { dummyData } from '@/services/data.js';
+import { MdOutlineDatasetLinked } from 'react-icons/md';
+import DisplayCard from '@/components/App/DisplayCard';
 
 const Linksboard = () => {
   const data = dummyData;
@@ -15,10 +17,13 @@ const Linksboard = () => {
   }
   return (
     <>
-      <h2>All Links</h2>
-      {data.map((item, idx) => (
-        <LinkCard key={idx} data={item} />
-      ))}
+      <DisplayCard
+        icon={<MdOutlineDatasetLinked />}
+        title='All Links'
+        children={data.map((item, idx) => (
+          <LinkCard key={idx} data={item} />
+        ))}
+      ></DisplayCard>
     </>
   );
 };

@@ -2,6 +2,8 @@ import DefaultWelcomeCard from '@/components/App/DefaultWelcomeCard';
 import LinkCard from '@/components/App/LinkCard';
 import React from 'react';
 import { dummyData } from '@/services/data.js';
+import DisplayCard from '@/components/App/DisplayCard';
+import { TiPin } from 'react-icons/ti';
 
 const Pinboard = () => {
   const data = dummyData;
@@ -15,10 +17,13 @@ const Pinboard = () => {
   }
   return (
     <>
-      <h2>Pins</h2>
-      {data.map((item, idx) => (
-        <LinkCard key={idx} data={item} />
-      ))}
+      <DisplayCard
+        icon={<TiPin />}
+        title='Pins'
+        children={data.map((item, idx) => (
+          <LinkCard key={idx} data={item} />
+        ))}
+      ></DisplayCard>
     </>
   );
 };
