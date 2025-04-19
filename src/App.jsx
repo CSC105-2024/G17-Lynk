@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import LandingPage from './pages/LandingPage';
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
@@ -7,13 +7,19 @@ import SideBarCard from './components/App/SideBarCard';
 import { Separator } from '@/components/ui/separator';
 
 const App = () => {
+  const [showSideBar, setShowSideBar] = useState(false);
+  const toggleSideBar = () => {
+    setShowSideBar(!showSideBar);
+    console.log(showSideBar);
+  };
+
   return (
     <>
       {/* <LandingPage /> */}
-      <div className='min-h-screen flex text-[var(--app-text-color)] bg-[var(--main-bg-color)]'>
-        <SideBarCard />
+      <div className='min-h-screen flex text-[var(--app-text-color)] bg-[var(--main-bg-color)] overflow-x-hidden'>
+        <SideBarCard showSideBar={showSideBar} onToggle={toggleSideBar} />
         <div className='flex flex-col flex-grow bg-[var(--main-bg-color)]'>
-          <NavBarCard />
+          <NavBarCard showSideBar={showSideBar} onToggle={toggleSideBar} />
           <Separator />
           <main className='flex-grow  bg-[var(--dashboard-bg-color)] p-5'>
             <Outlet />

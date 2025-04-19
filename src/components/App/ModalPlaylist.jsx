@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Button from '../Button';
+import { Separator } from '@/components/ui/separator';
 
 const ModalPlaylist = ({ isOpen, onClose, onCreate }) => {
   const [name, setName] = useState('');
@@ -38,6 +39,7 @@ const ModalPlaylist = ({ isOpen, onClose, onCreate }) => {
             </svg>
           </button>
         </div>
+        <Separator className='bg-[var(--seperator-color)] mb-4' />
         <div className='mb-4'>
           <label
             htmlFor='playlistName'
