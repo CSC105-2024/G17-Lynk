@@ -11,13 +11,15 @@
   --third-dark-color: #121212;
   --fourth-dark-color: #252525;
   --fifth-dark-color: #3d3c3c; */
+  transition: background-color 0.3s ease, color 0.3s ease;
 
   /* LOGIN  AND SIGNUP */
   --error-primary-color: #fe564b;
-  --auth-bg-color: #000;
-  --form-bg-color: #121212;
-  --text-primary-color: #fff;
-  --text-secondary-color: #000;
+  --auth-bg-color: #fff;
+  --form-bg-color: #3d3c3c;
+  --text-primary-color: #000;
+  --text-secondary-color: #fff;
+  --input-bg-color: #d8d8d8;
   --btn-primary-default-bg-color: #1a5edb;
   --btn-primary-default-text-color: #fff;
   --btn-primary-outline-border-color: #1a5edb;
@@ -100,14 +102,10 @@
   font-family: 'Reem Kufi', sans-serif;
 }
 
+html,
 body {
-  /* background: black; */
-  font-family: 'Reem Kufi', sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
-
-/* input {
-    padding: 10px;
-} */
 
 .left-container p {
   color: white;
@@ -155,6 +153,57 @@ body {
 }
 
 .dark {
+  /* LOGIN  AND SIGNUP */
+  --error-primary-color: #fe564b;
+  --auth-bg-color: #000;
+  --form-bg-color: #121212;
+  --text-primary-color: #fff;
+  --text-secondary-color: #000;
+  --input-bg-color: #d8d8d8;
+  --btn-primary-default-bg-color: #1a5edb;
+  --btn-primary-default-text-color: #fff;
+  --btn-primary-outline-border-color: #1a5edb;
+  --btn-primary-outline-text-color: #1a5edb;
+  --btn-primary-outline-hover-color: #1a5edb;
+  --btn-primary-outline-hover-text-color: #fff;
+  --btn-primary-hover-bg-color: #1a5edb41;
+  --btn-primary-hover-text-color: #fff;
+
+  /* LANDING  */
+  --landing-bg-color: #000;
+  --landing-hero-bg-color: #000;
+  --feature-bg-color: #000;
+  --yellow-color: #fcd300;
+  --red-color: #fe564b;
+  --secondary-color: #1d987c;
+  --footer-bg-color: #0d0c0c;
+
+  /* APP  */
+
+  /* Colors  */
+  --dashboard-bg-color: #000000;
+  --sidebar-bg-color: #0d0c0c;
+  --app-text-color: #fff;
+  --app-secondary-text-color: #9b9b9b;
+  --main-bg-color: #000000;
+  --info-card-bg-color: #0d0c0c;
+  --info-card-icon-bg-color: #121212;
+  --info-card-icon-color: #1a5edb;
+  --searchbar-bg-color: #252525;
+  --hover-sidemenu-bg: #1a5edb;
+  --link-card-bg: #0d0c0c;
+  --link-card-hover-bg: #121212;
+  --chip-bg: rgba(255, 255, 255, 0.2);
+  --popover-bg: #3d3c3c;
+  --btn-hover-bg-red: #fe574b41;
+  --link-pin-bg-colour: #1d987c;
+  --active-sidemenu-bg: #1a5edb;
+  --active-sidemenu-text: #fff;
+  --modal-bg-color: #121212;
+  --modal-input-bg-color: #252525;
+  --seperator-color: #3d3c3c;
+
+  /* Shadcn UI */
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);

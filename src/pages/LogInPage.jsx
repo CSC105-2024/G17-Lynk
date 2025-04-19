@@ -55,13 +55,13 @@ const LogInPage = () => {
         <form className='flex flex-col gap-4' onSubmit={handleSubmit(onSubmit)}>
           <FormInput
             type='email'
-            placeholder='Email'
+            placeholder='Email:'
             error={errors.email}
             func={register('email')}
           />
           <FormInput
             type='password'
-            placeholder='Password'
+            placeholder='Password:'
             error={errors.password}
             func={register('password')}
           />
