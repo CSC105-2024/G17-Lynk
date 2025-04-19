@@ -1,24 +1,37 @@
+// Import React
 import * as React from "react"
 
+// Import utility to conditionally join class names
 import { cn } from "@/lib/utils"
 
-function Input({
-  className,
-  type,
-  ...props
-}) {
+// Input component
+function Input({ className, type, ...props }) {
   return (
     <input
-      type={type}
-      data-slot="input"
+      type={type} // Set the type (text, password, email, etc.)
+      data-slot="input" // For targeting via data attributes if needed
       className={cn(
-        "file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input flex h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+        // Default input styles
+        "file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground",
+        "dark:bg-input/30 border-input flex h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base",
+        "shadow-xs transition-[color,box-shadow] outline-none",
+        // File input specific styles
+        "file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium",
+        // Disabled state styling
+        "disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50",
+        // Text size adjustment for medium devices
+        "md:text-sm",
+        // Focus styles
         "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
+        // Validation error styles
         "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+        // Allow additional custom class names
         className
       )}
-      {...props} />
+      {...props} // Spread any additional props like value, onChange, etc.
+    />
   );
 }
 
+// Export the Input component
 export { Input }
