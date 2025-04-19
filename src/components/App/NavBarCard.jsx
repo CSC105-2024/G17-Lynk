@@ -7,24 +7,27 @@ import ModalLink from '@/components/App/ModalLink';
 import ModalPlaylist from '@/components/App/ModalPlaylist';
 import { searchAll } from '../../services/search';
 import Fuse from 'fuse.js';
-
+import { useNavigate } from 'react-router-dom';
 const NavBarCard = () => {
   const [showLinkModal, setShowLinkModal] = useState(false);
   const [showPlaylistModal, setShowPlaylistModal] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [playlists, setPlaylists] = useState([]);
-
+  const navigate = useNavigate();
+  //Model controlled
   const openLinkModal = () => setShowLinkModal(true);
   const closeLinkModal = () => setShowLinkModal(false);
 
   const openPlaylistModal = () => setShowPlaylistModal(true);
   const closePlaylistModal = () => setShowPlaylistModal(false);
 
+  const handleLogout = () => navigate('/logout');
   const handleCreatePlaylist = (playlist) => {
     console.log('Created playlist:', playlist);
     setPlaylists([...playlists, playlist]);
   };
+  
 
   const handleSearch = async (input) => {
     const term = input.target.value;
@@ -43,7 +46,9 @@ const NavBarCard = () => {
     const matched = fuse.search(term).map(result => result.item);
     setSearchResults(matched)
   };
-
+  
+  //login page
+ 
   return (
     <div className="p-5 space-y-5">
       {/* Top nav bar */}
@@ -65,10 +70,10 @@ const NavBarCard = () => {
 
         <Button text="New Link" onClick={openLinkModal} />
         <Button text="New Playlist" onClick={openPlaylistModal} />
-        <FaCircleUser className="text-2xl" />
+        <button className='cursor-pointer' onClick={handleLogout}><FaCircleUser className="text-2xl" /></button>
       </div>
 
-      {/* Modals */}
+      {/* Modals */}``
       <ModalLink show={showLinkModal} handleClose={closeLinkModal} />
       <ModalPlaylist
         isOpen={showPlaylistModal}
