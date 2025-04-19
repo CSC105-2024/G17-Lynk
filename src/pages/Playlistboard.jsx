@@ -19,7 +19,7 @@ const Playlistboard = () => {
     console.log('Bookmark data after delete:', bookmarkData);
   };
   return (
-    <div>
+    <div className='md:px-5'>
       Testing playlist id: {playlistId}
       {console.log('render here')}
       <DisplayCard

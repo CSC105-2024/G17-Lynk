@@ -6,15 +6,24 @@ import { TiPin } from 'react-icons/ti';
 import { MdOutlineDatasetLinked } from 'react-icons/md';
 import { dummyPlaylist } from '@/services/data.js';
 import APP_ICONS from '@/constants/icons.js';
+import { Link } from 'react-router-dom';
+import { FaXmark } from 'react-icons/fa6';
 
-const SideBarCard = () => {
+const SideBarCard = ({ onToggle, showSideBar }) => {
   const playlists = dummyPlaylist;
+  console.log('here is sidebar: ', showSideBar);
+  const sideBarDisplayStatus = showSideBar
+    ? 'bg-[var(--sidebar-bg-color)] min-w-full md:min-w-60 md:block py-3 px-5'
+    : 'hidden md:block bg-[var(--sidebar-bg-color)] min-w-60 py-3 px-5';
   return (
-    <div className='bg-[var(--sidebar-bg-color)] min-w-60 hidden md:block py-3 px-5'>
-      <div className='w-25'>
-        <img src='/logo-dark-v2.svg' alt='Logo' />
+    <div className={`${sideBarDisplayStatus} text-lg md:text-md`}>
+      <div className='w-full flex justify-between items-center py-3'>
+        <Link to='/'>
+          <img src='/logo-dark-v2.svg' alt='Logo' className='w-30' />
+        </Link>
+        <FaXmark className='text-4xl block md:hidden' onClick={onToggle} />
       </div>
-      <div className='mt-5 mb-8'>
+      <div className='mt-5 mb-8' onClick={onToggle}>
         <SideBarMenuLink
           icon={<MdHome />}
           name='Dashboard'
@@ -36,7 +45,7 @@ const SideBarCard = () => {
       </div>
       <Separator className='bg-[var(--seperator-color)]' />
       {/* PLAYLIST  */}
-      <div className='mt-3 mb-8 text-sm'>
+      <div className='mt-3 mb-8' onClick={onToggle}>
         <h2 className='text-lg mb-3'>Playlist</h2>
         {playlists.map((playlist, index) => {
           {
@@ -66,7 +75,7 @@ const SideBarCard = () => {
       <Separator className='bg-[var(--seperator-color)]' />
 
       {/* TAGS */}
-      <div className='text-sm mt-3 mb-8'>
+      <div className='mt-3 mb-8'>
         <h2 className='text-lg'>Tags</h2>
         <div className='px-5 my-2 py-1 flex flex-col gap-2'>
           <p>#Tag1</p>

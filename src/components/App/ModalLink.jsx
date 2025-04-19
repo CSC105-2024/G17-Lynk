@@ -1,6 +1,7 @@
 import { btn, btnFill } from '@/styles/styles';
 import React from 'react';
 import Button from '../Button';
+import { Separator } from '@/components/ui/separator';
 
 const ModalLink = ({ show, handleClose }) => {
   const showHideClassName = show
@@ -39,7 +40,7 @@ const ModalLink = ({ show, handleClose }) => {
             </svg>
           </button>
         </div>
-
+        <Separator className='bg-[var(--seperator-color)] mb-4' />
         <div className='mb-4'>
           <label
             htmlFor='link'

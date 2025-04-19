@@ -8,10 +8,12 @@ import MorePopover from './MorePopover';
 const LinkCard = ({ data, onDelete }) => {
   const { key, iconLink, linkName, playlists, tags, link, createdAt } = data;
   return (
-    <div className='bg-[var(--link-card-bg)] rounded-lg m-3 py-3 px-10 hover:bg-[var(--link-card-hover-bg)]'>
+    <div className='bg-[var(--link-card-bg)] rounded-lg py-3 px-3 md:px-10 hover:bg-[var(--link-card-hover-bg)] w-85 md:w-full overflow-x-hidden'>
       <div className='flex items-center gap-2 mb-2'>
         <img src={iconLink} alt='icon' className='h-5' />
-        <p className='flex-grow'>{linkName}</p>
+        <p className='flex-grow overflow-hidden text-ellipsis whitespace-nowrap'>
+          {linkName}
+        </p>
         {/* <Button text='More...' action='more' /> */}
         <MorePopover onDelete={() => onDelete(key)} />
       </div>
