@@ -26,8 +26,8 @@ const userSchema = z.object({
 const LogInPage = () => {
   const navigate = useNavigate();
 
-  function handle_SignUp() {
-    navigate('/signup');
+  function handle_LogIn() {
+    navigate('/app/dashboard');
   }
 
   const {
@@ -69,6 +69,7 @@ const LogInPage = () => {
             text='Login'
             variant='btnOutline'
             className='mx-auto mt-8 py-2 px-10 text-[var(--btn-primary-outline-text-color)]'
+            onClick={handle_LogIn}
           ></Button>
         </form>
       </div>
