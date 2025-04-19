@@ -12,6 +12,7 @@ import Pinboard from './pages/Pinboard';
 import Linksboard from './pages/Linksboard';
 import Playlistboard from './pages/Playlistboard';
 import LogOutPage from './pages/LogOutPage';
+import NotFoundPage from './pages/NotFoundPage';
 
 const router = createBrowserRouter([
   {
@@ -57,6 +58,10 @@ const router = createBrowserRouter([
     path: '/test',
     element: <Test />,
   },
+  {
+    path: '*',
+    element: <NotFoundPage/>
+  }
 ]);
 createRoot(document.getElementById('root')).render(
   <RouterProvider router={router} />
