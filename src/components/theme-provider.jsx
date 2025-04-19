@@ -15,7 +15,7 @@ const ThemeProviderContext = createContext(initialState);
  * @param {ReactNode} props.children - Child components
  * @param {'light'|'dark'|'system'} [props.defaultTheme='system'] - Default theme
  * @param {string} [props.storageKey='vite-ui-theme'] - localStorage key for persistence
- * @returns {JSX.Element} Theme context provider
+ * @returns {JSX.Element} theme context provider
  */
 export function ThemeProvider({
   children,
