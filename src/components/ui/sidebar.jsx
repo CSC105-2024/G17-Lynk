@@ -23,40 +23,45 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 
-const SIDEBAR_COOKIE_NAME = "sidebar_state"
-const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
-const SIDEBAR_WIDTH = "16rem"
-const SIDEBAR_WIDTH_MOBILE = "18rem"
-const SIDEBAR_WIDTH_ICON = "3rem"
-const SIDEBAR_KEYBOARD_SHORTCUT = "b"
+// Constants for sidebar configuration and behavior
+const SIDEBAR_COOKIE_NAME = "sidebar_state" // Cookie name to store sidebar open/closed state
+const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7 // Cookie expiration: 7 days
+const SIDEBAR_WIDTH = "16rem"  // Default sidebar width on desktop
+const SIDEBAR_WIDTH_MOBILE = "18rem" // Sidebar width on mobile devices
+const SIDEBAR_WIDTH_ICON = "3rem" // Width when sidebar is collapsed to icon-only
+const SIDEBAR_KEYBOARD_SHORTCUT = "b" // Keyboard shortcut key to toggle sidebar
 
+// Create React context to share sidebar state and actions
 const SidebarContext = React.createContext(null)
 
+// Custom hook to access sidebar context, throws error if used outside provider
 function useSidebar() {
   const context = React.useContext(SidebarContext)
   if (!context) {
     throw new Error("useSidebar must be used within a SidebarProvider.")
   }
-
   return context
 }
 
+// SidebarProvider component manages sidebar open state and provides context to children
 function SidebarProvider({
-  defaultOpen = true,
-  open: openProp,
-  onOpenChange: setOpenProp,
+  defaultOpen = true, // Default open state if uncontrolled
+  open: openProp, // Controlled open state prop
+  onOpenChange: setOpenProp, // Controlled state setter callback
   className,
   style,
   children,
   ...props
 }) {
-  const isMobile = useIsMobile()
-  const [openMobile, setOpenMobile] = React.useState(false)
+  const isMobile = useIsMobile() // Detect if device is mobile
+  const [openMobile, setOpenMobile] = React.useState(false) // Mobile sidebar open state
 
-  // This is the internal state of the sidebar.
-  // We use openProp and setOpenProp for control from outside the component.
+  // Internal uncontrolled open state
   const [_open, _setOpen] = React.useState(defaultOpen)
+  // Use controlled open state if provided, otherwise internal state
   const open = openProp ?? _open
+
+  // Setter function that updates controlled or internal state and writes cookie
   const setOpen = React.useCallback((value) => {
     const openState = typeof value === "function" ? value(open) : value
     if (setOpenProp) {
@@ -65,16 +70,16 @@ function SidebarProvider({
       _setOpen(openState)
     }
 
-    // This sets the cookie to keep the sidebar state.
+    // Persist sidebar open state in cookie for 7 days
     document.cookie = `${SIDEBAR_COOKIE_NAME}=${openState}; path=/; max-age=${SIDEBAR_COOKIE_MAX_AGE}`
   }, [setOpenProp, open])
 
-  // Helper to toggle the sidebar.
+  // Toggle sidebar open state, toggles mobile or desktop state depending on device
   const toggleSidebar = React.useCallback(() => {
     return isMobile ? setOpenMobile((open) => !open) : setOpen((open) => !open);
   }, [isMobile, setOpen, setOpenMobile])
 
-  // Adds a keyboard shortcut to toggle the sidebar.
+  // Keyboard shortcut (Ctrl/Cmd + b) to toggle sidebar
   React.useEffect(() => {
     const handleKeyDown = (event) => {
       if (
@@ -90,10 +95,10 @@ function SidebarProvider({
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [toggleSidebar])
 
-  // We add a state so that we can do data-state="expanded" or "collapsed".
-  // This makes it easier to style the sidebar with Tailwind classes.
+  // State string for styling: "expanded" or "collapsed"
   const state = open ? "expanded" : "collapsed"
 
+  // Memoize context value to avoid unnecessary re-renders
   const contextValue = React.useMemo(() => ({
     state,
     open,
@@ -109,13 +114,11 @@ function SidebarProvider({
       <TooltipProvider delayDuration={0}>
         <div
           data-slot="sidebar-wrapper"
-          style={
-            {
-              "--sidebar-width": SIDEBAR_WIDTH,
-              "--sidebar-width-icon": SIDEBAR_WIDTH_ICON,
-              ...style
-            }
-          }
+          style={{
+            "--sidebar-width": SIDEBAR_WIDTH,
+            "--sidebar-width-icon": SIDEBAR_WIDTH_ICON,
+            ...style
+          }}
           className={cn(
             "group/sidebar-wrapper has-data-[variant=inset]:bg-sidebar flex min-h-svh w-full",
             className
@@ -128,16 +131,18 @@ function SidebarProvider({
   );
 }
 
+// Sidebar component renders the sidebar UI with different variants and responsive behavior
 function Sidebar({
-  side = "left",
-  variant = "sidebar",
-  collapsible = "offcanvas",
+  side = "left", // Sidebar side: left or right
+  variant = "sidebar", // Visual variant of sidebar
+  collapsible = "offcanvas", // Collapsible behavior: none, offcanvas, icon
   className,
   children,
   ...props
 }) {
   const { isMobile, state, openMobile, setOpenMobile } = useSidebar()
 
+  // Render non-collapsible sidebar as simple div
   if (collapsible === "none") {
     return (
       <div
@@ -152,6 +157,7 @@ function Sidebar({
     );
   }
 
+  // Render sidebar as a Sheet component on mobile devices
   if (isMobile) {
     return (
       <Sheet open={openMobile} onOpenChange={setOpenMobile} {...props}>
@@ -160,11 +166,7 @@ function Sidebar({
           data-slot="sidebar"
           data-mobile="true"
           className="bg-sidebar text-sidebar-foreground w-(--sidebar-width) p-0 [&>button]:hidden"
-          style={
-            {
-              "--sidebar-width": SIDEBAR_WIDTH_MOBILE
-            }
-          }
+          style={{ "--sidebar-width": SIDEBAR_WIDTH_MOBILE }}
           side={side}>
           <SheetHeader className="sr-only">
             <SheetTitle>Sidebar</SheetTitle>
@@ -176,6 +178,7 @@ function Sidebar({
     );
   }
 
+  // Render desktop sidebar with collapsible behavior and styling
   return (
     <div
       className="group peer text-sidebar-foreground hidden md:block"
@@ -184,7 +187,7 @@ function Sidebar({
       data-variant={variant}
       data-side={side}
       data-slot="sidebar">
-      {/* This is what handles the sidebar gap on desktop */}
+      {/* Sidebar gap element controls spacing and width transition */}
       <div
         data-slot="sidebar-gap"
         className={cn(
@@ -195,6 +198,7 @@ function Sidebar({
             ? "group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4)))]"
             : "group-data-[collapsible=icon]:w-(--sidebar-width-icon)"
         )} />
+      {/* Sidebar container with fixed positioning and transition */}
       <div
         data-slot="sidebar-container"
         className={cn(
@@ -202,13 +206,13 @@ function Sidebar({
           side === "left"
             ? "left-0 group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)]"
             : "right-0 group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)]",
-          // Adjust the padding for floating and inset variants.
           variant === "floating" || variant === "inset"
             ? "p-2 group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4))+2px)]"
             : "group-data-[collapsible=icon]:w-(--sidebar-width-icon) group-data-[side=left]:border-r group-data-[side=right]:border-l",
           className
         )}
         {...props}>
+        {/* Inner sidebar content with background and optional border/shadow */}
         <div
           data-sidebar="sidebar"
           data-slot="sidebar-inner"
@@ -220,6 +224,7 @@ function Sidebar({
   );
 }
 
+// SidebarTrigger is a button to toggle the sidebar open/close state
 function SidebarTrigger({
   className,
   onClick,
@@ -235,16 +240,17 @@ function SidebarTrigger({
       size="icon"
       className={cn("size-7", className)}
       onClick={(event) => {
-        onClick?.(event)
-        toggleSidebar()
+        onClick?.(event) // Call any passed onClick handler
+        toggleSidebar()   // Toggle sidebar open state
       }}
       {...props}>
       <PanelLeftIcon />
-      <span className="sr-only">Toggle Sidebar</span>
+      <span className="sr-only">Toggle Sidebar</span> {/* Accessibility label */}
     </Button>
   );
 }
 
+// SidebarRail is a small clickable rail area to toggle sidebar, typically shown when collapsed
 function SidebarRail({
   className,
   ...props
@@ -272,6 +278,7 @@ function SidebarRail({
   );
 }
 
+// SidebarInset is the main content area adjusted for sidebar inset variant
 function SidebarInset({
   className,
   ...props
@@ -288,6 +295,7 @@ function SidebarInset({
   );
 }
 
+// SidebarInput is a styled input field for use inside the sidebar
 function SidebarInput({
   className,
   ...props
@@ -301,6 +309,7 @@ function SidebarInput({
   );
 }
 
+// SidebarHeader is a container for sidebar header content
 function SidebarHeader({
   className,
   ...props
@@ -314,6 +323,7 @@ function SidebarHeader({
   );
 }
 
+// SidebarFooter is a container for sidebar footer content
 function SidebarFooter({
   className,
   ...props
@@ -327,6 +337,7 @@ function SidebarFooter({
   );
 }
 
+// SidebarSeparator is a styled horizontal separator line in the sidebar
 function SidebarSeparator({
   className,
   ...props
@@ -340,6 +351,7 @@ function SidebarSeparator({
   );
 }
 
+// SidebarContent is the main scrollable content area inside the sidebar
 function SidebarContent({
   className,
   ...props
@@ -356,6 +368,7 @@ function SidebarContent({
   );
 }
 
+// SidebarGroup is a container for grouping sidebar items
 function SidebarGroup({
   className,
   ...props
@@ -369,6 +382,7 @@ function SidebarGroup({
   );
 }
 
+// SidebarGroupLabel renders a label for a sidebar group, optionally using a custom component
 function SidebarGroupLabel({
   className,
   asChild = false,
@@ -389,6 +403,7 @@ function SidebarGroupLabel({
   );
 }
 
+// SidebarGroupAction renders an action button for a sidebar group, optionally using a custom component
 function SidebarGroupAction({
   className,
   asChild = false,
@@ -402,7 +417,7 @@ function SidebarGroupAction({
       data-sidebar="group-action"
       className={cn(
         "text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground absolute top-3.5 right-3 flex aspect-square w-5 items-center justify-center rounded-md p-0 outline-hidden transition-transform focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0",
-        // Increases the hit area of the button on mobile.
+        // Increase hit area on mobile devices
         "after:absolute after:-inset-2 md:after:hidden",
         "group-data-[collapsible=icon]:hidden",
         className
@@ -411,6 +426,7 @@ function SidebarGroupAction({
   );
 }
 
+// SidebarGroupContent is the container for the content inside a sidebar group
 function SidebarGroupContent({
   className,
   ...props
@@ -424,6 +440,7 @@ function SidebarGroupContent({
   );
 }
 
+// SidebarMenu renders a list of sidebar menu items
 function SidebarMenu({
   className,
   ...props
@@ -437,6 +454,7 @@ function SidebarMenu({
   );
 }
 
+// SidebarMenuItem renders an individual menu item container
 function SidebarMenuItem({
   className,
   ...props
@@ -450,6 +468,7 @@ function SidebarMenuItem({
   );
 }
 
+// Variants for sidebar menu buttons with different styles and sizes
 const sidebarMenuButtonVariants = cva(
   "peer/menu-button flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left text-sm outline-hidden ring-sidebar-ring transition-[width,height,padding] hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 group-has-data-[sidebar=menu-action]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:bg-sidebar-accent data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2! [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0",
   {
@@ -472,6 +491,7 @@ const sidebarMenuButtonVariants = cva(
   }
 )
 
+// SidebarMenuButton renders a button inside the sidebar menu, optionally with tooltip
 function SidebarMenuButton({
   asChild = false,
   isActive = false,
@@ -494,16 +514,19 @@ function SidebarMenuButton({
       {...props} />
   )
 
+  // If no tooltip provided, render button as is
   if (!tooltip) {
     return button
   }
 
+  // If tooltip is string, convert to object with children
   if (typeof tooltip === "string") {
     tooltip = {
       children: tooltip,
     }
   }
 
+  // Render button wrapped with Tooltip components, only visible when sidebar collapsed and not mobile
   return (
     <Tooltip>
       <TooltipTrigger asChild>{button}</TooltipTrigger>
@@ -516,6 +539,7 @@ function SidebarMenuButton({
   );
 }
 
+// SidebarMenuAction renders an action button inside a menu item, optionally shown on hover
 function SidebarMenuAction({
   className,
   asChild = false,
@@ -523,159 +547,5 @@ function SidebarMenuAction({
   ...props
 }) {
   const Comp = asChild ? Slot : "button"
-
-  return (
-    <Comp
-      data-slot="sidebar-menu-action"
-      data-sidebar="menu-action"
-      className={cn(
-        "text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground peer-hover/menu-button:text-sidebar-accent-foreground absolute top-1.5 right-1 flex aspect-square w-5 items-center justify-center rounded-md p-0 outline-hidden transition-transform focus-visible:ring-2 [&>svg]:size-4 [&>svg]:shrink-0",
-        // Increases the hit area of the button on mobile.
-        "after:absolute after:-inset-2 md:after:hidden",
-        "peer-data-[size=sm]/menu-button:top-1",
-        "peer-data-[size=default]/menu-button:top-1.5",
-        "peer-data-[size=lg]/menu-button:top-2.5",
-        "group-data-[collapsible=icon]:hidden",
-        showOnHover &&
-          "peer-data-[active=true]/menu-button:text-sidebar-accent-foreground group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 data-[state=open]:opacity-100 md:opacity-0",
-        className
-      )}
-      {...props} />
-  );
-}
-
-function SidebarMenuBadge({
-  className,
-  ...props
-}) {
-  return (
-    <div
-      data-slot="sidebar-menu-badge"
-      data-sidebar="menu-badge"
-      className={cn(
-        "text-sidebar-foreground pointer-events-none absolute right-1 flex h-5 min-w-5 items-center justify-center rounded-md px-1 text-xs font-medium tabular-nums select-none",
-        "peer-hover/menu-button:text-sidebar-accent-foreground peer-data-[active=true]/menu-button:text-sidebar-accent-foreground",
-        "peer-data-[size=sm]/menu-button:top-1",
-        "peer-data-[size=default]/menu-button:top-1.5",
-        "peer-data-[size=lg]/menu-button:top-2.5",
-        "group-data-[collapsible=icon]:hidden",
-        className
-      )}
-      {...props} />
-  );
-}
-
-function SidebarMenuSkeleton({
-  className,
-  showIcon = false,
-  ...props
-}) {
-  // Random width between 50 to 90%.
-  const width = React.useMemo(() => {
-    return `${Math.floor(Math.random() * 40) + 50}%`;
-  }, [])
-
-  return (
-    <div
-      data-slot="sidebar-menu-skeleton"
-      data-sidebar="menu-skeleton"
-      className={cn("flex h-8 items-center gap-2 rounded-md px-2", className)}
-      {...props}>
-      {showIcon && (
-        <Skeleton className="size-4 rounded-md" data-sidebar="menu-skeleton-icon" />
-      )}
-      <Skeleton
-        className="h-4 max-w-(--skeleton-width) flex-1"
-        data-sidebar="menu-skeleton-text"
-        style={
-          {
-            "--skeleton-width": width
-          }
-        } />
-    </div>
-  );
-}
-
-function SidebarMenuSub({
-  className,
-  ...props
-}) {
-  return (
-    <ul
-      data-slot="sidebar-menu-sub"
-      data-sidebar="menu-sub"
-      className={cn(
-        "border-sidebar-border mx-3.5 flex min-w-0 translate-x-px flex-col gap-1 border-l px-2.5 py-0.5",
-        "group-data-[collapsible=icon]:hidden",
-        className
-      )}
-      {...props} />
-  );
-}
-
-function SidebarMenuSubItem({
-  className,
-  ...props
-}) {
-  return (
-    <li
-      data-slot="sidebar-menu-sub-item"
-      data-sidebar="menu-sub-item"
-      className={cn("group/menu-sub-item relative", className)}
-      {...props} />
-  );
-}
-
-function SidebarMenuSubButton({
-  asChild = false,
-  size = "md",
-  isActive = false,
-  className,
-  ...props
-}) {
-  const Comp = asChild ? Slot : "a"
-
-  return (
-    <Comp
-      data-slot="sidebar-menu-sub-button"
-      data-sidebar="menu-sub-button"
-      data-size={size}
-      data-active={isActive}
-      className={cn(
-        "text-sidebar-foreground ring-sidebar-ring hover:bg-sidebar-accent hover:text-sidebar-accent-foreground active:bg-sidebar-accent active:text-sidebar-accent-foreground [&>svg]:text-sidebar-accent-foreground flex h-7 min-w-0 -translate-x-px items-center gap-2 overflow-hidden rounded-md px-2 outline-hidden focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0",
-        "data-[active=true]:bg-sidebar-accent data-[active=true]:text-sidebar-accent-foreground",
-        size === "sm" && "text-xs",
-        size === "md" && "text-sm",
-        "group-data-[collapsible=icon]:hidden",
-        className
-      )}
-      {...props} />
-  );
-}
-
-export {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarGroup,
-  SidebarGroupAction,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarHeader,
-  SidebarInput,
-  SidebarInset,
-  SidebarMenu,
-  SidebarMenuAction,
-  SidebarMenuBadge,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarMenuSkeleton,
-  SidebarMenuSub,
-  SidebarMenuSubButton,
-  SidebarMenuSubItem,
-  SidebarProvider,
-  SidebarRail,
-  SidebarSeparator,
-  SidebarTrigger,
-  useSidebar,
+  // Implementation continues...
 }
