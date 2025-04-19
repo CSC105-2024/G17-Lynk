@@ -17,7 +17,7 @@ const ModalPlaylist = ({ isOpen, onClose, onCreate }) => {
     <div className='fixed top-0 left-0 w-full h-full bg-[var(--main-bg-color)] bg-opacity-60 flex justify-center items-center z-50'>
       <div className='bg-[var(--modal-bg-color)] p-6 rounded-lg shadow-lg w-full max-w-md'>
         <div className='flex justify-between items-center mb-4'>
-          <h2 className='text-xl font-semibold text-white'>
+          <h2 className='text-xl font-bold text-[var(--app-text-color)]'>
             Create a New Playlist
           </h2>
           <button
@@ -43,14 +43,14 @@ const ModalPlaylist = ({ isOpen, onClose, onCreate }) => {
         <div className='mb-4'>
           <label
             htmlFor='playlistName'
-            className='block text-gray-300 text-sm font-bold mb-2'
+            className='block text-[var(--app-text-color)] text-sm font-semibold mb-2'
           >
             Name
           </label>
           <input
             type='text'
             id='playlistName'
-            className='shadow appearance-none border rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline bg-[var(--modal-input-bg-color)] text-[var(--app-text-color)]'
+            className='shadow appearance-none border rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline bg-[var(--modal-input-bg-color)] text-[var(--app-input-text-color)]'
             placeholder='Name'
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -58,8 +58,8 @@ const ModalPlaylist = ({ isOpen, onClose, onCreate }) => {
         </div>
         <div className='mb-6'>
           <label
-            htmlFor='playlistDescription'
-            className='block text-gray-300 text-sm font-bold mb-2'
+            htmlFor='playlistName'
+            className='block text-[var(--app-text-color)] text-sm font-semibold mb-2'
           >
             Description
           </label>

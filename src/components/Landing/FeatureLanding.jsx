@@ -30,7 +30,7 @@ const FeatureLanding = ({
         >
           {title}
         </h2>
-        <p className={`${paragraph}  text-gray-200`}>{description}</p>
+        <p className={`${paragraph}`}>{description}</p>
       </div>
 
       {/* Image Section */}

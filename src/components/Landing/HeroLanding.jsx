@@ -11,7 +11,7 @@ const HeroLanding = ({ onSignUp }) => (
       <h1 className={`${title} text-[var(--text-primary-color)]`}>
         Never Lose a Link Again
       </h1>
-      <p className={`${paragraph}  text-gray-200`}>
+      <p className={`${paragraph}`}>
         Save, Organize, and Access Your Web Favorites with Ease
       </p>
       <a href='/signup' className='mx-auto'>
