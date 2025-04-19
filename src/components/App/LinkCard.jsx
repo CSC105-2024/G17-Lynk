@@ -37,7 +37,7 @@ const LinkCard = ({ data, onDelete }) => {
           <p className='w-3/10 min-w-[30%]'>Tags:</p>
           <div className='flex flex-nowrap gap-1 overflow-auto [scrollbar-width:none]'>
             {tags.map((tag, index) => (
-              <Chip key={index} name={`#${tag}`} />
+              <Chip key={index} name={`${tag}`} />
             ))}
           </div>
         </div>
