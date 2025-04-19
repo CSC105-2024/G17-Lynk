@@ -8,13 +8,13 @@ import playlistImage from '../images/SVG/playlist.svg';
 import managementImage from '../images/SVG/link-manage.svg';
 import filteringImage from '../images/SVG/filtering.svg';
 import { useNavigate } from 'react-router-dom';
-import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeProvider } from '@/components/theme-provider';
 const LandingPage = () => {
   const navigate = useNavigate();
 
   return (
     <ThemeProvider defaultTheme='dark' storageKey='vite-ui-theme'>
-      <div className='max-w-screen h-screen bg-[var(--landing-bg-color)]'>
+      <div className='max-w-screen h-screen bg-[var(--landing-bg-color)]  text-[var(--text-thirdary-color)] font-light'>
         {/* <div className="max-w-4xl mx-auto"> */}
         {/* Header */}
         <HeaderLanding />
