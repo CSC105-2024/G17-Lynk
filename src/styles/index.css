@@ -41,6 +41,12 @@
   --footer-bg-color: #c2c2c2;
   --footer-text-color: #000;
 
+  /* LOGOUT PAGE */
+  --logout-bg-color: #fff;
+  --logout-text-color: #000;
+  --logout-input-bg-color: #eee;
+  --logout-input-text-color: #000;
+
   /* APP  */
 
   /* Colors  */
@@ -186,6 +192,12 @@ body {
   --footer-bg-color: #0d0c0c;
   --footer-text-color: #c4c4c4;
 
+  /* LOGOUT PAGE */
+  --logout-bg-color: #0d0c0c;
+  --logout-secondary-bg-color: #343434;
+  --logout-text-color: #fff;
+  --logout-input-bg-color: #000;
+  --logout-input-text-color: #fff;
   /* APP  */
 
   /* Colors  */
