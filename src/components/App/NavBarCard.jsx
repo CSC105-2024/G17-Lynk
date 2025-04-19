@@ -30,7 +30,7 @@ const NavBarCard = () => {
     const term = input.target.value;
     setSearchTerm(term);
 
-    const results = await searchAll(term);
+    const results = searchAll(term);
     console.log(results);
     if(!term){
       setSearchResults([]);
@@ -38,7 +38,7 @@ const NavBarCard = () => {
     }
     const fuse = new Fuse(results.links, {
       keys : ['links','playlists','tags'],
-      threshold: 0.3, 
+      threshold: 0.5, 
     })
     const matched = fuse.search(term).map(result => result.item);
     setSearchResults(matched)
@@ -76,7 +76,7 @@ const NavBarCard = () => {
         onCreate={handleCreatePlaylist}
       />
 
-      {/* Search results */}
+      {/* Search rxesults */}
       <div className="space-y-3">
   {searchTerm && searchResults.length > 0 ? (
     <ul className="space-y-3">
