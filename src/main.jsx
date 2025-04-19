@@ -11,6 +11,7 @@ import Dashboard from './pages/Dashboard';
 import Pinboard from './pages/Pinboard';
 import Linksboard from './pages/Linksboard';
 import Playlistboard from './pages/Playlistboard';
+import LogOutPage from './pages/LogOutPage';
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
   {
     path: '/login',
     element: <LogInPage />,
+  },
+  {
+    path: '/logout',
+    element: <LogOutPage/>
   },
   {
     path: '/signup',
