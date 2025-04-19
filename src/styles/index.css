@@ -16,10 +16,11 @@
   /* LOGIN  AND SIGNUP */
   --error-primary-color: #fe564b;
   --auth-bg-color: #fff;
-  --form-bg-color: #3d3c3c;
+  /* --form-bg-color: #ececec; */
   --text-primary-color: #000;
   --text-secondary-color: #fff;
-  --input-bg-color: #d8d8d8;
+  --input-bg-color: #252525;
+  --input-placeholder-color: #eee;
   --btn-primary-default-bg-color: #1a5edb;
   --btn-primary-default-text-color: #fff;
   --btn-primary-outline-border-color: #1a5edb;
@@ -160,6 +161,7 @@ body {
   --text-primary-color: #fff;
   --text-secondary-color: #000;
   --input-bg-color: #d8d8d8;
+  --input-placeholder-color: #0d0c0c;
   --btn-primary-default-bg-color: #1a5edb;
   --btn-primary-default-text-color: #fff;
   --btn-primary-outline-border-color: #1a5edb;
