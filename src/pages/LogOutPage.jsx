@@ -1,3 +1,4 @@
+import { ModeToggle } from '@/components/mode-toggle';
 import { useState } from 'react';
 import { FaArrowLeft, FaPen, FaUser, FaEnvelope } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
@@ -6,7 +7,8 @@ export default function ProfilePage() {
   const [email, setEmail] = useState('xxx@gmail.com');
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [edit, setEdit] = useState(false);
-  const [ProfileImage, setProfileImage] = useState('/dummy_pf.jpg');
+  const [profileImage, setProfileImage] = useState('/dummy_pf.jpg');
+  const [tempImage, setTempImage] = useState(null);
   const navigate = useNavigate();
   function handleLogout() {
     navigate('/');
@@ -15,8 +17,15 @@ export default function ProfilePage() {
     const file = e.target.files[0];
     if (file) {
       const imageURL = URL.createObjectURL(file);
-      setProfileImage(imageURL);
+      setTempImage(imageURL);
     }
+  }
+  function handleSave(e) {
+    if (tempImage) {
+      setProfileImage(tempImage);
+      setTempImage(null);
+    }
+    setEdit(false);
   }
   const handle_show = () => setShowLogoutModal(!showLogoutModal);
   const handle_edit = () => setEdit(!edit);
@@ -35,15 +44,19 @@ export default function ProfilePage() {
         {/* Profile picture with edit icon */}
         <div className='relative w-28 h-28 mx-auto mb-4'>
           <img
-            src={ProfileImage}
+            src={tempImage || profileImage}
             alt='Profile'
             className='w-full h-full object-cover rounded-full border-2 border-white'
           />
-          <div className='absolute bottom-0 right-0 bg-blue-600 p-1 rounded-full'>
-            <button onClick={handle_edit}>
-              <FaPen size={12} />
+          <div className='absolute bottom-2 right-2 bg-gray-100 p-1 rounded-full shadow-sm'>
+            <button
+              onClick={handle_edit}
+              className='w-4 h-4 flex items-center justify-center bg-gray-200 hover:bg-gray-300 rounded-full transition cursor-pointer'
+            >
+              <FaPen size={12} className='text-gray-600' />
             </button>
           </div>
+
           <div>
             {edit && (
               <input
@@ -85,10 +98,19 @@ export default function ProfilePage() {
             />
           </div>
         </div>
-
+        <div>
+          {edit && (
+            <button
+              className='w-full bg-[var(--save-btn-color)] hover:bg-[var(--hover-save-btn-color))] text-white font-semibold py-2 rounded-lg transition duration-200 mb-4 cursor-pointer'
+              onClick={handleSave}
+            >
+              Save
+            </button>
+          )}
+        </div>
         {/* Logout Button */}
         <button
-          className='w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-2 rounded-lg transition duration-200'
+          className='w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-2 rounded-lg transition duration-200 cursor-pointer'
           onClick={handle_show}
         >
           Log out
