@@ -22,7 +22,7 @@ export default function ProfilePage() {
   const handle_edit = () => setEdit(!edit);
 
   return (
-    <div className='min-h-screen bg-[var(--logout-bg-color)] text-[var(--logout-text-color)] flex flex-col items-center justify-center px-4'>
+    <div className='min-h-screen bg-black text-white flex flex-col items-center justify-center px-4'>
       <div className='w-full max-w-sm'>
         {/* Back arrow */}
         <button
@@ -61,13 +61,13 @@ export default function ProfilePage() {
         {/* Username Field */}
         <div className='mb-4'>
           <label className='text-sm font-semibold mb-1 block'>Username</label>
-          <div className='flex items-center bg-[var(--logout-input-bg-color)] rounded-lg border px-3 py-2'>
+          <div className='flex items-center bg-neutral-900 rounded-lg px-3 py-2'>
             <FaUser className='mr-2 text-gray-400' />
             <input
               type='text'
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className='bg-transparent outline-none w-full'
+              className='bg-transparent outline-none text-white w-full'
             />
           </div>
         </div>
@@ -75,13 +75,13 @@ export default function ProfilePage() {
         {/* Email Field */}
         <div className='mb-6'>
           <label className='text-sm font-semibold mb-1 block'>Your Email</label>
-          <div className='flex items-center bg-[var(--logout-input-bg-color)] rounded-lg border px-3 py-2'>
+          <div className='flex items-center bg-neutral-900 rounded-lg px-3 py-2'>
             <FaEnvelope className='mr-2 text-gray-400' />
             <input
               type='email'
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className='bg-transparent outline-none  w-full'
+              className='bg-transparent outline-none text-white w-full'
             />
           </div>
         </div>
@@ -95,14 +95,14 @@ export default function ProfilePage() {
         </button>
 
         {showLogoutModal && (
-          <div className='fixed inset-0 bg-[var(--logout-bg-color)] text-[var(--logout-text-color)] bg-opacity-60 flex items-center justify-center z-50'>
-            <div className='rounded-xl p-6 w-80 text-center shadow-lg bg-[var(--logout-secondary-bg-color)]'>
+          <div className='fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50'>
+            <div className='bg-white text-black rounded-xl p-6 w-80 text-center'>
               <h2 className='text-lg font-semibold mb-4'>Are you sure?</h2>
               <p className='mb-6'>Do you really want to log out?</p>
               <div className='flex justify-between gap-4'>
                 <button
                   onClick={() => setShowLogoutModal(false)}
-                  className='flex-1 py-2 rounded-lg border hover:bg-gray-400'
+                  className='flex-1 py-2 rounded-lg bg-gray-300 hover:bg-gray-400'
                 >
                   Cancel
                 </button>
