@@ -46,6 +46,8 @@
   --logout-text-color: #000;
   --logout-input-bg-color: #eee;
   --logout-input-text-color: #000;
+  --save-btn-color: #1d987c;
+  --hover-save-btn-color: hsl(166, 76%, 26%);
 
   /* APP  */
 
