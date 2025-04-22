@@ -82,10 +82,11 @@ const NavBarCard = ({ onToggle }) => {
         onClose={closePlaylistModal}
         onCreate={handleCreatePlaylist}
       />
-      {/* Search rxesults */}
+      {/* Search results */}
       <div className='space-y-3'>
         {searchTerm && searchResults.length > 0 ? (
           <ul className='space-y-3'>
+            <h2 className='text-2xl font-bold'>Search Results:</h2>
             {searchResults.map((item, index) => (
               <li
                 key={index}
