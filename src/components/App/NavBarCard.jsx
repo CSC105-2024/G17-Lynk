@@ -20,6 +20,7 @@ const NavBarCard = ({ onToggle }) => {
   const [showFilterModal, setShowFilterModal] = useState(false);
   const [selectedTags, setSelectedTags] = useState([]);
   const [allLinks, setAllLinks] = useState([]);
+  const [isSearchFocused, setIsSearchFocused] = useState(false); // Track search focus
   const navigate = useNavigate();
   const searchInputRef = useRef(null);
 
@@ -70,10 +71,12 @@ const NavBarCard = ({ onToggle }) => {
   };
 
   const handleSearchFocus = () => {
+    setIsSearchFocused(true); // Set search focus to true
     setShowFilterButton(true);
   };
 
   const handleSearchBlur = () => {
+    setIsSearchFocused(false); // Set search focus to false
     setTimeout(() => {
       if (document.activeElement !== searchInputRef.current) {
         setShowFilterButton(false);
@@ -119,7 +122,11 @@ const NavBarCard = ({ onToggle }) => {
           <input
             type='text'
             placeholder='Search'
-            className='focus:outline-none flex-grow'
+            className='focus:outline-none flex-grow transition-all duration-300'
+            style={{
+              backgroundColor: isSearchFocused ? 'var(--searchbar-bg-color-focused)' : 'var(--searchbar-bg-color)',
+              boxShadow: isSearchFocused ? '0 0 5px rgba(0, 0, 0, 0.3)' : 'none',
+            }}
             value={searchTerm}
             onChange={handleSearch}
             onFocus={handleSearchFocus}
@@ -128,8 +135,11 @@ const NavBarCard = ({ onToggle }) => {
           />
           {showFilterButton && (
             <button
-              className='absolute right-2 px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 transition'
+              className={`absolute right-2 px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 transition-all duration-300 ${
+                showFilterButton ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'
+              }`}
               onClick={() => setShowFilterModal(true)}
+              style={{ pointerEvents: showFilterButton ? 'auto' : 'none' }}
             >
               Filter
             </button>
