@@ -17,12 +17,13 @@ const NavBarCard = ({ onToggle }) => {
   const [searchResults, setSearchResults] = useState([]);
   const [playlists, setPlaylists] = useState([]);
   const [showFilterButton, setShowFilterButton] = useState(false);
-  const [showFilterModal, setShowFilterModal] = useState(false); // New state for filter modal
-  const [selectedTags, setSelectedTags] = useState([]); // State to hold selected tags
+  const [showFilterModal, setShowFilterModal] = useState(false);
+  const [selectedTags, setSelectedTags] = useState([]);
+  const [allLinks, setAllLinks] = useState([]);
   const navigate = useNavigate();
   const searchInputRef = useRef(null);
 
-  //Model controlled
+  // Model controlled
   const openLinkModal = () => setShowLinkModal(true);
   const closeLinkModal = () => setShowLinkModal(false);
 
@@ -35,43 +36,38 @@ const NavBarCard = ({ onToggle }) => {
     setPlaylists([...playlists, playlist]);
   };
 
+  // Fetch all links on component mount
+  useEffect(() => {
+    const initialLinks = searchAll('').links;
+    setAllLinks(initialLinks);
+  }, []);
+
   const handleSearch = async (input) => {
     const term = input.target.value;
     setSearchTerm(term);
 
-    const results = searchAll(term);
-    console.log(results);
-    if (!term) {
-      setSearchResults([]);
-      return;
-    }
+    let filteredLinks = allLinks;
 
-    let allLinks = results.links;
-
-    // Apply tag filtering if any tags are selected
     if (selectedTags.length > 0) {
-      allLinks = allLinks.filter((link) => {
-        if (!link.tags) return false; // Skip if link has no tags
-        return selectedTags.every((tag) => link.tags.includes(tag)); // Ensure all selected tags are present
+      filteredLinks = allLinks.filter((link) => {
+        if (!link.tags) return false;
+        // Check if ANY of the selected tags are present in the link's tags
+        return selectedTags.some((tag) => link.tags.includes(tag));
       });
     }
 
-    const fuse = new Fuse(allLinks, {
-      keys: ['linkName', 'tags'], // Corrected key to 'linkName' and included 'tags'
-      threshold: 0.5,
-    });
-    const matched = fuse.search(term).map((result) => result.item);
-    setSearchResults(matched);
-  };
-
-  useEffect(() => {
-    if (searchTerm.length > 0) {
-      const input = { target: { value: searchTerm } };
-      handleSearch(input);
+    // Apply text search using Fuse
+    if (!term) {
+      setSearchResults(filteredLinks); // Show only filtered by tag if the text search is empty
     } else {
-      setSearchResults([]);
+      const fuse = new Fuse(filteredLinks, {
+        keys: ['linkName', 'tags'],
+        threshold: 0.5,
+      });
+      const matched = fuse.search(term).map((result) => result.item);
+      setSearchResults(matched);
     }
-  }, [selectedTags]);
+  };
 
   const handleSearchFocus = () => {
     setShowFilterButton(true);
@@ -92,7 +88,7 @@ const NavBarCard = ({ onToggle }) => {
   };
 
   const availableTags = () => {
-    const allTags = searchAll('').links.reduce((tags, link) => {
+    const allTags = allLinks.reduce((tags, link) => {
       if (link.tags) {
         link.tags.forEach((tag) => {
           if (!tags.includes(tag)) {
@@ -104,6 +100,11 @@ const NavBarCard = ({ onToggle }) => {
     }, []);
     return allTags;
   };
+
+  useEffect(() => {
+    const input = { target: { value: searchTerm } };
+    handleSearch(input);
+  }, [selectedTags, allLinks, searchTerm]);
 
   return (
     <div className='p-5 space-y-5'>
@@ -175,8 +176,6 @@ const NavBarCard = ({ onToggle }) => {
                 className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
                 onClick={() => {
                   setShowFilterModal(false);
-                  const input = { target: { value: searchTerm } };
-                  handleSearch(input); // Reapply the search with selected tags
                 }}
               >
                 Apply
@@ -193,9 +192,10 @@ const NavBarCard = ({ onToggle }) => {
         onClose={closePlaylistModal}
         onCreate={handleCreatePlaylist}
       />
+
       {/* Search results */}
       <div className='space-y-3'>
-        {searchTerm && searchResults.length > 0 ? (
+        {searchResults.length > 0 ? (
           <ul className='space-y-3'>
             <h2 className='text-2xl font-bold'>Search Results:</h2>
             {searchResults.map((item, index) => (
