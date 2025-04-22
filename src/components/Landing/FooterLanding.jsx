@@ -6,9 +6,9 @@ const Footer = () => (
     style={{ backgroundColor: 'var(--footer-bg-color)' }}
   >
     <img src='./logo-dark-v1.svg' alt='lynk Logo' className='w-15' />
-    <div className='text-sm text-gray-400 font-medium text-center sm:text-left'>
+    <p className='text-sm text-[var(--footer-text-color)] font-medium text-center sm:text-left'>
       ©2025 lynk.com
-    </div>
+    </p>
   </div>
 );
 
