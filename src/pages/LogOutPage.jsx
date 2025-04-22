@@ -5,33 +5,54 @@ export default function ProfilePage() {
   const [username, setUsername] = useState('bambi');
   const [email, setEmail] = useState('xxx@gmail.com');
   const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const [edit, setEdit] = useState(false);
+  const [profileImage, setProfileImage] = useState('/dummy_pf.jpg');
   const navigate = useNavigate();
   function handleLogout() {
     navigate('/');
   }
-  function handle_show() {
-    setShowLogoutModal(true);
+  function handleImageChange(e) {
+    const file = e.target.files[0];
+    if (file) {
+      const imageURL = URL.createObjectURL(file);
+      setProfileImage(imageURL);
+    }
   }
+  const handle_show = () => setShowLogoutModal(!showLogoutModal);
+  const handle_edit = () => setEdit(!edit);
 
   return (
     <div className='min-h-screen bg-[var(--logout-bg-color)] text-[var(--logout-text-color)] flex flex-col items-center justify-center px-4'>
       <div className='w-full max-w-sm'>
         {/* Back arrow */}
-        <button className='mb-4 cursor-pointer' onClick={() => navigate(-1)}>
-          <FaArrowLeft size={20} />
+        <button
+          className='text-white mb-4 cursor-pointer'
+          onClick={() => navigate(-1)}
+        >
+          <FaArrowLeft size={12} />
         </button>
 
         {/* Profile picture with edit icon */}
         <div className='relative w-28 h-28 mx-auto mb-4'>
           <img
-            src='/dummy_pf.jpg'
+            src={profileImage}
             alt='Profile'
             className='w-full h-full object-cover rounded-full border-2 border-white'
           />
           <div className='absolute bottom-0 right-0 bg-blue-600 p-1 rounded-full'>
-            <button onClick={(e) => e.preventDefault()}>
+            <button onClick={handle_edit}>
               <FaPen size={12} />
             </button>
+          </div>
+          <div>
+            {edit && (
+              <input
+                type='file'
+                accept='image/*'
+                onChange={handleImageChange}
+                className='absolute bottom-0 left-0 w-full h-full opacity-0 cursor-pointer'
+              />
+            )}
           </div>
         </div>
 
