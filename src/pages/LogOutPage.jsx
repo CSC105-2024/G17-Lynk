@@ -6,7 +6,7 @@ export default function ProfilePage() {
   const [email, setEmail] = useState("xxx@gmail.com");
   const [showLogoutModal,setShowLogoutModal] = useState(false);
   const [edit,setEdit] = useState(false);
-  const [profileImage, setProfileImage] = useState("/dummy_pf.jpg");
+  const [ProfileImage, setProfileImage] = useState("/dummy_pf.jpg");
   const navigate = useNavigate();
   function handleLogout() {
     navigate('/')
@@ -33,7 +33,7 @@ export default function ProfilePage() {
         {/* Profile picture with edit icon */}
         <div className="relative w-28 h-28 mx-auto mb-4">
           <img
-            src={profileImage}
+            src={ProfileImage}
             alt="Profile"
             className="w-full h-full object-cover rounded-full border-2 border-white"
           />
