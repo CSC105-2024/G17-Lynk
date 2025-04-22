@@ -53,7 +53,7 @@ const NavBarCard = ({ onToggle }) => {
   return (
     <div className='p-5 space-y-5'>
       {/* Top nav bar */}
-      <div className='px-5 py-5 md:px-8 md:py-3 flex items-center gap-10 flex-wrap '>
+      <div className='px-5 py-5 md:px-8 md:py-3 flex items-center gap-3  md:gap-10 flex-wrap '>
         <div className='text-3xl p-3 block md:hidden'>
           <IoMenu onClick={onToggle} />
         </div>
@@ -82,10 +82,11 @@ const NavBarCard = ({ onToggle }) => {
         onClose={closePlaylistModal}
         onCreate={handleCreatePlaylist}
       />
-      {/* Search rxesults */}
+      {/* Search results */}
       <div className='space-y-3'>
         {searchTerm && searchResults.length > 0 ? (
           <ul className='space-y-3'>
+            <h2 className='text-2xl font-bold'>Search Results:</h2>
             {searchResults.map((item, index) => (
               <li
                 key={index}

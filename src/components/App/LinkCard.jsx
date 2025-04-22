@@ -8,7 +8,7 @@ import MorePopover from './MorePopover';
 const LinkCard = ({ data, onDelete }) => {
   const { key, iconLink, linkName, playlists, tags, link, createdAt } = data;
   return (
-    <div className='bg-[var(--link-card-bg)] rounded-lg py-3 px-3 md:px-10 hover:bg-[var(--link-card-hover-bg)] w-85 md:w-full overflow-x-hidden'>
+    <div className='bg-[var(--link-card-bg)] rounded-lg py-3 px-3 md:px-10 hover:bg-[var(--link-card-hover-bg)] w-85 md:w-full '>
       <div className='flex items-center gap-2 mb-2'>
         <img src={iconLink} alt='icon' className='h-5' />
         <p className='flex-grow overflow-hidden text-ellipsis whitespace-nowrap'>
@@ -17,8 +17,8 @@ const LinkCard = ({ data, onDelete }) => {
         {/* <Button text='More...' action='more' /> */}
         <MorePopover onDelete={() => onDelete(key)} />
       </div>
-      <div className='grid sm:grid-cols-2 gap-2 text-sm'>
-        <div className='flex '>
+      <div className='grid sm:grid-cols-2 gap-2 text-sm '>
+        <div className='flex overflow-hidden'>
           <p className='w-3/10 min-w-[30%]'>Playlists:</p>
           <div className='flex flex-nowrap gap-1 overflow-auto [scrollbar-width:none]'>
             {playlists.map((playlist, index) => (
@@ -26,7 +26,7 @@ const LinkCard = ({ data, onDelete }) => {
             ))}
           </div>
         </div>
-        <div className='flex'>
+        <div className='flex overflow-hidden'>
           <p className='w-3/10 min-w-[30%]'>Link:</p>
           <a
             href={link}
@@ -35,7 +35,7 @@ const LinkCard = ({ data, onDelete }) => {
             {link}
           </a>
         </div>
-        <div className='flex'>
+        <div className='flex overflow-hidden'>
           <p className='w-3/10 min-w-[30%]'>Tags:</p>
           <div className='flex flex-nowrap gap-1 overflow-auto [scrollbar-width:none]'>
             {tags.map((tag, index) => (
@@ -43,7 +43,7 @@ const LinkCard = ({ data, onDelete }) => {
             ))}
           </div>
         </div>
-        <div className='flex'>
+        <div className='flex overflow-hidden'>
           <p className='w-3/10 min-w-[30%]'>Created at:</p>
           <p>{createdAt.toLocaleString()}</p>
         </div>
