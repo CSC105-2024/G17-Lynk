@@ -15,9 +15,9 @@ const ModalLink = ({ show, handleClose }) => {
 
   return (
     <div className={showHideClassName}>
-      <div className='bg-[var(--modal-bg-color)] rounded-lg p-8 w-full max-w-md'>
+      <div className='bg-[var(--modal-bg-color)] rounded-lg p-8 w-full max-w-md shadow-lg'>
         <div className='flex justify-between items-center mb-4'>
-          <h2 className='text-white text-lg font-semibold'>
+          <h2 className='text-xl font-bold text-[var(--app-text-color)]'>
             Create a New Link
           </h2>
           <button
@@ -43,8 +43,8 @@ const ModalLink = ({ show, handleClose }) => {
         <Separator className='bg-[var(--seperator-color)] mb-4' />
         <div className='mb-4'>
           <label
-            htmlFor='link'
-            className='block text-gray-300 text-sm font-bold mb-2'
+            htmlFor='playlistName'
+            className='block text-[var(--app-text-color)] text-sm font-semibold mb-2'
           >
             Link
           </label>
@@ -58,8 +58,8 @@ const ModalLink = ({ show, handleClose }) => {
 
         <div className='mb-4'>
           <label
-            htmlFor='playlist'
-            className='block text-gray-300 text-sm font-bold mb-2'
+            htmlFor='playlistName'
+            className='block text-[var(--app-text-color)] text-sm font-semibold mb-2'
           >
             Playlist
           </label>
@@ -73,8 +73,8 @@ const ModalLink = ({ show, handleClose }) => {
 
         <div className='mb-4'>
           <label
-            htmlFor='name'
-            className='block text-gray-300 text-sm font-bold mb-2'
+            htmlFor='playlistName'
+            className='block text-[var(--app-text-color)] text-sm font-semibold mb-2'
           >
             Name
           </label>
@@ -88,8 +88,8 @@ const ModalLink = ({ show, handleClose }) => {
 
         <div className='mb-4'>
           <label
-            htmlFor='tag'
-            className='block text-gray-300 text-sm font-bold mb-2'
+            htmlFor='playlistName'
+            className='block text-[var(--app-text-color)] text-sm font-semibold mb-2'
           >
             Tag
           </label>
@@ -103,8 +103,8 @@ const ModalLink = ({ show, handleClose }) => {
 
         <div className='mb-6'>
           <label
-            htmlFor='description'
-            className='block text-gray-300 text-sm font-bold mb-2'
+            htmlFor='playlistName'
+            className='block text-[var(--app-text-color)] text-sm font-semibold mb-2'
           >
             Description
           </label>

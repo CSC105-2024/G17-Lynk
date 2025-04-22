@@ -1,5 +1,5 @@
 import React from 'react';
-import heroImg from '../../images/SVG/hero.svg';
+import heroImg from '../../images/SVG/hero.png';
 import { paragraph, title } from '../../styles/styles';
 import Button from '../Button';
 
@@ -11,7 +11,7 @@ const HeroLanding = ({ onSignUp }) => (
       <h1 className={`${title} text-[var(--text-primary-color)]`}>
         Never Lose a Link Again
       </h1>
-      <p className={`${paragraph}  text-gray-200`}>
+      <p className={`${paragraph}`}>
         Save, Organize, and Access Your Web Favorites with Ease
       </p>
       <a href='/signup' className='mx-auto'>
@@ -21,7 +21,7 @@ const HeroLanding = ({ onSignUp }) => (
 
     {/* Image Section */}
     <div className='w-full md:w-md xl:w-2xl h-auto flex justify-center sm:justify-end'>
-      <img src={heroImg} alt='Hero Section Image' className='w-xs md:w-full ' />
+      <img src={heroImg} alt='Hero Section Image' className='w-xs md:w-lg' />
     </div>
   </div>
 );
