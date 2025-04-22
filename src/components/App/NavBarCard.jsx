@@ -90,7 +90,7 @@ const NavBarCard = ({ onToggle }) => {
             {searchResults.map((item, index) => (
               <li
                 key={index}
-                className='p-4 bg-[#1f1f1f] rounded-xl shadow border border-gray-700 hover:bg-[#2a2a2a] transition-colors'
+                className='p-4 bg-[var(--link-card-bg)] hover:bg-[var(--link-card-hover-bg)] rounded-lg shadow transition-colors'
               >
                 <div className='flex items-center gap-4'>
                   <img

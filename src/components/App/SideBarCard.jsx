@@ -8,6 +8,7 @@ import { dummyPlaylist } from '@/services/data.js';
 import APP_ICONS from '@/constants/icons.js';
 import { Link } from 'react-router-dom';
 import { FaXmark } from 'react-icons/fa6';
+import Logo from '../Logo';
 
 const SideBarCard = ({ onToggle, showSideBar }) => {
   const playlists = dummyPlaylist;
@@ -15,14 +16,18 @@ const SideBarCard = ({ onToggle, showSideBar }) => {
   const sideBarDisplayStatus = showSideBar
     ? 'bg-[var(--sidebar-bg-color)] min-w-full md:min-w-60 md:block py-3 px-5'
     : 'hidden md:block bg-[var(--sidebar-bg-color)] min-w-60 py-3 px-5';
+
   return (
     <div className={`${sideBarDisplayStatus} text-lg md:text-md`}>
       <div className='w-full flex justify-between items-center py-3'>
+        {/* LOGO  */}
         <Link to='/'>
-          <img src='/logo-dark-v2.svg' alt='Logo' className='w-30' />
+          <Logo version='v2' className='w-30' />
         </Link>
+        {/* Close button for humber menu in mobile view */}
         <FaXmark className='text-4xl block md:hidden' onClick={onToggle} />
       </div>
+      {/* Default 3 playlists  */}
       <div className='mt-5 mb-8' onClick={onToggle}>
         <SideBarMenuLink
           icon={<MdHome />}
@@ -61,16 +66,6 @@ const SideBarCard = ({ onToggle, showSideBar }) => {
             );
           }
         })}
-
-        {/* {playlists.map((playlist, index) => (
-          <SideBarMenuLink
-            key={index}
-            icon={`<${playlist.iconLink}/>`}
-            name={playlist.name}
-            number={playlist.number}
-            link={`/app/playlists/${playlist.id}`}
-          />
-        ))} */}
       </div>
       <Separator className='bg-[var(--seperator-color)]' />
 

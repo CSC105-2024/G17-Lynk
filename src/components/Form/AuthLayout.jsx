@@ -3,6 +3,7 @@ import React from 'react';
 import { paragraph, subtitle, title } from '../../styles/styles';
 import { ModeToggle } from '../mode-toggle';
 import { ThemeProvider } from '../theme-provider';
+import Logo from '../Logo';
 
 const AuthLayout = ({ AuthForm }) => {
   return (
@@ -11,7 +12,8 @@ const AuthLayout = ({ AuthForm }) => {
         {/* Left */}
         <div className='flex flex-col items-center justify-center text-[var(--text-primary-color)] w-full p-5 gap-5'>
           <div className='w-1/3 sm:w-1/4 lg:w-1/2'>
-            <img src='./logo-dark-v1.svg' alt='LYNk Logo' className='w-full' />
+            {/* <img src='./logo-dark-v1.svg' alt='LYNk Logo' className='w-full' /> */}
+            <Logo version='v1' className='w-full' />
           </div>
           <div className='flex flex-col gap-3 text-center'>
             <p className={`${title}`}>Welcome To LYNk!</p>

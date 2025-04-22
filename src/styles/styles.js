@@ -15,3 +15,5 @@ export const title =
 export const subtitle = 'text-lg md:text-xl lg:text-2xl xl:text-3xl';
 
 export const paragraph = 'text-sm md:text-md lg:text-lg/8 xl:text-xl/9';
+
+export const logoV1 = '';
