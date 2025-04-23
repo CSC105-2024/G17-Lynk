@@ -11,6 +11,7 @@ const Dashboard = () => {
 
   return (
     <div className='bg-[var(--dashboard-bg-color)] min-h-screen'>
+      
       {/* Display Cards */}
       <DisplayCard
         icon={<MdHome />}
