@@ -18,7 +18,10 @@ const MorePopover = () => {
     description: 'This is a test description for editing.',
   });
 
-  const openEditModal = () => setShowEditModal(true);
+  const openEditModal = () => {
+    setIsOpen(false);
+    setShowEditModal(true);
+  };
   const closeEditModal = () => setShowEditModal(false);
 
   const handleSaveEditedLink = (updatedData) => {
@@ -26,7 +29,9 @@ const MorePopover = () => {
     // You can update state or send to backend here
   };
 
-  const openLinkModal = () => setShowLinkModal(true);
+  const openLinkModal = () => {
+    setShowLinkModal(true);
+  };
   const closeLinkModal = () => setShowLinkModal(false);
 
   const handlePinLink = () => {
@@ -51,6 +56,9 @@ const MorePopover = () => {
           action='more'
           onClick={() => {
             setIsOpen(!isOpen);
+            setTimeout(() => {
+              setIsOpen(false);
+            }, 5000); // Auto-close after 5 seconds
           }}
         />
         {isOpen && (

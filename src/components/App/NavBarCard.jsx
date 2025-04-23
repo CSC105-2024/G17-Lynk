@@ -58,12 +58,12 @@ const NavBarCard = ({ onToggle }) => {
           <IoMenu onClick={onToggle} />
         </div>
 
-        <div className='md:flex-grow flex items-center gap-2 rounded-xl py-2 px-4 bg-[var(--searchbar-bg-color)]'>
-          <IoMdSearch />
+        <div className='relative md:flex-grow flex items-center gap-2 max-w-full'>
+          <IoMdSearch className='absolute top-3 left-3' />
           <input
             type='text'
             placeholder='Search'
-            className='focus:outline-none flex-grow'
+            className='rounded-lg py-2 px-4 pl-10 bg-[var(--searchbar-bg-color)] w-full lg:w-75 lg:focus:w-90 transition-all ease-in-out duration-500 focus:outline-none focus:ring-1 focus:ring-[var(--btn-primary-outline-border-color)] whitespace-normal break-all'
             value={searchTerm}
             onChange={handleSearch}
           />
@@ -103,7 +103,7 @@ const NavBarCard = ({ onToggle }) => {
                       href={item.link}
                       target='_blank'
                       rel='noopener noreferrer'
-                      className='text-blue-400 font-semibold hover:underline'
+                      className='text-blue-400 font-semibold hover:underline break-all'
                     >
                       {item.linkName}
                     </a>
@@ -117,7 +117,7 @@ const NavBarCard = ({ onToggle }) => {
           </ul>
         ) : (
           searchTerm && (
-            <p className='text-gray-500'>
+            <p className='text-gray-500 break-all'>
               No results found for "{searchTerm}".
             </p>
           )
