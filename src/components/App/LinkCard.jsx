@@ -2,11 +2,15 @@ import React from 'react';
 import Button from '../Button';
 import Chip from './Chip';
 import MorePopover from './MorePopover';
-// iconLink = 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSMEonWCKdNWyW8tTji8fAJ2rOKRq2kFbkjJYtV3fBLIoD154i--dpCYmv4vziO5IDyhri1',
-// linkName = 'React Icons',
+
+// LinkCard displays detailed information about a single saved link
+// It shows link icon, name, playlists, tags, link URL, and creation time
+// Also includes a MorePopover for options like deleting the link
 
 const LinkCard = ({ data, onDelete }) => {
+  // Destructure necessary fields from incoming data
   const { key, iconLink, linkName, playlists, tags, link, createdAt } = data;
+
   return (
     <div className='bg-[var(--link-card-bg)] rounded-lg shadow py-3 px-3 md:px-10 hover:bg-[var(--link-card-hover-bg)] w-full '>
       <div className='flex items-center gap-2 mb-2'>
@@ -14,10 +18,12 @@ const LinkCard = ({ data, onDelete }) => {
         <p className='flex-grow overflow-hidden text-ellipsis whitespace-nowrap'>
           {linkName}
         </p>
-        {/* <Button text='More...' action='more' /> */}
         <MorePopover onDelete={() => onDelete(key)} />
       </div>
-      <div className='grid sm:grid-cols-2 gap-2 text-sm '>
+
+      {/* Grid section: playlists, link URL, tags, created time */}
+      <div className='grid sm:grid-cols-2 gap-2 text-sm'>
+        {/* Playlists */}
         <div className='flex overflow-hidden'>
           <p className='w-3/10 min-w-[30%]'>Playlists:</p>
           <div className='flex flex-nowrap gap-1 overflow-auto [scrollbar-width:none]'>
@@ -26,6 +32,8 @@ const LinkCard = ({ data, onDelete }) => {
             ))}
           </div>
         </div>
+
+        {/* Link URL */}
         <div className='flex overflow-hidden'>
           <p className='w-3/10 min-w-[30%]'>Link:</p>
           <a
@@ -35,6 +43,8 @@ const LinkCard = ({ data, onDelete }) => {
             {link}
           </a>
         </div>
+
+        {/* Tags */}
         <div className='flex overflow-hidden'>
           <p className='w-3/10 min-w-[30%]'>Tags:</p>
           <div className='flex flex-nowrap gap-1 overflow-auto [scrollbar-width:none]'>
@@ -43,6 +53,8 @@ const LinkCard = ({ data, onDelete }) => {
             ))}
           </div>
         </div>
+
+        {/* Created At timestamp */}
         <div className='flex overflow-hidden'>
           <p className='w-3/10 min-w-[30%]'>Created at:</p>
           <p>{createdAt.toLocaleString()}</p>

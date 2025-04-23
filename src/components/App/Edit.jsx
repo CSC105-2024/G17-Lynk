@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Button from '../Button';
 
 const EditLinkModal = ({ isOpen, onClose, onSave, initialLinkData }) => {
+  // Initialize local state with existing link data if available (for editing)
   const [link, setLink] = useState(initialLinkData?.link || '');
   const [playlist, setPlaylist] = useState(initialLinkData?.playlist || '');
   const [name, setName] = useState(initialLinkData?.name || '');
@@ -10,29 +11,28 @@ const EditLinkModal = ({ isOpen, onClose, onSave, initialLinkData }) => {
     initialLinkData?.description || ''
   );
 
+  // Collects all form data and triggers save and close actions
   const handleSave = () => {
-    const linkData = {
-      link,
-      playlist,
-      name,
-      tag,
-      description,
-    };
+    const linkData = { link, playlist, name, tag, description };
     onSave(linkData);
     onClose();
   };
 
+  // If modal is not open, don't render anything
   if (!isOpen) return null;
 
   return (
-    <div className='fixed top-0 left-0 w-full h-full bg-[var(--main-bg-color)] bg-opacity-60 flex justify-center items-center z-50 text-[var(--app-text-color)] '>
+    // Modal layout: centered overlay with semi-transparent background
+    <div className='fixed top-0 left-0 w-full h-full bg-[var(--main-bg-color)] bg-opacity-60 flex justify-center items-center z-50 text-[var(--app-text-color)]'>
       <div className='bg-[var(--modal-bg-color)] p-6 rounded-lg shadow-lg w-full max-w-md'>
+        {/* Header with title and close button */}
         <div className='flex justify-between items-center mb-4'>
           <h2 className='text-xl font-semibold'>Edit a Link</h2>
           <button
             onClick={onClose}
             className='cursor-pointer text-gray-500 hover:text-[var(--app-text-color)] focus:outline-none'
           >
+            {/* Close (X) icon */}
             <svg
               className='h-6 w-6'
               fill='none'
@@ -49,6 +49,7 @@ const EditLinkModal = ({ isOpen, onClose, onSave, initialLinkData }) => {
           </button>
         </div>
 
+        {/* Input field for the link */}
         <div className='mb-4'>
           <label htmlFor='link' className='block text-sm font-bold mb-2'>
             Link
@@ -63,6 +64,7 @@ const EditLinkModal = ({ isOpen, onClose, onSave, initialLinkData }) => {
           />
         </div>
 
+        {/* Dropdown to select a playlist */}
         <div className='mb-4'>
           <label htmlFor='playlist' className='block text-sm font-bold mb-2'>
             Playlist
@@ -79,6 +81,7 @@ const EditLinkModal = ({ isOpen, onClose, onSave, initialLinkData }) => {
           </select>
         </div>
 
+        {/* Input field for the name */}
         <div className='mb-4'>
           <label htmlFor='name' className='block text-sm font-bold mb-2'>
             Name
@@ -93,6 +96,7 @@ const EditLinkModal = ({ isOpen, onClose, onSave, initialLinkData }) => {
           />
         </div>
 
+        {/* Dropdown to select a tag */}
         <div className='mb-4'>
           <label htmlFor='tag' className='block text-sm font-bold mb-2'>
             Tag
@@ -109,6 +113,7 @@ const EditLinkModal = ({ isOpen, onClose, onSave, initialLinkData }) => {
           </select>
         </div>
 
+        {/* Textarea for description */}
         <div className='mb-6'>
           <label htmlFor='description' className='block text-sm font-bold mb-2'>
             Description
@@ -122,6 +127,7 @@ const EditLinkModal = ({ isOpen, onClose, onSave, initialLinkData }) => {
           />
         </div>
 
+        {/* Save button at the bottom */}
         <div className='flex items-center justify-end'>
           <Button type='submit' text='Done' onClick={handleSave} />
         </div>

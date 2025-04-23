@@ -3,11 +3,17 @@ import React from 'react';
 import Button from '../Button';
 import { Separator } from '@/components/ui/separator';
 
+// ModalLink - A modal window for creating a new link
+// Props:
+//   - show: boolean to control visibility
+//   - handleClose: function to close the modal
+
 const ModalLink = ({ show, handleClose }) => {
+  // Determine modal visibility based on `show` prop
   const showHideClassName = show
     ? 'fixed inset-0 w-full h-full bg-[var(--main-bg-color)] bg-opacity-60 flex justify-center items-center z-100'
     : 'hidden';
-  // 'fixed top-0 left-0 w-full h-full bg-[var(--main-bg-color)] bg-opacity-60 flex justify-center items-center z-50
+  // Dummy create function (you can replace with real logic)
   const handleCreate = () => {
     console.log('create new link');
     handleClose();
@@ -16,6 +22,7 @@ const ModalLink = ({ show, handleClose }) => {
   return (
     <div className={showHideClassName}>
       <div className='bg-[var(--modal-bg-color)] rounded-lg p-8 w-full max-w-md shadow-lg'>
+        {/* Modal Header */}
         <div className='flex justify-between items-center mb-4'>
           <h2 className='text-xl font-bold text-[var(--app-text-color)]'>
             Create a New Link
@@ -24,6 +31,7 @@ const ModalLink = ({ show, handleClose }) => {
             onClick={handleClose}
             className='cursor-pointer text-[var(--app-secondary-text-color)] hover:text-[var(--app-text-color)]'
           >
+            {/* Close Icon */}
             <svg
               className='h-6 w-6'
               fill='none'
@@ -40,10 +48,14 @@ const ModalLink = ({ show, handleClose }) => {
             </svg>
           </button>
         </div>
+
+        {/* Separator */}
         <Separator className='bg-[var(--seperator-color)] mb-4' />
+
+        {/* Link Input */}
         <div className='mb-4'>
           <label
-            htmlFor='playlistName'
+            htmlFor='link'
             className='block text-[var(--app-text-color)] text-sm font-semibold mb-2'
           >
             Link
@@ -56,9 +68,10 @@ const ModalLink = ({ show, handleClose }) => {
           />
         </div>
 
+        {/* Playlist Dropdown */}
         <div className='mb-4'>
           <label
-            htmlFor='playlistName'
+            htmlFor='playlist'
             className='block text-[var(--app-text-color)] text-sm font-semibold mb-2'
           >
             Playlist
@@ -71,9 +84,10 @@ const ModalLink = ({ show, handleClose }) => {
           </select>
         </div>
 
+        {/* Name Input */}
         <div className='mb-4'>
           <label
-            htmlFor='playlistName'
+            htmlFor='name'
             className='block text-[var(--app-text-color)] text-sm font-semibold mb-2'
           >
             Name
@@ -86,9 +100,10 @@ const ModalLink = ({ show, handleClose }) => {
           />
         </div>
 
+        {/* Tag Dropdown */}
         <div className='mb-4'>
           <label
-            htmlFor='playlistName'
+            htmlFor='tag'
             className='block text-[var(--app-text-color)] text-sm font-semibold mb-2'
           >
             Tag
@@ -101,9 +116,10 @@ const ModalLink = ({ show, handleClose }) => {
           </select>
         </div>
 
+        {/* Description Textarea */}
         <div className='mb-6'>
           <label
-            htmlFor='playlistName'
+            htmlFor='description'
             className='block text-[var(--app-text-color)] text-sm font-semibold mb-2'
           >
             Description
@@ -115,14 +131,8 @@ const ModalLink = ({ show, handleClose }) => {
           />
         </div>
 
+        {/* Create Button */}
         <div className='flex items-center justify-between'>
-          {/* <button
-            className={`${btn} ${btnFill}`}
-            // className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
-            type='button'
-          >
-            Create
-          </button> */}
           <Button type='submit' text='Create' onClick={handleCreate} />
         </div>
       </div>
