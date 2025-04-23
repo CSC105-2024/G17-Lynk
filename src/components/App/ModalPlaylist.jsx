@@ -50,7 +50,7 @@ const ModalPlaylist = ({ isOpen, onClose, onCreate }) => {
           <input
             type='text'
             id='playlistName'
-            className='shadow appearance-none border rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline bg-[var(--modal-input-bg-color)] text-[var(--app-input-text-color)]'
+            className='shadow appearance-none border rounded-lg w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline bg-[var(--modal-input-bg-color)] text-[var(--app-input-text-color)]'
             placeholder='Name'
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -65,7 +65,7 @@ const ModalPlaylist = ({ isOpen, onClose, onCreate }) => {
           </label>
           <textarea
             id='playlistDescription'
-            className='shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-[var(--modal-input-bg-color)] text-[var(--app-text-color)] h-32 resize-none'
+            className='shadow appearance-none border rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-[var(--modal-input-bg-color)] text-[var(--app-text-color)] h-32 resize-none'
             placeholder="What's the reason for creating this playlist? E.g. to collect great calculus explanation videos"
             value={description}
             onChange={(e) => setDescription(e.target.value)}

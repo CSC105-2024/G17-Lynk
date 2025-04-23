@@ -56,7 +56,7 @@ const EditLinkModal = ({ isOpen, onClose, onSave, initialLinkData }) => {
           <input
             type='text'
             id='link'
-            className='shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline  bg-[var(--modal-input-bg-color)]'
+            className='shadow appearance-none border rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-[var(--modal-input-bg-color)] '
             placeholder='e.g. https://example.com'
             value={link}
             onChange={(e) => setLink(e.target.value)}
@@ -69,7 +69,7 @@ const EditLinkModal = ({ isOpen, onClose, onSave, initialLinkData }) => {
           </label>
           <select
             id='playlist'
-            className='shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline  bg-[var(--modal-input-bg-color)] text-[var(--app-text-color)]'
+            className='shadow appearance-none border rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline  bg-[var(--modal-input-bg-color)] text-[var(--app-text-color)]'
             value={playlist}
             onChange={(e) => setPlaylist(e.target.value)}
           >
@@ -86,7 +86,7 @@ const EditLinkModal = ({ isOpen, onClose, onSave, initialLinkData }) => {
           <input
             type='text'
             id='name'
-            className='shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-[var(--modal-input-bg-color)] '
+            className='shadow appearance-none border rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-[var(--modal-input-bg-color)] '
             placeholder='e.g. Example Link Name'
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -99,7 +99,7 @@ const EditLinkModal = ({ isOpen, onClose, onSave, initialLinkData }) => {
           </label>
           <select
             id='tag'
-            className='shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline  bg-[var(--modal-input-bg-color)]'
+            className='shadow appearance-none border rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline  bg-[var(--modal-input-bg-color)]'
             value={tag}
             onChange={(e) => setTag(e.target.value)}
           >
@@ -115,7 +115,7 @@ const EditLinkModal = ({ isOpen, onClose, onSave, initialLinkData }) => {
           </label>
           <textarea
             id='description'
-            className='shadow appearance-none border rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline  bg-[var(--modal-input-bg-color)] h-24 resize-none'
+            className='shadow appearance-none border rounded-lg w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline  bg-[var(--modal-input-bg-color)] h-24 resize-none'
             placeholder="What's the reason for saving this link?"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
