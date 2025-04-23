@@ -5,9 +5,9 @@ import { Separator } from '@/components/ui/separator';
 
 const ModalLink = ({ show, handleClose }) => {
   const showHideClassName = show
-    ? 'fixed inset-0 bg-[var(--main-bg-color)] bg-opacity-50 flex justify-center items-center z-50'
+    ? 'fixed inset-0 w-full h-full bg-[var(--main-bg-color)] bg-opacity-60 flex justify-center items-center z-100'
     : 'hidden';
-
+  // 'fixed top-0 left-0 w-full h-full bg-[var(--main-bg-color)] bg-opacity-60 flex justify-center items-center z-50
   const handleCreate = () => {
     console.log('create new link');
     handleClose();
@@ -52,7 +52,7 @@ const ModalLink = ({ show, handleClose }) => {
             type='text'
             id='link'
             placeholder='e.g. https://example.com'
-            className='shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-[var(--modal-input-bg-color)] text-[var(--app-text-color)]'
+            className='shadow appearance-none border rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-[var(--modal-input-bg-color)] text-[var(--app-text-color)]'
           />
         </div>
 
@@ -65,7 +65,7 @@ const ModalLink = ({ show, handleClose }) => {
           </label>
           <select
             id='playlist'
-            className='shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-[var(--modal-input-bg-color)] text-[var(--app-text-color)]'
+            className='shadow appearance-none border rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-[var(--modal-input-bg-color)] text-[var(--app-text-color)]'
           >
             <option>Dropdown</option>
           </select>
@@ -82,7 +82,7 @@ const ModalLink = ({ show, handleClose }) => {
             type='text'
             id='name'
             placeholder='e.g. Example Link Name'
-            className='shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-[var(--modal-input-bg-color)] text-[var(--app-text-color)]'
+            className='shadow appearance-none border rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-[var(--modal-input-bg-color)] text-[var(--app-text-color)]'
           />
         </div>
 
@@ -95,7 +95,7 @@ const ModalLink = ({ show, handleClose }) => {
           </label>
           <select
             id='tag'
-            className='shadow appearance-none border rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline  bg-[var(--modal-input-bg-color)] text-[var(--app-text-color)]'
+            className='shadow appearance-none border rounded-lg w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline  bg-[var(--modal-input-bg-color)] text-[var(--app-text-color)]'
           >
             <option>Dropdown</option>
           </select>
@@ -111,7 +111,7 @@ const ModalLink = ({ show, handleClose }) => {
           <textarea
             id='description'
             placeholder="What's the reason for saving this link?"
-            className='shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-[var(--modal-input-bg-color)] text-[var(--app-text-color)]'
+            className='shadow appearance-none border rounded-lg w-full py-2 px-3 h-25 leading-tight focus:outline-none focus:shadow-outline bg-[var(--modal-input-bg-color)] text-[var(--app-text-color)]'
           />
         </div>
 
