@@ -4,7 +4,7 @@ import { MdHome, MdTimelapse } from 'react-icons/md';
 import { Separator } from '@/components/ui/separator';
 import { TiPin } from 'react-icons/ti';
 import { MdOutlineDatasetLinked } from 'react-icons/md';
-import { dummyPlaylist } from '@/services/data.js';
+import { dummyPlaylist, dummyTags } from '@/services/data.js';
 import APP_ICONS from '@/constants/icons.js';
 import { Link } from 'react-router-dom';
 import { FaXmark } from 'react-icons/fa6';
@@ -12,6 +12,7 @@ import Logo from '../Logo';
 
 const SideBarCard = ({ onToggle, showSideBar }) => {
   const playlists = dummyPlaylist;
+  const tags = dummyTags;
   console.log('here is sidebar: ', showSideBar);
   const sideBarDisplayStatus = showSideBar
     ? 'bg-[var(--sidebar-bg-color)] min-w-full md:min-w-60 md:block py-3 px-5'
@@ -73,9 +74,9 @@ const SideBarCard = ({ onToggle, showSideBar }) => {
       <div className='mt-3 mb-8'>
         <h2 className='text-lg'>Tags</h2>
         <div className='px-5 my-2 py-1 flex flex-col gap-2'>
-          <p>#Tag1</p>
-          <p>#Tag1</p>
-          <p>#Tag1</p>
+          {tags.map((tag, index) => {
+            return <p>{tag.name}</p>;
+          })}
         </div>
       </div>
     </div>
