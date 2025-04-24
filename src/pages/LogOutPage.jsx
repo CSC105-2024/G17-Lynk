@@ -20,6 +20,9 @@ export default function ProfilePage() {
       setTempImage(imageURL);
     }
   }
+  function handleBanckend(){
+    //more to explore
+  }
   function handleSave(e) {
     if (tempImage) {
       setProfileImage(tempImage);
