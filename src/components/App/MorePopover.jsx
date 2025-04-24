@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PopoverContent from './PopoverContent';
 import Button from '../Button';
 import EditLinkModal from '@/components/App/Edit';
+import { btn, btnDanger } from '@/styles/styles';
 
 const MorePopover = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,7 +18,10 @@ const MorePopover = () => {
     description: 'This is a test description for editing.',
   });
 
-  const openEditModal = () => setShowEditModal(true);
+  const openEditModal = () => {
+    setIsOpen(false);
+    setShowEditModal(true);
+  };
   const closeEditModal = () => setShowEditModal(false);
 
   const handleSaveEditedLink = (updatedData) => {
@@ -25,7 +29,9 @@ const MorePopover = () => {
     // You can update state or send to backend here
   };
 
-  const openLinkModal = () => setShowLinkModal(true);
+  const openLinkModal = () => {
+    setShowLinkModal(true);
+  };
   const closeLinkModal = () => setShowLinkModal(false);
 
   const handlePinLink = () => {
@@ -50,6 +56,9 @@ const MorePopover = () => {
           action='more'
           onClick={() => {
             setIsOpen(!isOpen);
+            setTimeout(() => {
+              setIsOpen(false);
+            }, 5000); // Auto-close after 5 seconds
           }}
         />
         {isOpen && (
@@ -59,16 +68,19 @@ const MorePopover = () => {
                 variant='btnNotFilled'
                 text='Pin to Dashboard'
                 onClick={handlePinLink}
+                className='text-[var(--text-primary-color)]'
               />
               <Button
                 variant='btnNotFilled'
                 text='Edit link'
                 onClick={openEditModal}
+                className='text-[var(--text-primary-color)]'
               />
               <Button
                 variant='btnDanger'
                 text='Delete'
                 onClick={handleDeleteLink}
+                className='text-[var(--text-primary-color)]'
               />
             </div>
           </PopoverContent>
@@ -83,22 +95,10 @@ const MorePopover = () => {
         {/* Pin Block at The Top */}
         {showLinkModal && ( // Show the link modal when pinning
           <div className='fixed top-0 left-0 w-full flex justify-center p-5 z-50'>
-            <div className='bg-[var(--link-pin-bg-colour)] py-2 px-5 rounded-md'>
+            <div className='bg-[var(--link-pin-bg-colour)] py-2 px-5 rounded-md text-white shadow-lg'>
               Link Pinned!
             </div>
           </div>
-          // <div className='fixed top-0 left-0 w-full h-full bg-black bg-opacity-60 flex justify-center items-center z-50'>
-          //   <div className='bg-gray-900 p-6 rounded-lg shadow-lg w-full max-w-md'>
-          //     <h2 className='text-xl font-semibold text-white'>Pinned Link</h2>
-          //     <p className='text-gray-300 mt-2'>Your link has been pinned!</p>
-          //     <Button
-          //       text='Close'
-          //       onClick={() => {
-          //         setShowLinkModal(false);
-          //       }}
-          //     />
-          //   </div>
-          // </div>
         )}
       </div>
     </>
