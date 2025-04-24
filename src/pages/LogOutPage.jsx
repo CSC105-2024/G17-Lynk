@@ -79,7 +79,6 @@ export default function ProfilePage() {
             <input
               type='text'
               value={username}
-              onChange={(e) => setUsername(e.target.value)}
               className='bg-transparent outline-none text-white w-full'
             />
           </div>
@@ -93,7 +92,6 @@ export default function ProfilePage() {
             <input
               type='email'
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
               className='bg-transparent outline-none text-white w-full'
             />
           </div>
