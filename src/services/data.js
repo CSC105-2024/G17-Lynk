@@ -1,5 +1,8 @@
 // import APP_ICONS from '../constants/icons';
+// This file contains mock data representing useful or official links,
+// primarily associated with KMUTT and other popular platforms.
 
+// Each object in the array represents a single link entry with metadata.
 export const dummyData = [
   {
     iconLink:
@@ -483,6 +486,8 @@ export const dummyPlaylist = [
     iconLink: 'clipboard-list',
     description: 'Administrative forms and procedures',
   },
+   // The entire array can be used to populate a UI dashboard, 
+  // search/filter component, or categorized link manager.
 ];
 
 export const dummyTags = [
