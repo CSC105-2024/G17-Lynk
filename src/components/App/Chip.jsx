@@ -8,6 +8,7 @@ const Chip = ({ name }) => {
     // - rounded corners, padding, compact height
     // - inline-flex for flexible layout and centered text
     // - prevents text from wrapping
+    // testing
     <span 
       className='
         bg-[var(--chip-bg)] 
