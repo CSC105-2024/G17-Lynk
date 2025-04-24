@@ -138,7 +138,7 @@ const NavBarCard = ({ onToggle }) => {
                   ? 'opacity-100 translate-x-0'
                   : 'opacity-0 translate-x-4'
               }`}
-              onClick={() => setShowFilterModal(true)}
+              onMouseDown={() => setShowFilterModal(true)}
               style={{ pointerEvents: showFilterButton ? 'auto' : 'none' }}
             >
               Filter
@@ -204,47 +204,47 @@ const NavBarCard = ({ onToggle }) => {
       />
 
       {/* Search results */}
-      <div className='space-y-3'>
-        {searchResults.length > 0 ? (
-          <ul className='space-y-3'>
-            <h2 className='text-2xl font-bold'>Search Results:</h2>
-            {searchResults.map((item, index) => (
-              <li
-                key={index}
-                className='p-4 bg-[var(--link-card-bg)] hover:bg-[var(--link-card-hover-bg)] rounded-lg shadow transition-colors'
-              >
-                <div className='flex items-center gap-4'>
-                  <img
-                    src={item.iconLink}
-                    alt='icon'
-                    className='w-10 h-10 rounded object-cover'
-                  />
-                  <div>
-                    <a
-                      href={item.link}
-                      target='_blank'
-                      rel='noopener noreferrer'
-                      className='text-blue-400 font-semibold hover:underline break-all'
-                    >
-                      {item.linkName}
-                    </a>
-                    <p className='text-sm text-gray-400'>
-                      {item.tags?.join(', ')}
-                    </p>
+      {(searchTerm || selectedTags.length > 0) && (
+        <div className='space-y-3'>
+          {searchResults.length > 0 ? (
+            <ul className='space-y-3'>
+              <h2 className='text-2xl font-bold'>Search Results:</h2>
+              {searchResults.map((item, index) => (
+                <li
+                  key={index}
+                  className='p-4 bg-[var(--link-card-bg)] hover:bg-[var(--link-card-hover-bg)] rounded-lg shadow transition-colors'
+                >
+                  <div className='flex items-center gap-4'>
+                    <img
+                      src={item.iconLink}
+                      alt='icon'
+                      className='w-10 h-10 rounded object-cover'
+                    />
+                    <div>
+                      <a
+                        href={item.link}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        className='text-blue-400 font-semibold hover:underline break-all'
+                      >
+                        {item.linkName}
+                      </a>
+                      <p className='text-sm text-gray-400'>
+                        {item.tags?.join(', ')}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          searchTerm && (
+                </li>
+              ))}
+            </ul>
+          ) : (
             <p className='text-gray-500 break-all'>
               No results found for "{searchTerm}".
             </p>
-          )
-        )}
-      </div>
-    </div>
+          )}
+        </div>
+      )}
+    </div> // 👈 This closes your main `return` wrapper
   );
 };
 
