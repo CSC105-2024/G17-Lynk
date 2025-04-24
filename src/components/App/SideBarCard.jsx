@@ -1,81 +1,90 @@
 import React from 'react';
-import SideBarMenuLink from './SideBarMenuLink';
-import { MdHome, MdTimelapse } from 'react-icons/md';
-import { Separator } from '@/components/ui/separator';
-import { TiPin } from 'react-icons/ti';
-import { MdOutlineDatasetLinked } from 'react-icons/md';
-import { dummyPlaylist, dummyTags } from '@/services/data.js';
-import APP_ICONS from '@/constants/icons.js';
-import { Link } from 'react-router-dom';
-import { FaXmark } from 'react-icons/fa6';
-import Logo from '../Logo';
+import SideBarMenuLink from './SideBarMenuLink';  // Import custom component for sidebar menu links
+import { MdHome, MdTimelapse } from 'react-icons/md';  // Import icons from react-icons
+import { Separator } from '@/components/ui/separator';  // Import separator component for styling
+import { TiPin } from 'react-icons/ti';  // Import pin icon
+import { MdOutlineDatasetLinked } from 'react-icons/md';  // Import dataset icon
+import { dummyPlaylist, dummyTags } from '@/services/data.js';  // Import dummy data for playlists and tags
+import APP_ICONS from '@/constants/icons.js';  // Import constant icons for playlist items
+import { Link } from 'react-router-dom';  // Import Link component for routing
+import { FaXmark } from 'react-icons/fa6';  // Import close icon for sidebar
+import Logo from '../Logo';  // Import Logo component for branding
 
+// Sidebar component accepting onToggle and showSideBar as props
 const SideBarCard = ({ onToggle, showSideBar }) => {
-  const playlists = dummyPlaylist;
-  const tags = dummyTags;
-  console.log('here is sidebar: ', showSideBar);
+  const playlists = dummyPlaylist;  // Playlist data from dummyPlaylist
+  const tags = dummyTags;  // Tag data from dummyTags
+  console.log('here is sidebar: ', showSideBar);  // Debugging: Log the status of the sidebar display
+  
+  // Conditional class for sidebar display based on showSideBar status
   const sideBarDisplayStatus = showSideBar
-    ? 'bg-[var(--sidebar-bg-color)] min-w-full md:min-w-60 md:block py-3 px-5'
-    : 'hidden md:block bg-[var(--sidebar-bg-color)] min-w-60 py-3 px-5';
+    ? 'bg-[var(--sidebar-bg-color)] min-w-full md:min-w-60 md:block py-3 px-5'  // Sidebar visible on larger screens
+    : 'hidden md:block bg-[var(--sidebar-bg-color)] min-w-60 py-3 px-5';  // Sidebar hidden on smaller screens
 
   return (
     <div className={`${sideBarDisplayStatus} text-lg md:text-md`}>
       <div className='w-full flex justify-between items-center py-3'>
-        {/* LOGO  */}
+        {/* LOGO */}
         <Link to='/'>
-          <Logo version='v2' className='w-30' />
+          <Logo version='v2' className='w-30' />  {/* Render Logo component */}
         </Link>
-        {/* Close button for humber menu in mobile view */}
-        <FaXmark className='text-4xl block md:hidden' onClick={onToggle} />
+        {/* Close button for the sidebar in mobile view */}
+        <FaXmark className='text-4xl block md:hidden' onClick={onToggle} />  {/* Close icon */}
       </div>
-      {/* Default 3 playlists  */}
+      
+      {/* Default 3 sidebar menu links */}
       <div className='mt-5 mb-8' onClick={onToggle}>
         <SideBarMenuLink
-          icon={<MdHome />}
-          name='Dashboard'
-          number='3'
-          link='/app/dashboard'
+          icon={<MdHome />}  // Icon for 'Dashboard'
+          name='Dashboard'  // Menu name
+          number='3'  // Placeholder number for the 'Dashboard'
+          link='/app/dashboard'  // Link to the Dashboard page
         />
         <SideBarMenuLink
-          icon={<MdOutlineDatasetLinked />}
-          name='All links'
-          number='3'
-          link='/app/links'
+          icon={<MdOutlineDatasetLinked />}  // Icon for 'All links'
+          name='All links'  // Menu name
+          number='3'  // Placeholder number for the 'All links'
+          link='/app/links'  // Link to the All links page
         />
         <SideBarMenuLink
-          icon={<TiPin />}
-          name='Pins'
-          number='3'
-          link='/app/pins'
+          icon={<TiPin />}  // Icon for 'Pins'
+          name='Pins'  // Menu name
+          number='3'  // Placeholder number for the 'Pins'
+          link='/app/pins'  // Link to the Pins page
         />
       </div>
+
+      {/* Separator line for styling */}
       <Separator className='bg-[var(--seperator-color)]' />
-      {/* PLAYLIST  */}
+
+      {/* Playlist section */}
       <div className='mt-3 mb-8' onClick={onToggle}>
         <h2 className='text-lg mb-3'>Playlist</h2>
         {playlists.map((playlist, index) => {
           {
-            const IconComponent = APP_ICONS[playlist.iconLink];
+            const IconComponent = APP_ICONS[playlist.iconLink];  // Get icon component dynamically from APP_ICONS
             return (
               <SideBarMenuLink
-                key={index}
-                icon={IconComponent ? <IconComponent /> : null}
-                name={playlist.name}
-                number={playlist.number}
-                link={`/app/playlists/${playlist.id}`}
+                key={index}  // Unique key for each playlist link
+                icon={IconComponent ? <IconComponent /> : null}  // Display corresponding icon
+                name={playlist.name}  // Playlist name
+                number={playlist.number}  // Playlist number
+                link={`/app/playlists/${playlist.id}`}  // Link to specific playlist page
               />
             );
           }
         })}
       </div>
+
+      {/* Separator line for styling */}
       <Separator className='bg-[var(--seperator-color)]' />
 
-      {/* TAGS */}
+      {/* Tags section */}
       <div className='mt-3 mb-8'>
         <h2 className='text-lg'>Tags</h2>
         <div className='px-5 my-2 py-1 flex flex-col gap-2'>
           {tags.map((tag, index) => {
-            return <p>{tag.name}</p>;
+            return <p key={index}>{tag.name}</p>;  // Display each tag name
           })}
         </div>
       </div>
@@ -83,4 +92,4 @@ const SideBarCard = ({ onToggle, showSideBar }) => {
   );
 };
 
-export default SideBarCard;
+export default SideBarCard;  // Export the sidebar component for use in other parts of the app
