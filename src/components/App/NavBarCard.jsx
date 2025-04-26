@@ -223,7 +223,7 @@ const NavBarCard = ({ onToggle }) => {
                   onSort(e.target.value);
                 }}
                 onMouseDown={() => setIsSearchFocused(true)}
-                className="py-2 px-3 rounded-lg bg-[var(--searchbar-bg-color)] border-0 focus:outline-0"
+                className="appearance-none py-2 px-3 rounded-lg bg-[var(--searchbar-bg-color)] border-0 focus:outline-0"
               >
                 <option className="text-black" value="def">
                   Sort
