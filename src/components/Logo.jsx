@@ -2,7 +2,7 @@ import React from 'react';
 import { useTheme } from '@/components/theme-provider';
 
 const Logo = ({
-  href = '',
+  //href = "/",
   version = 'v1',
   className = '',
   lightClass = '',
