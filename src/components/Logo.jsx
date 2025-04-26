@@ -10,6 +10,12 @@ const Logo = ({
 }) => {
   const { theme } = useTheme();
 
+  const getSystemTheme = () => {
+    return window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? 'dark'
+      : 'light';
+  };
+
   const logoVersions = {
     v1: {
       dark: '/logo-dark-v1.svg',
@@ -23,12 +29,18 @@ const Logo = ({
     },
   };
 
+  // Use the logo version and theme to determine the correct logo path
+  if (version !== 'v1' && version !== 'v2') {
+    console.warn(`Unsupported logo version: ${version}. Defaulting to v1.`);
+  }
   const currentLogo = logoVersions[version] || logoVersions.v1;
+
+  const currentTheme = theme === 'system' ? getSystemTheme() : theme;
 
   return (
     <a href={href}>
       <img
-        src={theme === 'dark' ? currentLogo.dark : currentLogo.light}
+        src={currentTheme === 'dark' ? currentLogo.dark : currentLogo.light}
         alt='Lynk Logo'
         className={`
           ${currentLogo.className} 
