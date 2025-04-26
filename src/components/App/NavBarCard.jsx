@@ -101,8 +101,6 @@ const NavBarCard = ({ onToggle }) => {
   const handleSearch = async (input) => {
     const term = input.target.value.toLowerCase();
     setSearchTerm(term);
-    console.log(term);
-
     setFilteredLinks(
       allLinks.filter((link) => {
         if (term.includes("#")) {
