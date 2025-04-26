@@ -263,7 +263,7 @@ const NavBarCard = ({ onToggle }) => {
 
       {/* Tag Filter Modal */}
       {showFilterModal && (
-        <div className="fixed top-0 left-0 w-full h-full bg-[var(--main-bg-color)] bg-opacity-60 flex justify-center items-center z-50">
+        <div className="bg-[var(--main-bg-color)] bg-opacity-60 flex justify-center items-center z-50">
           <div className="bg-[var(--modal-bg-color)] p-6 rounded-md">
             <h2 className="text-lg font-semibold mb-4">Filter by Tags</h2>
 
