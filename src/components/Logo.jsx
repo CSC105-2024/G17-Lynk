@@ -38,17 +38,17 @@ const Logo = ({
   const currentTheme = theme === 'system' ? getSystemTheme() : theme;
 
   return (
-    <a href={href}>
-      <img
-        src={currentTheme === 'dark' ? currentLogo.dark : currentLogo.light}
-        alt='Lynk Logo'
-        className={`
+    // <a href={href}>
+    <img
+      src={currentTheme === 'dark' ? currentLogo.dark : currentLogo.light}
+      alt='Lynk Logo'
+      className={`
           ${currentLogo.className} 
           ${className} 
           ${theme === 'dark' ? darkClass : lightClass}
         `}
-      />
-    </a>
+    />
+    // </a>
   );
 };
 
