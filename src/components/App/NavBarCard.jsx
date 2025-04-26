@@ -10,6 +10,8 @@ import Fuse from "fuse.js";
 import { ModeToggle } from "../mode-toggle";
 import { data, useNavigate } from "react-router-dom";
 import { dummyData } from "@/services/data";
+import { btn, btnFill } from "@/styles/styles";
+import Chip from "./Chip";
 
 /**
  * Navigation Bar Card Component
@@ -58,7 +60,7 @@ const NavBarCard = ({ onToggle }) => {
         filteredLinks.sort((a, b) => a.linkName.localeCompare(b.linkName))
       );
     } else if (name === "def") {
-      setSearchResults(filteredLinks);
+      setSearchResults(allLinks);
     }
   };
 
@@ -97,7 +99,7 @@ const NavBarCard = ({ onToggle }) => {
    * @param {Object} input - Event object from search input
    */
   const handleSearch = async (input) => {
-    const term = input.target.value;
+    const term = input.target.value.toLowerCase();
     setSearchTerm(term);
     console.log(term);
 
@@ -106,7 +108,7 @@ const NavBarCard = ({ onToggle }) => {
         if (term.includes("#")) {
           return selectedTags.filter((tag) => link.tags.includes(tag));
         } else {
-          return link.linkName.includes(term);
+          return link.linkName.toLowerCase().includes(term);
         }
       })
     );
@@ -221,6 +223,7 @@ const NavBarCard = ({ onToggle }) => {
                   onSort(e.target.value);
                 }}
                 onMouseDown={() => setIsSearchFocused(true)}
+                className="py-2 px-3 rounded-lg bg-[var(--searchbar-bg-color)] border-0 focus:outline-0"
               >
                 <option className="text-black" value="def">
                   Sort
@@ -233,7 +236,7 @@ const NavBarCard = ({ onToggle }) => {
                 </option>
               </select>
               <button
-                className={`absolute right-2 px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 transition-all duration-300 ${
+                className={`absolute right-2 ${btn} ${btnFill} transition-all duration-300 ${
                   showFilterButton
                     ? "opacity-100 translate-x-0"
                     : "opacity-0 translate-x-4"
@@ -260,8 +263,8 @@ const NavBarCard = ({ onToggle }) => {
 
       {/* Tag Filter Modal */}
       {showFilterModal && (
-        <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-[var(--modal-bg)] p-6 rounded-md">
+        <div className="fixed top-0 left-0 w-full h-full bg-[var(--main-bg-color)] bg-opacity-60 flex justify-center items-center z-50">
+          <div className="bg-[var(--modal-bg-color)] p-6 rounded-md">
             <h2 className="text-lg font-semibold mb-4">Filter by Tags</h2>
 
             {/* Tag Selection Buttons */}
@@ -284,13 +287,13 @@ const NavBarCard = ({ onToggle }) => {
             {/* Modal Action Buttons */}
             <div className="flex justify-end">
               <button
-                className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mr-2"
+                className="px-3 py-2 rounded-lg bg-[var(--cancel-btn-color)] hover:bg-[var(--cancel-btn-hover-color)] cursor-pointer mr-2"
                 onClick={() => setShowFilterModal(false)}
               >
                 Close
               </button>
               <button
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                className={`${btn} ${btnFill}`}
                 onClick={() => setShowFilterModal(false)}
               >
                 Apply
