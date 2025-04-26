@@ -16,14 +16,16 @@ const InfoCard = () => {
       {infoData.map((item, idx) => (
         <div
           key={item.label}
-          className={`border-[var(--seperator-color)] flex p-5 justify-center items-center gap-5 lg:gap-8 ${
-            idx < infoData.length - 1 ? "md:border-r-2" : ""
+          className={`border-0 flex p-5 justify-center items-center gap-5 lg:gap-8 ${
+            idx < infoData.length - 1
+              ? "md:border-r-2 border-[var(--seperator-color)]"
+              : ""
           } border-[var(--seperator-color)]`}
         >
           <div className="p-2.5 text-3xl lg:text-4xl bg-[var(--info-card-icon-bg-color)] rounded-lg text-[var(--info-card-icon-color)]">
             <IoMdLink />
           </div>
-          <div>
+          <div className="w-12">
             <p className="text-3xl lg:text-4xl">{item.value}</p>
             <p>{item.label}</p>
           </div>
