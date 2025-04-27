@@ -11,10 +11,10 @@ import { btn, btnDanger } from '@/styles/styles';
 const MorePopover = () => {
   // State for controlling popover visibility
   const [isOpen, setIsOpen] = useState(false);
-  
+
   // State for controlling edit modal visibility
   const [showEditModal, setShowEditModal] = useState(false);
-  
+
   // State for controlling pin notification visibility
   const [showLinkModal, setShowLinkModal] = useState(false);
 
@@ -99,7 +99,7 @@ const MorePopover = () => {
             }, 5000);
           }}
         />
-        
+
         {/* Popover content that appears when isOpen is true */}
         {isOpen && (
           <PopoverContent>
@@ -111,7 +111,7 @@ const MorePopover = () => {
                 onClick={handlePinLink}
                 className='text-[var(--text-primary-color)]'
               />
-              
+
               {/* Edit link button */}
               <Button
                 variant='btnNotFilled'
@@ -119,7 +119,7 @@ const MorePopover = () => {
                 onClick={openEditModal}
                 className='text-[var(--text-primary-color)]'
               />
-              
+
               {/* Delete link button */}
               <Button
                 variant='btnDanger'
@@ -138,7 +138,7 @@ const MorePopover = () => {
           onSave={handleSaveEditedLink}
           initialLinkData={initialLinkData}
         />
-        
+
         {/* Pin Notification - appears briefly when a link is pinned */}
         {showLinkModal && (
           <div className='fixed top-0 left-0 w-full flex justify-center p-5 z-50'>

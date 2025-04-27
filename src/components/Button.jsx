@@ -1,9 +1,15 @@
 import React from 'react';
-import { btnFill, btnOutline, btnNotFilled, btnDanger } from '../styles/styles';
+import {
+  btnFill,
+  btnOutline,
+  btnNotFilled,
+  btnDanger,
+  btnTransparent,
+} from '../styles/styles';
 
 /**
  * A reusable Button component with multiple style variants
- * 
+ *
  * @param {Object} props - Component props
  * @param {string} props.text - Button display text
  * @param {'btnOutline'|'btnFill'|'btnNotFilled'|'btnDanger'} [props.variant] - Button style variant
@@ -25,6 +31,8 @@ const Button = ({ text, variant, className, type = 'button', onClick }) => {
     case 'btnDanger':
       buttonStyle = btnDanger;
       break;
+    case 'btnTransparent':
+      buttonStyle = btnTransparent;
     default:
       // Default to filled button style if no variant specified
       // or if variant doesn't match any cases
@@ -39,7 +47,7 @@ const Button = ({ text, variant, className, type = 'button', onClick }) => {
       onClick={(e) => {
         // Optional: Add animation/transformation effects here
         // e.g., scale effect on click
-        
+
         // Call the provided onClick handler if it exists
         onClick?.();
       }}

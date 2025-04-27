@@ -71,6 +71,8 @@
   --link-card-bg: #fafafa;
   --link-card-hover-bg: #f5f5f5;
   --chip-bg: #1a5edb17;
+  --back-to-top-bg: #fcd200af;
+  --back-to-top-hover-bg: #fcd200ec;
   --popover-bg: #f5f5f5;
   --btn-hover-bg-red: #fe574b41;
   --btn-focus-bg-red: #fe574b;
@@ -228,6 +230,8 @@ body {
   --link-card-bg: #0d0c0c;
   --link-card-hover-bg: #121212;
   --chip-bg: rgba(255, 255, 255, 0.2);
+  --back-to-top-bg: #fcd200af;
+  --back-to-top-hover-bg: #fcd200ec;
   --popover-bg: #3d3c3c;
   --btn-hover-bg-red: #fe574b41;
   --link-pin-bg-colour: #1d987c;
