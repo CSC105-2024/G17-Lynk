@@ -43,11 +43,10 @@ To get our application up and running locally, follow these steps:
 
 1. Clone this repository to your local machine:
    ```bash
-   git clone https://github.com/your-username/react-app.git
-   cd react-app
+   git clone https://github.com/CSC105-2024/G17-Lynk.git
+   cd G17-Lynk
    npm install
-   npm start
-   npm run build
+   npm run dev
    ```
 
 🔑 Features in Detail
