@@ -12,9 +12,9 @@ import Logo from '../Logo'; // Import Logo component for branding
 
 // Sidebar component accepting onToggle and showSideBar as props
 const SideBarCard = ({ onToggle, showSideBar }) => {
-  const playlists = dummyPlaylist; // Playlist data from dummyPlaylist
-  const tags = dummyTags; // Tag data from dummyTags
-  console.log('here is sidebar: ', showSideBar); // Debugging: Log the status of the sidebar display
+  // Dummy data for playlists and tags
+  const playlists = dummyPlaylist;
+  const tags = dummyTags;
 
   // Conditional class for sidebar display based on showSideBar status
   const sideBarDisplayStatus = showSideBar
@@ -27,12 +27,11 @@ const SideBarCard = ({ onToggle, showSideBar }) => {
     >
       <div className='w-full flex justify-between items-center py-3'>
         {/* LOGO */}
-        <Link to='/'>
+        <Link to='/app/dashboard'>
           <Logo version='v2' className='w-30' /> {/* Render Logo component */}
         </Link>
         {/* Close button for the sidebar in mobile view */}
         <FaXmark className='text-4xl block md:hidden' onClick={onToggle} />{' '}
-        {/* Close icon */}
       </div>
 
       {/* Default 3 sidebar menu links */}

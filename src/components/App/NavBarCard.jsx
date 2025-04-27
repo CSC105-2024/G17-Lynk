@@ -138,7 +138,7 @@ const NavBarCard = ({ onToggle }) => {
    * to allow for filter button interaction
    */
   const handleSearchBlur = () => {
-    //setIsSearchFocused(false);
+    // setIsSearchFocused(false);
     // setTimeout(() => {
     //   if (document.activeElement !== searchInputRef.current) {
     //     setShowFilterButton(false);
@@ -200,7 +200,7 @@ const NavBarCard = ({ onToggle }) => {
           <input
             type='text'
             placeholder='Search'
-            className='rounded-lg py-2 px-4 pl-10 bg-[var(--searchbar-bg-color)] w-full lg:w-75 lg:focus:w-90 transition-all ease-in-out duration-500 focus:outline-none focus:ring-1 focus:ring-[var(--btn-primary-outline-border-color)] whitespace-normal break-all'
+            className='rounded-lg py-2 px-4 pl-10 bg-[var(--searchbar-bg-color)] w-full lg:w-75 lg:focus:w-90 transition-width ease-in-out duration-300 focus:outline-none focus:ring-1 focus:ring-[var(--btn-primary-outline-border-color)] whitespace-normal break-all'
             value={searchTerm}
             onChange={handleSearch}
             onFocus={handleSearchFocus}
@@ -221,25 +221,21 @@ const NavBarCard = ({ onToggle }) => {
                   onSort(e.target.value);
                 }}
                 onMouseDown={() => setIsSearchFocused(true)}
-                className='appearance-none py-2 px-3 rounded-lg bg-[var(--searchbar-bg-color)] border-0 focus:outline-0'
+                className='appearance-none py-2 px-3 rounded-lg bg-[var(--searchbar-bg-color)] border-0 focus:outline-0 text-[var(--app-text-color)] '
               >
-                <option className='text-black' value='def'>
-                  Sort
-                </option>
-                <option className='text-black' value='name'>
-                  Sort by Name
-                </option>
-                <option className='text-black' value='date'>
-                  Sort by Date
-                </option>
+                <option value='def'>Sort</option>
+                <option value='name'>Sort by Name</option>
+                <option value='date'>Sort by Date</option>
               </select>
               <button
-                className={`absolute right-2 ${btn} ${btnFill} transition-all duration-300 ${
+                className={`${btn} ${btnFill} transition-all duration-300 ${
                   showFilterButton
                     ? 'opacity-100 translate-x-0'
                     : 'opacity-0 translate-x-4'
                 }`}
-                onMouseDown={() => setShowFilterModal(true)}
+                onMouseDown={() => {
+                  setShowFilterModal(true);
+                }}
                 style={{ pointerEvents: showFilterButton ? 'auto' : 'none' }}
               >
                 Filter
@@ -291,13 +287,19 @@ const NavBarCard = ({ onToggle }) => {
             <div className='flex justify-end'>
               <button
                 className='px-3 py-2 rounded-lg bg-[var(--cancel-btn-color)] hover:bg-[var(--cancel-btn-hover-color)] cursor-pointer mr-2'
-                onClick={() => setShowFilterModal(false)}
+                onClick={() => {
+                  setShowFilterModal(false);
+                  setShowFilterButton(false);
+                }}
               >
                 Close
               </button>
               <button
                 className={`${btn} ${btnFill}`}
-                onClick={() => setShowFilterModal(false)}
+                onClick={() => {
+                  setShowFilterModal(false);
+                  setShowFilterButton(false);
+                }}
               >
                 Apply
               </button>
