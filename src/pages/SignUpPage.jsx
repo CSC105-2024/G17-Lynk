@@ -27,7 +27,7 @@ const SignUpPage = () => {
   const navigate = useNavigate();
 
   function handle_SignUp() {
-    navigate('/signup');
+    navigate('/login');
   }
 
   const {
@@ -72,7 +72,8 @@ const SignUpPage = () => {
             text='Create'
             variant='btnOutline'
             className='mx-auto mt-8 py-2 px-10 text-[var(--btn-primary-outline-text-color)]'
-          ></Button>
+            onClick={handle_SignUp}
+          />
         </form>
       </div>
 
