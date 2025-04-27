@@ -20,8 +20,8 @@ const Playlistboard = () => {
   };
   return (
     <div className='md:px-5'>
-      Testing playlist id: {playlistId}
-      {console.log('render here')}
+      {/* Testing playlist id: {playlistId}
+      {console.log('render here')} */}
       <DisplayCard
         icon={IconComponent ? <IconComponent /> : null}
         title={playlistData[playlistId - 1].name}

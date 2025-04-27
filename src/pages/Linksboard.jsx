@@ -20,6 +20,7 @@ const Linksboard = () => {
       <DisplayCard
         icon={<MdOutlineDatasetLinked />}
         title='All Links'
+        subTitle={'All your saved links will be shown here'}
         children={data.map((item, idx) => (
           <LinkCard key={idx} data={item} />
         ))}

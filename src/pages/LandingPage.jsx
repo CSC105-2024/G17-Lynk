@@ -4,9 +4,9 @@ import HeroLanding from '../components/Landing/HeroLanding';
 import FeatureLanding from '../components/Landing/FeatureLanding';
 import FooterLanding from '../components/Landing/FooterLanding';
 
-import playlistImage from '../images/SVG/playlist.svg';
-import managementImage from '../images/SVG/link-manage.svg';
-import filteringImage from '../images/SVG/filtering.svg';
+import playlistImage from '../images/PNG/playlist.png';
+import managementImage from '../images/JPG/link-manage-2.jpg';
+import filteringImage from '../images/JPG/filtering.jpg';
 import { useNavigate } from 'react-router-dom';
 import { ThemeProvider } from '@/components/theme-provider';
 const LandingPage = () => {

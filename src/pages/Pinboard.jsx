@@ -20,6 +20,7 @@ const Pinboard = () => {
       <DisplayCard
         icon={<TiPin />}
         title='Pins'
+        subTitle={'Your pinned links will be shown here'}
         children={data.map((item, idx) => (
           <LinkCard key={idx} data={item} />
         ))}
