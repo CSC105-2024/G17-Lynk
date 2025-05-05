@@ -103,3 +103,32 @@ const getLinksInPlaylist = async (c: Context) => {
 };
 
 export { getLinksInPlaylist };
+
+//delete
+const deletePlaylist = async (c: Context) => {
+  try {
+    const playlistId = Number(c.req.param("playlistId"));
+
+    if (isNaN(playlistId)) {
+      return c.json(
+        { success: false, data: null, msg: "Invalid playlist ID" },
+        400
+      );
+    }
+
+    const deleted = await playlistModel.deletePlaylist(playlistId);
+
+    return c.json({
+      success: true,
+      data: deleted,
+      msg: `Playlist ${playlistId} deleted successfully`,
+    });
+  } catch (e) {
+    return c.json(
+      { success: false, data: null, msg: `Internal Server Error: ${e}` },
+      500
+    );
+  }
+};
+
+export { deletePlaylist };
