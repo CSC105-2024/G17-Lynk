@@ -67,3 +67,39 @@ const getUserPlaylists = async (c: Context) => {
 };
 
 export { createPlaylist, getUserPlaylists };
+
+const getLinksInPlaylist = async (c: Context) => {
+  try {
+    const playlistId = Number(c.req.param("playlistId"));
+
+    if (isNaN(playlistId)) {
+      return c.json(
+        { success: false, data: null, msg: "Invalid playlist ID" },
+        400
+      );
+    }
+
+    const links = await playlistModel.getLinksInPlaylist(playlistId);
+
+    if (!links.length) {
+      return c.json({
+        success: true,
+        data: [],
+        msg: `No links found in playlist ${playlistId}`,
+      });
+    }
+
+    return c.json({
+      success: true,
+      data: links,
+      msg: `Links in playlist ${playlistId} fetched successfully`,
+    });
+  } catch (e) {
+    return c.json(
+      { success: false, data: null, msg: `Internal Server Error: ${e}` },
+      500
+    );
+  }
+};
+
+export { getLinksInPlaylist };

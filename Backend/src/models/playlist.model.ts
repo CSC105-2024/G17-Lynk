@@ -36,3 +36,17 @@ const getPlaylistsByUserId = async (userId: number) => {
 };
 
 export { createPlaylist, getPlaylistsByUserId };
+
+//get links inside the playlist
+const getLinksInPlaylist = async (playlistId: number) => {
+  const playlistWithLinks = await db.playlist.findUnique({
+    where: { id: playlistId },
+    include: {
+      links: true,
+    },
+  });
+
+  return playlistWithLinks ? playlistWithLinks.links : []; // m shi yin empty array
+};
+
+export { getLinksInPlaylist };

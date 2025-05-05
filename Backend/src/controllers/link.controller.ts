@@ -105,3 +105,39 @@ const getLinksByUser = async (c: Context) => {
 };
 
 export { getLinksByUser };
+
+//
+
+type AddLinkToPlaylistBody = {
+  linkId: number;
+  playlistId: number;
+};
+
+const addLinkToPlaylist = async (c: Context) => {
+  try {
+    const body = await c.req.json<AddLinkToPlaylistBody>();
+    const { linkId, playlistId } = body;
+
+    if (!linkId || !playlistId) {
+      return c.json(
+        { success: false, data: null, msg: "Missing required fields" },
+        400
+      );
+    }
+
+    const updatedLink = await linkModel.addLinkToPlaylist(linkId, playlistId);
+
+    return c.json({
+      success: true,
+      data: updatedLink,
+      msg: "Link added to playlist successfully",
+    });
+  } catch (e) {
+    return c.json(
+      { success: false, data: null, msg: `Internal Server Error: ${e}` },
+      500
+    );
+  }
+};
+
+export { addLinkToPlaylist };

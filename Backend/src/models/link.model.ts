@@ -50,3 +50,25 @@ const getLinksByUserId = async (userId: number) => {
 };
 
 export { getLinksByUserId };
+
+//add links to playlist
+const addLinkToPlaylist = async (linkId: number, playlistId: number) => {
+  const updatedLink = await db.link.update({
+    where: { id: linkId },
+    data: { playlistId },
+  });
+
+  //inside links count ko 1 toe poh
+  await db.playlist.update({
+    where: { id: playlistId },
+    data: {
+      linkCount: { increment: 1 },
+    },
+  });
+
+  return updatedLink;
+};
+
+export { addLinkToPlaylist };
+
+//get playlists
