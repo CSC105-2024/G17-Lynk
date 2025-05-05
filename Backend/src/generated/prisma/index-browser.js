@@ -143,6 +143,8 @@ exports.Prisma.PlaylistScalarFieldEnum = {
   id: 'id',
   name: 'name',
   description: 'description',
+  iconLink: 'iconLink',
+  linkCount: 'linkCount',
   userId: 'userId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
