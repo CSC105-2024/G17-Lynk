@@ -1,5 +1,7 @@
 import { db } from "../index.ts";
 
+//this one for creating links
+
 const createLink = async ({
   userId,
   url,
@@ -36,3 +38,15 @@ const createLink = async ({
 };
 
 export { createLink };
+
+//this one for getting links for one user
+const getLinksByUserId = async (userId: number) => {
+  const links = await db.link.findMany({
+    where: { userId },
+    orderBy: { createdAt: "desc" },
+  });
+
+  return links;
+};
+
+export { getLinksByUserId };
