@@ -2293,6 +2293,7 @@ export namespace Prisma {
     url: string | null
     title: string | null
     description: string | null
+    iconLink: string | null
     tags: string | null
     playlistId: number | null
     userId: number | null
@@ -2305,6 +2306,7 @@ export namespace Prisma {
     url: string | null
     title: string | null
     description: string | null
+    iconLink: string | null
     tags: string | null
     playlistId: number | null
     userId: number | null
@@ -2317,6 +2319,7 @@ export namespace Prisma {
     url: number
     title: number
     description: number
+    iconLink: number
     tags: number
     playlistId: number
     userId: number
@@ -2343,6 +2346,7 @@ export namespace Prisma {
     url?: true
     title?: true
     description?: true
+    iconLink?: true
     tags?: true
     playlistId?: true
     userId?: true
@@ -2355,6 +2359,7 @@ export namespace Prisma {
     url?: true
     title?: true
     description?: true
+    iconLink?: true
     tags?: true
     playlistId?: true
     userId?: true
@@ -2367,6 +2372,7 @@ export namespace Prisma {
     url?: true
     title?: true
     description?: true
+    iconLink?: true
     tags?: true
     playlistId?: true
     userId?: true
@@ -2466,6 +2472,7 @@ export namespace Prisma {
     url: string
     title: string
     description: string | null
+    iconLink: string | null
     tags: string
     playlistId: number | null
     userId: number
@@ -2497,6 +2504,7 @@ export namespace Prisma {
     url?: boolean
     title?: boolean
     description?: boolean
+    iconLink?: boolean
     tags?: boolean
     playlistId?: boolean
     userId?: boolean
@@ -2511,6 +2519,7 @@ export namespace Prisma {
     url?: boolean
     title?: boolean
     description?: boolean
+    iconLink?: boolean
     tags?: boolean
     playlistId?: boolean
     userId?: boolean
@@ -2525,6 +2534,7 @@ export namespace Prisma {
     url?: boolean
     title?: boolean
     description?: boolean
+    iconLink?: boolean
     tags?: boolean
     playlistId?: boolean
     userId?: boolean
@@ -2539,6 +2549,7 @@ export namespace Prisma {
     url?: boolean
     title?: boolean
     description?: boolean
+    iconLink?: boolean
     tags?: boolean
     playlistId?: boolean
     userId?: boolean
@@ -2546,7 +2557,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type LinkOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "url" | "title" | "description" | "tags" | "playlistId" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["link"]>
+  export type LinkOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "url" | "title" | "description" | "iconLink" | "tags" | "playlistId" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["link"]>
   export type LinkInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     playlist?: boolean | Link$playlistArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -2571,6 +2582,7 @@ export namespace Prisma {
       url: string
       title: string
       description: string | null
+      iconLink: string | null
       tags: string
       playlistId: number | null
       userId: number
@@ -3005,6 +3017,7 @@ export namespace Prisma {
     readonly url: FieldRef<"Link", 'String'>
     readonly title: FieldRef<"Link", 'String'>
     readonly description: FieldRef<"Link", 'String'>
+    readonly iconLink: FieldRef<"Link", 'String'>
     readonly tags: FieldRef<"Link", 'String'>
     readonly playlistId: FieldRef<"Link", 'Int'>
     readonly userId: FieldRef<"Link", 'Int'>
@@ -4606,6 +4619,7 @@ export namespace Prisma {
     url: 'url',
     title: 'title',
     description: 'description',
+    iconLink: 'iconLink',
     tags: 'tags',
     playlistId: 'playlistId',
     userId: 'userId',
@@ -4753,6 +4767,7 @@ export namespace Prisma {
     url?: StringFilter<"Link"> | string
     title?: StringFilter<"Link"> | string
     description?: StringNullableFilter<"Link"> | string | null
+    iconLink?: StringNullableFilter<"Link"> | string | null
     tags?: StringFilter<"Link"> | string
     playlistId?: IntNullableFilter<"Link"> | number | null
     userId?: IntFilter<"Link"> | number
@@ -4767,6 +4782,7 @@ export namespace Prisma {
     url?: SortOrder
     title?: SortOrder
     description?: SortOrderInput | SortOrder
+    iconLink?: SortOrderInput | SortOrder
     tags?: SortOrder
     playlistId?: SortOrderInput | SortOrder
     userId?: SortOrder
@@ -4784,6 +4800,7 @@ export namespace Prisma {
     url?: StringFilter<"Link"> | string
     title?: StringFilter<"Link"> | string
     description?: StringNullableFilter<"Link"> | string | null
+    iconLink?: StringNullableFilter<"Link"> | string | null
     tags?: StringFilter<"Link"> | string
     playlistId?: IntNullableFilter<"Link"> | number | null
     userId?: IntFilter<"Link"> | number
@@ -4798,6 +4815,7 @@ export namespace Prisma {
     url?: SortOrder
     title?: SortOrder
     description?: SortOrderInput | SortOrder
+    iconLink?: SortOrderInput | SortOrder
     tags?: SortOrder
     playlistId?: SortOrderInput | SortOrder
     userId?: SortOrder
@@ -4818,6 +4836,7 @@ export namespace Prisma {
     url?: StringWithAggregatesFilter<"Link"> | string
     title?: StringWithAggregatesFilter<"Link"> | string
     description?: StringNullableWithAggregatesFilter<"Link"> | string | null
+    iconLink?: StringNullableWithAggregatesFilter<"Link"> | string | null
     tags?: StringWithAggregatesFilter<"Link"> | string
     playlistId?: IntNullableWithAggregatesFilter<"Link"> | number | null
     userId?: IntWithAggregatesFilter<"Link"> | number
@@ -4962,6 +4981,7 @@ export namespace Prisma {
     url: string
     title: string
     description?: string | null
+    iconLink?: string | null
     tags?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -4974,6 +4994,7 @@ export namespace Prisma {
     url: string
     title: string
     description?: string | null
+    iconLink?: string | null
     tags?: string
     playlistId?: number | null
     userId: number
@@ -4985,6 +5006,7 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    iconLink?: NullableStringFieldUpdateOperationsInput | string | null
     tags?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -4997,6 +5019,7 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    iconLink?: NullableStringFieldUpdateOperationsInput | string | null
     tags?: StringFieldUpdateOperationsInput | string
     playlistId?: NullableIntFieldUpdateOperationsInput | number | null
     userId?: IntFieldUpdateOperationsInput | number
@@ -5009,6 +5032,7 @@ export namespace Prisma {
     url: string
     title: string
     description?: string | null
+    iconLink?: string | null
     tags?: string
     playlistId?: number | null
     userId: number
@@ -5020,6 +5044,7 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    iconLink?: NullableStringFieldUpdateOperationsInput | string | null
     tags?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5030,6 +5055,7 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    iconLink?: NullableStringFieldUpdateOperationsInput | string | null
     tags?: StringFieldUpdateOperationsInput | string
     playlistId?: NullableIntFieldUpdateOperationsInput | number | null
     userId?: IntFieldUpdateOperationsInput | number
@@ -5283,6 +5309,7 @@ export namespace Prisma {
     url?: SortOrder
     title?: SortOrder
     description?: SortOrder
+    iconLink?: SortOrder
     tags?: SortOrder
     playlistId?: SortOrder
     userId?: SortOrder
@@ -5301,6 +5328,7 @@ export namespace Prisma {
     url?: SortOrder
     title?: SortOrder
     description?: SortOrder
+    iconLink?: SortOrder
     tags?: SortOrder
     playlistId?: SortOrder
     userId?: SortOrder
@@ -5313,6 +5341,7 @@ export namespace Prisma {
     url?: SortOrder
     title?: SortOrder
     description?: SortOrder
+    iconLink?: SortOrder
     tags?: SortOrder
     playlistId?: SortOrder
     userId?: SortOrder
@@ -5761,6 +5790,7 @@ export namespace Prisma {
     url: string
     title: string
     description?: string | null
+    iconLink?: string | null
     tags?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -5772,6 +5802,7 @@ export namespace Prisma {
     url: string
     title: string
     description?: string | null
+    iconLink?: string | null
     tags?: string
     playlistId?: number | null
     createdAt?: Date | string
@@ -5837,6 +5868,7 @@ export namespace Prisma {
     url?: StringFilter<"Link"> | string
     title?: StringFilter<"Link"> | string
     description?: StringNullableFilter<"Link"> | string | null
+    iconLink?: StringNullableFilter<"Link"> | string | null
     tags?: StringFilter<"Link"> | string
     playlistId?: IntNullableFilter<"Link"> | number | null
     userId?: IntFilter<"Link"> | number
@@ -5980,6 +6012,7 @@ export namespace Prisma {
     url: string
     title: string
     description?: string | null
+    iconLink?: string | null
     tags?: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -5991,6 +6024,7 @@ export namespace Prisma {
     url: string
     title: string
     description?: string | null
+    iconLink?: string | null
     tags?: string
     userId: number
     createdAt?: Date | string
@@ -6081,6 +6115,7 @@ export namespace Prisma {
     url: string
     title: string
     description?: string | null
+    iconLink?: string | null
     tags?: string
     playlistId?: number | null
     createdAt?: Date | string
@@ -6099,6 +6134,7 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    iconLink?: NullableStringFieldUpdateOperationsInput | string | null
     tags?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6110,6 +6146,7 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    iconLink?: NullableStringFieldUpdateOperationsInput | string | null
     tags?: StringFieldUpdateOperationsInput | string
     playlistId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6121,6 +6158,7 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    iconLink?: NullableStringFieldUpdateOperationsInput | string | null
     tags?: StringFieldUpdateOperationsInput | string
     playlistId?: NullableIntFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6157,6 +6195,7 @@ export namespace Prisma {
     url: string
     title: string
     description?: string | null
+    iconLink?: string | null
     tags?: string
     userId: number
     createdAt?: Date | string
@@ -6167,6 +6206,7 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    iconLink?: NullableStringFieldUpdateOperationsInput | string | null
     tags?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6178,6 +6218,7 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    iconLink?: NullableStringFieldUpdateOperationsInput | string | null
     tags?: StringFieldUpdateOperationsInput | string
     userId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6189,6 +6230,7 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    iconLink?: NullableStringFieldUpdateOperationsInput | string | null
     tags?: StringFieldUpdateOperationsInput | string
     userId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string

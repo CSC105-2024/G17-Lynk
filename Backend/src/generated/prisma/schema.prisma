@@ -27,9 +27,10 @@ model User {
 
 model Link {
   id          Int       @id @default(autoincrement())
-  url         String // The actual URL
-  title       String // Name of the link
+  url         String
+  title       String
   description String?
+  iconLink    String?
   tags        String    @default("[]")
   playlist    Playlist? @relation(fields: [playlistId], references: [id])
   playlistId  Int?
@@ -38,7 +39,7 @@ model Link {
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 
-  @@index([userId]) // For faster user-specific queries
+  @@index([userId])
 }
 
 model Playlist {

@@ -26,17 +26,18 @@ model User {
 }
 
 model Link {
-  id          Int      @id @default(autoincrement())
-  url         String   
-  title       String   
+  id          Int       @id @default(autoincrement())
+  url         String
+  title       String
   description String?
-  tags        String   @default("[]")
+  iconLink    String?   
+  tags        String    @default("[]")
   playlist    Playlist? @relation(fields: [playlistId], references: [id])
   playlistId  Int?
-  user        User     @relation(fields: [userId], references: [id])
+  user        User      @relation(fields: [userId], references: [id])
   userId      Int
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 
   @@index([userId]) 
 }
