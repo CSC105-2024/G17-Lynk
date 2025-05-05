@@ -50,3 +50,19 @@ const getLinksInPlaylist = async (playlistId: number) => {
 };
 
 export { getLinksInPlaylist };
+
+//delete playlist
+const deletePlaylist = async (playlistId: number) => {
+  await db.link.updateMany({
+    where: { playlistId },
+    data: { playlistId: null }, //links are not referenced to playlist anymore
+  });
+
+  const deletedPlaylist = await db.playlist.delete({
+    where: { id: playlistId },
+  });
+
+  return deletedPlaylist;
+};
+
+export { deletePlaylist };
