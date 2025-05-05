@@ -3468,11 +3468,13 @@ export namespace Prisma {
 
   export type PlaylistAvgAggregateOutputType = {
     id: number | null
+    linkCount: number | null
     userId: number | null
   }
 
   export type PlaylistSumAggregateOutputType = {
     id: number | null
+    linkCount: number | null
     userId: number | null
   }
 
@@ -3480,6 +3482,8 @@ export namespace Prisma {
     id: number | null
     name: string | null
     description: string | null
+    iconLink: string | null
+    linkCount: number | null
     userId: number | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -3489,6 +3493,8 @@ export namespace Prisma {
     id: number | null
     name: string | null
     description: string | null
+    iconLink: string | null
+    linkCount: number | null
     userId: number | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -3498,6 +3504,8 @@ export namespace Prisma {
     id: number
     name: number
     description: number
+    iconLink: number
+    linkCount: number
     userId: number
     createdAt: number
     updatedAt: number
@@ -3507,11 +3515,13 @@ export namespace Prisma {
 
   export type PlaylistAvgAggregateInputType = {
     id?: true
+    linkCount?: true
     userId?: true
   }
 
   export type PlaylistSumAggregateInputType = {
     id?: true
+    linkCount?: true
     userId?: true
   }
 
@@ -3519,6 +3529,8 @@ export namespace Prisma {
     id?: true
     name?: true
     description?: true
+    iconLink?: true
+    linkCount?: true
     userId?: true
     createdAt?: true
     updatedAt?: true
@@ -3528,6 +3540,8 @@ export namespace Prisma {
     id?: true
     name?: true
     description?: true
+    iconLink?: true
+    linkCount?: true
     userId?: true
     createdAt?: true
     updatedAt?: true
@@ -3537,6 +3551,8 @@ export namespace Prisma {
     id?: true
     name?: true
     description?: true
+    iconLink?: true
+    linkCount?: true
     userId?: true
     createdAt?: true
     updatedAt?: true
@@ -3633,6 +3649,8 @@ export namespace Prisma {
     id: number
     name: string
     description: string | null
+    iconLink: string | null
+    linkCount: number
     userId: number
     createdAt: Date
     updatedAt: Date
@@ -3661,6 +3679,8 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     description?: boolean
+    iconLink?: boolean
+    linkCount?: boolean
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -3673,6 +3693,8 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     description?: boolean
+    iconLink?: boolean
+    linkCount?: boolean
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -3683,6 +3705,8 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     description?: boolean
+    iconLink?: boolean
+    linkCount?: boolean
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -3693,12 +3717,14 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     description?: boolean
+    iconLink?: boolean
+    linkCount?: boolean
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type PlaylistOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["playlist"]>
+  export type PlaylistOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "iconLink" | "linkCount" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["playlist"]>
   export type PlaylistInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     links?: boolean | Playlist$linksArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -3721,6 +3747,8 @@ export namespace Prisma {
       id: number
       name: string
       description: string | null
+      iconLink: string | null
+      linkCount: number
       userId: number
       createdAt: Date
       updatedAt: Date
@@ -4152,6 +4180,8 @@ export namespace Prisma {
     readonly id: FieldRef<"Playlist", 'Int'>
     readonly name: FieldRef<"Playlist", 'String'>
     readonly description: FieldRef<"Playlist", 'String'>
+    readonly iconLink: FieldRef<"Playlist", 'String'>
+    readonly linkCount: FieldRef<"Playlist", 'Int'>
     readonly userId: FieldRef<"Playlist", 'Int'>
     readonly createdAt: FieldRef<"Playlist", 'DateTime'>
     readonly updatedAt: FieldRef<"Playlist", 'DateTime'>
@@ -4634,6 +4664,8 @@ export namespace Prisma {
     id: 'id',
     name: 'name',
     description: 'description',
+    iconLink: 'iconLink',
+    linkCount: 'linkCount',
     userId: 'userId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -4851,6 +4883,8 @@ export namespace Prisma {
     id?: IntFilter<"Playlist"> | number
     name?: StringFilter<"Playlist"> | string
     description?: StringNullableFilter<"Playlist"> | string | null
+    iconLink?: StringNullableFilter<"Playlist"> | string | null
+    linkCount?: IntFilter<"Playlist"> | number
     userId?: IntFilter<"Playlist"> | number
     createdAt?: DateTimeFilter<"Playlist"> | Date | string
     updatedAt?: DateTimeFilter<"Playlist"> | Date | string
@@ -4862,6 +4896,8 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     description?: SortOrderInput | SortOrder
+    iconLink?: SortOrderInput | SortOrder
+    linkCount?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -4871,22 +4907,27 @@ export namespace Prisma {
 
   export type PlaylistWhereUniqueInput = Prisma.AtLeast<{
     id?: number
+    userId_name?: PlaylistUserIdNameCompoundUniqueInput
     AND?: PlaylistWhereInput | PlaylistWhereInput[]
     OR?: PlaylistWhereInput[]
     NOT?: PlaylistWhereInput | PlaylistWhereInput[]
     name?: StringFilter<"Playlist"> | string
     description?: StringNullableFilter<"Playlist"> | string | null
+    iconLink?: StringNullableFilter<"Playlist"> | string | null
+    linkCount?: IntFilter<"Playlist"> | number
     userId?: IntFilter<"Playlist"> | number
     createdAt?: DateTimeFilter<"Playlist"> | Date | string
     updatedAt?: DateTimeFilter<"Playlist"> | Date | string
     links?: LinkListRelationFilter
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
-  }, "id">
+  }, "id" | "userId_name">
 
   export type PlaylistOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
     description?: SortOrderInput | SortOrder
+    iconLink?: SortOrderInput | SortOrder
+    linkCount?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -4904,6 +4945,8 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"Playlist"> | number
     name?: StringWithAggregatesFilter<"Playlist"> | string
     description?: StringNullableWithAggregatesFilter<"Playlist"> | string | null
+    iconLink?: StringNullableWithAggregatesFilter<"Playlist"> | string | null
+    linkCount?: IntWithAggregatesFilter<"Playlist"> | number
     userId?: IntWithAggregatesFilter<"Playlist"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Playlist"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Playlist"> | Date | string
@@ -5066,6 +5109,8 @@ export namespace Prisma {
   export type PlaylistCreateInput = {
     name: string
     description?: string | null
+    iconLink?: string | null
+    linkCount?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     links?: LinkCreateNestedManyWithoutPlaylistInput
@@ -5076,6 +5121,8 @@ export namespace Prisma {
     id?: number
     name: string
     description?: string | null
+    iconLink?: string | null
+    linkCount?: number
     userId: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -5085,6 +5132,8 @@ export namespace Prisma {
   export type PlaylistUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    iconLink?: NullableStringFieldUpdateOperationsInput | string | null
+    linkCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     links?: LinkUpdateManyWithoutPlaylistNestedInput
@@ -5095,6 +5144,8 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    iconLink?: NullableStringFieldUpdateOperationsInput | string | null
+    linkCount?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5105,6 +5156,8 @@ export namespace Prisma {
     id?: number
     name: string
     description?: string | null
+    iconLink?: string | null
+    linkCount?: number
     userId: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -5113,6 +5166,8 @@ export namespace Prisma {
   export type PlaylistUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    iconLink?: NullableStringFieldUpdateOperationsInput | string | null
+    linkCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -5121,6 +5176,8 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    iconLink?: NullableStringFieldUpdateOperationsInput | string | null
+    linkCount?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5388,10 +5445,17 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
+  export type PlaylistUserIdNameCompoundUniqueInput = {
+    userId: number
+    name: string
+  }
+
   export type PlaylistCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     description?: SortOrder
+    iconLink?: SortOrder
+    linkCount?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -5399,6 +5463,7 @@ export namespace Prisma {
 
   export type PlaylistAvgOrderByAggregateInput = {
     id?: SortOrder
+    linkCount?: SortOrder
     userId?: SortOrder
   }
 
@@ -5406,6 +5471,8 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     description?: SortOrder
+    iconLink?: SortOrder
+    linkCount?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -5415,6 +5482,8 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     description?: SortOrder
+    iconLink?: SortOrder
+    linkCount?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -5422,6 +5491,7 @@ export namespace Prisma {
 
   export type PlaylistSumOrderByAggregateInput = {
     id?: SortOrder
+    linkCount?: SortOrder
     userId?: SortOrder
   }
 
@@ -5821,6 +5891,8 @@ export namespace Prisma {
   export type PlaylistCreateWithoutUserInput = {
     name: string
     description?: string | null
+    iconLink?: string | null
+    linkCount?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     links?: LinkCreateNestedManyWithoutPlaylistInput
@@ -5830,6 +5902,8 @@ export namespace Prisma {
     id?: number
     name: string
     description?: string | null
+    iconLink?: string | null
+    linkCount?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     links?: LinkUncheckedCreateNestedManyWithoutPlaylistInput
@@ -5899,6 +5973,8 @@ export namespace Prisma {
     id?: IntFilter<"Playlist"> | number
     name?: StringFilter<"Playlist"> | string
     description?: StringNullableFilter<"Playlist"> | string | null
+    iconLink?: StringNullableFilter<"Playlist"> | string | null
+    linkCount?: IntFilter<"Playlist"> | number
     userId?: IntFilter<"Playlist"> | number
     createdAt?: DateTimeFilter<"Playlist"> | Date | string
     updatedAt?: DateTimeFilter<"Playlist"> | Date | string
@@ -5907,6 +5983,8 @@ export namespace Prisma {
   export type PlaylistCreateWithoutLinksInput = {
     name: string
     description?: string | null
+    iconLink?: string | null
+    linkCount?: number
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutPlaylistsInput
@@ -5916,6 +5994,8 @@ export namespace Prisma {
     id?: number
     name: string
     description?: string | null
+    iconLink?: string | null
+    linkCount?: number
     userId: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -5964,6 +6044,8 @@ export namespace Prisma {
   export type PlaylistUpdateWithoutLinksInput = {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    iconLink?: NullableStringFieldUpdateOperationsInput | string | null
+    linkCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutPlaylistsNestedInput
@@ -5973,6 +6055,8 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    iconLink?: NullableStringFieldUpdateOperationsInput | string | null
+    linkCount?: IntFieldUpdateOperationsInput | number
     userId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6126,6 +6210,8 @@ export namespace Prisma {
     id?: number
     name: string
     description?: string | null
+    iconLink?: string | null
+    linkCount?: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -6168,6 +6254,8 @@ export namespace Prisma {
   export type PlaylistUpdateWithoutUserInput = {
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    iconLink?: NullableStringFieldUpdateOperationsInput | string | null
+    linkCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     links?: LinkUpdateManyWithoutPlaylistNestedInput
@@ -6177,6 +6265,8 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    iconLink?: NullableStringFieldUpdateOperationsInput | string | null
+    linkCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     links?: LinkUncheckedUpdateManyWithoutPlaylistNestedInput
@@ -6186,6 +6276,8 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
+    iconLink?: NullableStringFieldUpdateOperationsInput | string | null
+    linkCount?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

@@ -46,9 +46,14 @@ model Playlist {
   id          Int      @id @default(autoincrement())
   name        String
   description String?
+  iconLink    String?
+  linkCount   Int      @default(0)
   links       Link[]
   user        User     @relation(fields: [userId], references: [id])
   userId      Int
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+
+  @@unique([userId, name])
+  @@index([userId])
 }
