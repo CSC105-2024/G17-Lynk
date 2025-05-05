@@ -67,3 +67,41 @@ const createLink = async (c: Context) => {
 };
 
 export { createLink };
+
+//getting links for specific user
+
+const getLinksByUser = async (c: Context) => {
+  try {
+    const userId = Number(c.req.param("userId"));
+
+    if (isNaN(userId)) {
+      return c.json(
+        {
+          success: false,
+          data: null,
+          msg: "Invalid user ID",
+        },
+        400
+      );
+    }
+
+    const links = await linkModel.getLinksByUserId(userId);
+
+    return c.json({
+      success: true,
+      data: links,
+      msg: "Fetched links successfully",
+    });
+  } catch (e) {
+    return c.json(
+      {
+        success: false,
+        data: null,
+        msg: `Internal Server Error: ${e}`,
+      },
+      500
+    );
+  }
+};
+
+export { getLinksByUser };
