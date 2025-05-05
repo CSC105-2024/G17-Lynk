@@ -131,6 +131,7 @@ exports.Prisma.LinkScalarFieldEnum = {
   url: 'url',
   title: 'title',
   description: 'description',
+  iconLink: 'iconLink',
   tags: 'tags',
   playlistId: 'playlistId',
   userId: 'userId',
