@@ -11,7 +11,7 @@ import { Separator } from '@/components/ui/separator';
 const ModalLink = ({ show, handleClose }) => {
   // Determine modal visibility based on `show` prop
   const showHideClassName = show
-    ? 'fixed inset-0 w-full h-full bg-[var(--main-bg-color)] bg-opacity-60 flex justify-center items-center z-100 overflow-auto'
+    ? 'fixed inset-0 w-full h-full bg-[var(--main-bg-color)] bg-opacity-60 flex justify-center items-center z-100 scroll-y'
     : 'hidden';
   // Dummy create function (you can replace with real logic)
   const handleCreate = () => {
@@ -21,7 +21,7 @@ const ModalLink = ({ show, handleClose }) => {
 
   return (
     <div className={showHideClassName}>
-      <div className='bg-[var(--modal-bg-color)] rounded-lg p-8 w-full max-w-md shadow-lg'>
+      <form className='bg-[var(--modal-bg-color)] rounded-lg p-8 w-full h-2/3 max-w-md shadow-lg  overflow-y-auto'>
         {/* Modal Header */}
         <div className='flex justify-between items-center mb-4'>
           <h2 className='text-xl font-bold text-[var(--app-text-color)]'>
@@ -135,7 +135,7 @@ const ModalLink = ({ show, handleClose }) => {
         <div className='flex items-center justify-between'>
           <Button type='submit' text='Create' onClick={handleCreate} />
         </div>
-      </div>
+      </form>
     </div>
   );
 };

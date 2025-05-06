@@ -28,7 +28,7 @@ const BackToTop = () => {
     isVisible && (
       <button
         onClick={scrollToTop}
-        className='fixed bottom-6 right-6 z-100 flex flex-col justify-center items-center px-5 py-3 gap-1 rounded-lg text-sm bg-[var(--back-to-top-bg)] hover:bg-[var(--back-to-top-hover-bg)] border-none'
+        className='fixed bottom-6 right-6 z-90 flex flex-col justify-center items-center px-5 py-3 gap-1 rounded-lg text-sm bg-[var(--back-to-top-bg)] hover:bg-[var(--back-to-top-hover-bg)] border-none cursor-pointer'
         aria-label='Back to top'
       >
         <FaArrowAltCircleUp className='text-2xl' />

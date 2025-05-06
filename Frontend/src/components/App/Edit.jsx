@@ -23,8 +23,8 @@ const EditLinkModal = ({ isOpen, onClose, onSave, initialLinkData }) => {
 
   return (
     // Modal layout: centered overlay with semi-transparent background
-    <div className='fixed top-0 left-0 w-full h-full bg-[var(--main-bg-color)] bg-opacity-60 flex justify-center items-center z-50 text-[var(--app-text-color)]'>
-      <div className='bg-[var(--modal-bg-color)] p-6 rounded-lg shadow-lg w-full max-w-md'>
+    <div className='fixed top-0 left-0 w-full h-full bg-[var(--main-bg-color)] bg-opacity-60 flex justify-center items-center z-100 text-[var(--app-text-color)]'>
+      <div className='bg-[var(--modal-bg-color)] p-6 rounded-lg shadow-lg w-full max-w-md overflow-y-auto'>
         {/* Header with title and close button */}
         <div className='flex justify-between items-center mb-4'>
           <h2 className='text-xl font-semibold'>Edit a Link</h2>
