@@ -1,12 +1,26 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import NavBarCard from './components/App/NavBarCard';
 import SideBarCard from './components/App/SideBarCard';
 import { Separator } from '@/components/ui/separator';
 import { ThemeProvider } from '@/components/theme-provider';
 import BackToTop from './components/App/BackToTop';
+import { Axios } from './../axiosInstance';
 
 const App = () => {
+  const testConnection = async () => {
+    try {
+      const data = await Axios.get('/test-db');
+      console.log(data);
+    } catch (e) {
+      console.log(`Error fetching backend server: ${e}`);
+    }
+  };
+
+  useEffect(() => {
+    testConnection();
+  }, []);
+
   const [showSideBar, setShowSideBar] = useState(false);
   const toggleSideBar = () => {
     setShowSideBar(!showSideBar);
