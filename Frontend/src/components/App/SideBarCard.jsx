@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import SideBarMenuLink from './SideBarMenuLink'; // Import custom component for sidebar menu links
 import { MdHome, MdTimelapse } from 'react-icons/md'; // Import icons from react-icons
 import { Separator } from '@/components/ui/separator'; // Import separator component for styling
@@ -9,11 +9,27 @@ import APP_ICONS from '@/constants/icons.js'; // Import constant icons for playl
 import { Link } from 'react-router-dom'; // Import Link component for routing
 import { FaXmark } from 'react-icons/fa6'; // Import close icon for sidebar
 import Logo from '../Logo'; // Import Logo component for branding
+import { getPlaylist } from '@/api/playlist';
 
 // Sidebar component accepting onToggle and showSideBar as props
 const SideBarCard = ({ onToggle, showSideBar }) => {
+  // Fetch playlists and tags from dummy data
+  const fetchPlaylists = async () => {
+    const data = await getPlaylist();
+    if (data.success) {
+      // console.log(data.data.data);
+      setPlaylists(data.data.data);
+    }
+  };
+
+  useEffect(() => {
+    fetchPlaylists();
+  }, []);
+
+  const [playlists, setPlaylists] = useState([]);
+  console.log('playlists', playlists);
   // Dummy data for playlists and tags
-  const playlists = dummyPlaylist;
+  // const playlists = dummyPlaylist;
   const tags = dummyTags;
 
   // Conditional class for sidebar display based on showSideBar status
@@ -70,7 +86,7 @@ const SideBarCard = ({ onToggle, showSideBar }) => {
                 key={index} // Unique key for each playlist link
                 icon={IconComponent ? <IconComponent /> : null} // Display corresponding icon
                 name={playlist.name} // Playlist name
-                number={playlist.number} // Playlist number
+                linkCount={playlist.linkCount} // Playlist number
                 link={`/app/playlists/${playlist.id}`} // Link to specific playlist page
               />
             );
