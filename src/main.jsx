@@ -13,6 +13,7 @@ import Linksboard from './pages/Linksboard';
 import Playlistboard from './pages/Playlistboard';
 import LogOutPage from './pages/LogOutPage';
 import NotFoundPage from './pages/NotFoundPage';
+import NewLink from './pages/NewLink';
 
 const router = createBrowserRouter([
   {
@@ -48,7 +49,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/logout',
-    element: <LogOutPage/>
+    element: <LogOutPage />,
   },
   {
     path: '/signup',
@@ -59,9 +60,13 @@ const router = createBrowserRouter([
     element: <Test />,
   },
   {
+    path: 'newlink',
+    element: <NewLink />,
+  },
+  {
     path: '*',
-    element: <NotFoundPage/>
-  }
+    element: <NotFoundPage />,
+  },
 ]);
 createRoot(document.getElementById('root')).render(
   <RouterProvider router={router} />
