@@ -1,27 +1,17 @@
 import { getPlaylists } from '@/api/playlist';
 import React, { useEffect, useState } from 'react';
 import { IoMdLink } from 'react-icons/io';
+import { useContext } from 'react';
+import { UserContext } from '@/App';
 
 const InfoCard = () => {
-  const fetchPlaylists = async () => {
-    const data = await getPlaylists();
-    if (data.success) {
-      // console.log(data.data.data);
-      setPlaylists(data.data.data);
-    }
-  };
-
-  useEffect(() => {
-    fetchPlaylists();
-  }, []);
-
-  const [playlists, setPlaylists] = useState([]);
-  console.log(playlists);
+  const { playlists, links } = useContext(UserContext); // Get playlists from context
+  // console.log('here is playlists: ', playlists); // Log playlists to console
 
   const infoData = [
-    { label: 'Links', value: 3 },
+    { label: 'Links', value: links.length },
     { label: 'Playlists', value: playlists.length },
-    { label: 'Tags', value: 5 },
+    { label: 'Tags', value: '?' },
   ];
 
   return (

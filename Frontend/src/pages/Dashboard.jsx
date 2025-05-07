@@ -9,22 +9,6 @@ import { getPlaylists } from '@/api/playlist';
 
 const Dashboard = () => {
   const data = dummyData;
-
-  // const fetchPlaylists = async () => {
-  //   const data = await getPlaylists();
-  //   if (data.success) {
-  //     // console.log(data.data.data);
-  //     setPlaylists(data.data.data);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   fetchPlaylists();
-  // }, []);
-
-  // const [playlists, setPlaylists] = useState([]);
-  // console.log(playlists);
-
   return (
     <div className='bg-[var(--dashboard-bg-color)] min-h-screen'>
       {/* Display Cards */}

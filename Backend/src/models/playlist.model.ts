@@ -1,4 +1,4 @@
-import { db } from "../index.ts";
+import { db } from '../index.ts';
 
 const createPlaylist = async ({
   userId,
@@ -29,10 +29,16 @@ const getPlaylistsByUserId = async (userId: number) => {
     include: {
       links: true,
     },
-    orderBy: { createdAt: "desc" },
+    orderBy: { createdAt: 'desc' },
   });
 
-  return playlists;
+  return playlists.map((playlist) => ({
+    ...playlist,
+    links: playlist.links.map((link) => ({
+      ...link,
+      tags: link.tags ? JSON.parse(link.tags) : [],
+    })),
+  }));
 };
 
 export { createPlaylist, getPlaylistsByUserId };
@@ -46,8 +52,14 @@ const getLinksInPlaylist = async (playlistId: number) => {
     },
   });
 
-  return playlistWithLinks ? playlistWithLinks.links : []; // m shi yin empty array
+  if (!playlistWithLinks) return [];
+
+  return playlistWithLinks.links.map((link) => ({
+    ...link,
+    tags: link.tags ? JSON.parse(link.tags) : [],
+  }));
 };
+// m shi yin empty array
 
 export { getLinksInPlaylist };
 

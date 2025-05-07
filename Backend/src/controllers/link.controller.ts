@@ -1,5 +1,5 @@
-import type { Context } from "hono";
-import * as linkModel from "../models/link.model.ts";
+import type { Context } from 'hono';
+import * as linkModel from '../models/link.model.ts';
 
 type CreateLinkBody = {
   userId: number;
@@ -32,7 +32,7 @@ const createLink = async (c: Context) => {
         {
           success: false,
           data: null,
-          msg: "Missing required fields",
+          msg: 'Missing required fields',
         },
         400
       );
@@ -52,7 +52,7 @@ const createLink = async (c: Context) => {
     return c.json({
       success: true,
       data: result.link,
-      msg: "Link created successfully!",
+      msg: 'Link created successfully!',
     });
   } catch (e) {
     return c.json(
@@ -72,14 +72,14 @@ export { createLink };
 
 const getLinksByUser = async (c: Context) => {
   try {
-    const userId = Number(c.req.param("userId"));
+    const userId = Number(c.req.param('userId'));
 
     if (isNaN(userId)) {
       return c.json(
         {
           success: false,
           data: null,
-          msg: "Invalid user ID",
+          msg: 'Invalid user ID',
         },
         400
       );
@@ -90,7 +90,7 @@ const getLinksByUser = async (c: Context) => {
     return c.json({
       success: true,
       data: links,
-      msg: "Fetched links successfully",
+      msg: 'Fetched links successfully',
     });
   } catch (e) {
     return c.json(
@@ -106,8 +106,6 @@ const getLinksByUser = async (c: Context) => {
 
 export { getLinksByUser };
 
-//
-
 type AddLinkToPlaylistBody = {
   linkId: number;
   playlistId: number;
@@ -120,7 +118,7 @@ const addLinkToPlaylist = async (c: Context) => {
 
     if (!linkId || !playlistId) {
       return c.json(
-        { success: false, data: null, msg: "Missing required fields" },
+        { success: false, data: null, msg: 'Missing required fields' },
         400
       );
     }
@@ -130,7 +128,7 @@ const addLinkToPlaylist = async (c: Context) => {
     return c.json({
       success: true,
       data: updatedLink,
-      msg: "Link added to playlist successfully",
+      msg: 'Link added to playlist successfully',
     });
   } catch (e) {
     return c.json(

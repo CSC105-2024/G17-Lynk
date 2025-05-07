@@ -1,22 +1,26 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Button from '../Button';
 import Chip from './Chip';
 import MorePopover from './MorePopover';
+import { UserContext } from '@/App';
 
 // LinkCard displays detailed information about a single saved link
 // It shows link icon, name, playlists, tags, link URL, and creation time
 // Also includes a MorePopover for options like deleting the link
 
 const LinkCard = ({ data, onDelete }) => {
-  // Destructure necessary fields from incoming data
-  const { key, iconLink, linkName, playlists, tags, link, createdAt } = data;
+  // Destructure data object to extract relevant properties
+  const { playlists } = useContext(UserContext);
+  const { key, iconLink, title, playlistId, tags, url, createdAt } = data;
+  // console.log('here  is title: ', title);
+  // console.log('here  is playlistId: ', playlistId);
 
   return (
     <div className='bg-[var(--link-card-bg)] rounded-lg shadow py-3 px-3 md:px-10 hover:bg-[var(--link-card-hover-bg)] w-full '>
       <div className='flex items-center gap-2 mb-2'>
         <img src={iconLink} alt='icon' className='h-5' />
         <p className='flex-grow overflow-hidden text-ellipsis whitespace-nowrap'>
-          {linkName}
+          {title}
         </p>
         <MorePopover onDelete={() => onDelete(key)} />
       </div>
@@ -27,9 +31,12 @@ const LinkCard = ({ data, onDelete }) => {
         <div className='flex overflow-hidden'>
           <p className='w-3/10 min-w-[30%]'>Playlists:</p>
           <div className='flex flex-nowrap gap-1 overflow-auto [scrollbar-width:none]'>
-            {playlists.map((playlist, index) => (
-              <Chip key={index} name={playlist} />
-            ))}
+            {playlists.map(
+              (playlist, index) =>
+                playlistId === playlist.id && (
+                  <Chip key={index} name={playlist.name} />
+                )
+            )}
           </div>
         </div>
 
@@ -37,10 +44,10 @@ const LinkCard = ({ data, onDelete }) => {
         <div className='flex overflow-hidden'>
           <p className='w-3/10 min-w-[30%]'>Link:</p>
           <a
-            href={link}
+            href={url}
             className='block max-w-xs overflow-hidden text-ellipsis whitespace-nowrap underline'
           >
-            {link}
+            {url}
           </a>
         </div>
 

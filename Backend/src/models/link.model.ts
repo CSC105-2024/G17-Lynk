@@ -1,4 +1,4 @@
-import { db } from "../index.ts";
+import { db } from '../index.ts';
 
 //this one for creating links
 
@@ -34,7 +34,7 @@ const createLink = async ({
     },
   });
 
-  return { success: true, message: "Link saved", link: newLink };
+  return { success: true, message: 'Link saved', link: newLink };
 };
 
 export { createLink };
@@ -43,10 +43,13 @@ export { createLink };
 const getLinksByUserId = async (userId: number) => {
   const links = await db.link.findMany({
     where: { userId },
-    orderBy: { createdAt: "desc" },
+    orderBy: { createdAt: 'desc' },
   });
 
-  return links;
+  return links.map((link) => ({
+    ...link,
+    tags: link.tags ? JSON.parse(link.tags) : [], // Parse tags and provide fallback
+  }));
 };
 
 export { getLinksByUserId };

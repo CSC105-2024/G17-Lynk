@@ -1,13 +1,16 @@
 import DefaultWelcomeCard from '@/components/App/DefaultWelcomeCard';
 import LinkCard from '@/components/App/LinkCard';
-import React from 'react';
+import React, { useContext } from 'react';
 import { dummyData } from '@/services/data.js';
 import { MdOutlineDatasetLinked } from 'react-icons/md';
 import DisplayCard from '@/components/App/DisplayCard';
+import { UserContext } from '@/App';
 
 const Linksboard = () => {
-  const data = dummyData;
-  if (!data || data.length === 0) {
+  const { links } = useContext(UserContext);
+  console.log('links blah blah : ', links);
+
+  if (!links || links.length === 0) {
     return (
       <DefaultWelcomeCard
         name='Save Your Links Here!'
@@ -21,9 +24,12 @@ const Linksboard = () => {
         icon={<MdOutlineDatasetLinked />}
         title='All Links'
         subTitle={'All your saved links will be shown here'}
-        children={data.map((item, idx) => (
-          <LinkCard key={idx} data={item} />
-        ))}
+        children={links.map(
+          (item, idx) => (
+            console.log('item: ', item), // Log the item to the console
+            (<LinkCard key={idx} data={item} />)
+          )
+        )}
       ></DisplayCard>
     </>
   );
