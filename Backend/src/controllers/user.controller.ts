@@ -16,7 +16,6 @@ type DecodedToken = {
   _id: number;
 };
 
-
 //register user
 export const registerUserController = async (c: Context) => {
   try {
@@ -120,11 +119,8 @@ export const loginUserController = async (c: Context) => {
 //logout controller
 export const logoutController = async (c: Context) => {
   try {
-    const user = c.user;
-    if (!user || !user.id) {
-      return c.json({ message: 'User not found' }, 404);
-    }
     const isProduction = process.env.NODE_ENV === 'production';
+
     deleteCookie(c, 'accessToken', {
       httpOnly: true,
       secure: isProduction,
@@ -136,10 +132,8 @@ export const logoutController = async (c: Context) => {
       secure: isProduction,
       path: '/',
     });
-    return c.json(
-      { message: `${user.username} logged out successfully.` },
-      200
-    );
+
+    return c.json({ message: 'Logged out successfully.' }, 200);
   } catch (e) {
     console.error('Logout error:', e);
     return c.json({ message: 'Something went wrong.' }, 500);
