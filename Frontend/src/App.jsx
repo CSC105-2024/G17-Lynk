@@ -11,7 +11,7 @@ const App = () => {
   const testConnection = async () => {
     try {
       const data = await Axios.get('/test-db');
-      console.log(data);
+      console.log(data.data.data);
     } catch (e) {
       console.log(`Error fetching backend server: ${e}`);
     }

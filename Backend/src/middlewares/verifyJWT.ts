@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
-import { Context } from 'hono';
+import type { Context } from 'hono';
 import { db } from '../index.ts';
-import { parse } from 'cookie'; 
+import { parse } from 'cookie';
 declare module 'hono' {
   interface Context {
     user?: any;
@@ -15,7 +15,7 @@ type DecodedToken = {
 const verifyJwt = async (c: Context) => {
   const cookieHeader = c.req.header('Cookie') || '';
   const cookies = parse(cookieHeader);
-  const accessToken = cookies['accessToken']
+  const accessToken = cookies['accessToken'];
 
   const incomingToken = c.req.header('Authorization') || accessToken;
 

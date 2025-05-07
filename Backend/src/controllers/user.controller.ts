@@ -1,15 +1,21 @@
-import type { Context } from "hono";
-import {db} from '../index.ts'
-import {createUserIfNotExists,generateToken,generateRefreshToken,ispasswordMatch}  from "../models/user.model.ts";
-import { setCookie,deleteCookie } from "hono/cookie";
+import type { Context } from 'hono';
+import { db } from '../index.ts';
+import {
+  createUserIfNotExists,
+  generateToken,
+  generateRefreshToken,
+  ispasswordMatch,
+} from '../models/user.model.ts';
+import { setCookie, deleteCookie } from 'hono/cookie';
 type CreateUserBody = {
   email: string;
   username: string;
   password: string;
 };
-type DecodedToken =  {
+type DecodedToken = {
   _id: number;
-}
+};
+
 
 //register user
 export const registerUserController = async (c: Context) => {
@@ -23,24 +29,20 @@ export const registerUserController = async (c: Context) => {
         {
           success: false,
           data: null,
-          msg: "Missing required fields",
+          msg: 'Missing required fields',
         },
         400
       );
     }
 
-    const result = await createUserIfNotExists(
-      email,
-      username,
-      password
-    );
+    const result = await createUserIfNotExists(email, username, password);
 
     if (!result.success) {
       return c.json(
         {
           success: false,
           data: null,
-          msg: "User already exists",
+          msg: 'User already exists',
         },
         409
       );
@@ -49,7 +51,7 @@ export const registerUserController = async (c: Context) => {
     return c.json({
       success: true,
       data: result.user,
-      msg: "Created new user!",
+      msg: 'Created new user!',
     });
   } catch (e) {
     return c.json(
@@ -65,87 +67,98 @@ export const registerUserController = async (c: Context) => {
 
 //login user
 export const loginUserController = async (c: Context) => {
-  try{
-  const {username, password} = await c.req.json();
-  if(!username || !password){
-    return c.json({message : "Missing required fields"}, 400)
-  }
-  const existingUser = await db.user.findFirst({ 
-    where: {
-      username,
+  try {
+    const { username, password } = await c.req.json();
+    if (!username || !password) {
+      return c.json({ message: 'Missing required fields' }, 400);
     }
-  })
-  if(!existingUser){
-    return c.json({message : "User not found"}, 404)
-  }
-  const isPasswordMatch = await ispasswordMatch(password, existingUser.password);
+    const existingUser = await db.user.findFirst({
+      where: {
+        username,
+      },
+    });
+    if (!existingUser) {
+      return c.json({ message: 'User not found' }, 404);
+    }
+    const isPasswordMatch = await ispasswordMatch(
+      password,
+      existingUser.password
+    );
 
-  if(!isPasswordMatch){
-    return c.json({message : "Invalid password"}, 401)
-  }
-  const accessToken = generateToken({
-    id  : existingUser.id,
-    email : existingUser.email,
-    username : existingUser.username
-  })
-  const refreshToken = generateRefreshToken(existingUser.id);
-
-  const userResponse = {
-    id: existingUser.id,
+    if (!isPasswordMatch) {
+      return c.json({ message: 'Invalid password' }, 401);
+    }
+    const accessToken = generateToken({
+      id: existingUser.id,
       email: existingUser.email,
       username: existingUser.username,
+    });
+    const refreshToken = generateRefreshToken(existingUser.id);
+
+    const userResponse = {
+      id: existingUser.id,
+      email: existingUser.email,
+      username: existingUser.username,
+    };
+    const isProduction = process.env.NODE_ENV === 'production';
+
+    setCookie(c, 'accessToken', accessToken, {
+      httpOnly: true,
+      secure: isProduction,
+    });
+    setCookie(c, 'refreshToken', refreshToken, {
+      httpOnly: true,
+      secure: isProduction,
+    });
+    return c.json({ user: userResponse, message: 'Login success.' }, 200);
+  } catch (e) {
+    console.log(e);
+    return c.json({ message: 'Internal Server Error' }, 500);
   }
-  const isProduction = process.env.NODE_ENV === "production";
+};
 
-  setCookie(c, "accessToken", accessToken, { httpOnly: true, secure: isProduction });
-  setCookie(c, "refreshToken", refreshToken, { httpOnly: true, secure: isProduction });
-  return c.json({ user: userResponse, message: "Login success." }, 200);
-} catch(e){
-  console.log(e);
-  return c.json({message : "Internal Server Error"}, 500)
-}
-} 
-
-//logout controller 
-export const logoutController = async (c : Context) => {
-    try{
-      const user = c.user;
-      if(!user || !user.id){
-        return c.json({message : "User not found"}, 404)
-      }
-      const isProduction = process.env.NODE_ENV === "production";
-      deleteCookie(c, "accessToken", {
-        httpOnly: true,
-        secure: isProduction,
-        path: "/",
-      });
-  
-      deleteCookie(c, "refreshToken", {
-        httpOnly: true,
-        secure: isProduction,
-        path: "/",
-      }); 
-      return c.json({ message: `${user.username} logged out successfully.` }, 200);
+//logout controller
+export const logoutController = async (c: Context) => {
+  try {
+    const user = c.user;
+    if (!user || !user.id) {
+      return c.json({ message: 'User not found' }, 404);
     }
-    catch(e){
-      console.error("Logout error:", e);
-      return c.json({ message: "Something went wrong." }, 500);
-    }
-}
+    const isProduction = process.env.NODE_ENV === 'production';
+    deleteCookie(c, 'accessToken', {
+      httpOnly: true,
+      secure: isProduction,
+      path: '/',
+    });
 
+    deleteCookie(c, 'refreshToken', {
+      httpOnly: true,
+      secure: isProduction,
+      path: '/',
+    });
+    return c.json(
+      { message: `${user.username} logged out successfully.` },
+      200
+    );
+  } catch (e) {
+    console.error('Logout error:', e);
+    return c.json({ message: 'Something went wrong.' }, 500);
+  }
+};
 
-
-//generate access token and refresh token to use within this code 
-const generateTokensController = async (userId: number): Promise<{ accessToken: string; refreshToken: string }> => {
+//generate access token and refresh token to use within this code
+const generateTokensController = async (
+  userId: number
+): Promise<{ accessToken: string; refreshToken: string }> => {
   try {
     const existingUser = await db.user.findFirst({
       where: {
         id: userId,
-      }
+      },
     });
 
     if (!existingUser) {
-      throw new Error("User not found");
+      throw new Error('User not found');
     }
 
     const { id, email, username } = existingUser;
@@ -155,8 +168,6 @@ const generateTokensController = async (userId: number): Promise<{ accessToken: 
     return { accessToken, refreshToken };
   } catch (e) {
     console.log(e);
-    throw new Error("Failed to generate tokens");
+    throw new Error('Failed to generate tokens');
   }
 };
-
-

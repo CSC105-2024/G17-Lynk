@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import SideBarMenuLink from './SideBarMenuLink'; // Import custom component for sidebar menu links
 import { MdHome, MdTimelapse } from 'react-icons/md'; // Import icons from react-icons
 import { Separator } from '@/components/ui/separator'; // Import separator component for styling
@@ -9,11 +9,37 @@ import APP_ICONS from '@/constants/icons.js'; // Import constant icons for playl
 import { Link } from 'react-router-dom'; // Import Link component for routing
 import { FaXmark } from 'react-icons/fa6'; // Import close icon for sidebar
 import Logo from '../Logo'; // Import Logo component for branding
+import { getPlaylists } from '@/api/playlist'; // Import API function to fetch playlists
 
 // Sidebar component accepting onToggle and showSideBar as props
 const SideBarCard = ({ onToggle, showSideBar }) => {
+  // Fetch playlists and tags from dummy data
+  const fetchPlaylists = async () => {
+    const data = await getPlaylists();
+    if (data.success) {
+      // console.log(data.data.data);
+      setPlaylists(data.data.data);
+    }
+  };
+
+  // const fetchTags = async () => {
+  //   const data = await getTags();
+  //   if (data.success) {
+  //     // console.log(data.data.data);
+  //     setTags(data.data.data);
+  //   }
+  // };
+
+  useEffect(() => {
+    fetchPlaylists();
+    // fetchTags();
+  }, []);
+
+  const [playlists, setPlaylists] = useState([]);
+  console.log(playlists);
+  // const [tags, setTags] = useState([]);
   // Dummy data for playlists and tags
-  const playlists = dummyPlaylist;
+  // const playlists = dummyPlaylist;
   const tags = dummyTags;
 
   // Conditional class for sidebar display based on showSideBar status
@@ -39,19 +65,18 @@ const SideBarCard = ({ onToggle, showSideBar }) => {
         <SideBarMenuLink
           icon={<MdHome />} // Icon for 'Dashboard'
           name='Dashboard' // Menu name
-          number='3' // Placeholder number for the 'Dashboard'
           link='/app/dashboard' // Link to the Dashboard page
         />
         <SideBarMenuLink
           icon={<MdOutlineDatasetLinked />} // Icon for 'All links'
           name='All links' // Menu name
-          number='3' // Placeholder number for the 'All links'
+          linkCount='3' // Placeholder number for the 'All links'
           link='/app/links' // Link to the All links page
         />
         <SideBarMenuLink
           icon={<TiPin />} // Icon for 'Pins'
           name='Pins' // Menu name
-          number='3' // Placeholder number for the 'Pins'
+          linkCount='3' // Placeholder number for the 'Pins'
           link='/app/pins' // Link to the Pins page
         />
       </div>
@@ -70,7 +95,7 @@ const SideBarCard = ({ onToggle, showSideBar }) => {
                 key={index} // Unique key for each playlist link
                 icon={IconComponent ? <IconComponent /> : null} // Display corresponding icon
                 name={playlist.name} // Playlist name
-                number={playlist.number} // Playlist number
+                linkCount={playlist.linkCount} // Playlist number
                 link={`/app/playlists/${playlist.id}`} // Link to specific playlist page
               />
             );

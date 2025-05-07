@@ -1,32 +1,48 @@
-import React from "react";
-import { IoMdLink } from "react-icons/io";
+import { getPlaylists } from '@/api/playlist';
+import React, { useEffect, useState } from 'react';
+import { IoMdLink } from 'react-icons/io';
 
 const InfoCard = () => {
+  const fetchPlaylists = async () => {
+    const data = await getPlaylists();
+    if (data.success) {
+      // console.log(data.data.data);
+      setPlaylists(data.data.data);
+    }
+  };
+
+  useEffect(() => {
+    fetchPlaylists();
+  }, []);
+
+  const [playlists, setPlaylists] = useState([]);
+  console.log(playlists);
+
   const infoData = [
-    { label: "Links", value: 3 },
-    { label: "Playlists", value: 4 },
-    { label: "Tags", value: 5 },
+    { label: 'Links', value: 3 },
+    { label: 'Playlists', value: playlists.length },
+    { label: 'Tags', value: 5 },
   ];
 
   return (
     // A 3-column grid card showing some stats (Links, Playlists, Tags)
     // Each column has an icon, a number, and a label
     // Responsive design: turns into a single column on small screens
-    <div className="grid md:grid-cols-3 bg-[var(--info-card-bg-color)] rounded-2xl py-5 w-full">
+    <div className='grid md:grid-cols-3 bg-[var(--info-card-bg-color)] rounded-2xl py-5 w-full'>
       {infoData.map((item, idx) => (
         <div
           key={item.label}
           className={`border-0 flex p-5 justify-center items-center gap-5 lg:gap-8 ${
             idx < infoData.length - 1
-              ? "md:border-r-2 border-[var(--seperator-color)]"
-              : ""
+              ? 'md:border-r-2 border-[var(--seperator-color)]'
+              : ''
           } border-[var(--seperator-color)]`}
         >
-          <div className="p-2.5 text-3xl lg:text-4xl bg-[var(--info-card-icon-bg-color)] rounded-lg text-[var(--info-card-icon-color)]">
+          <div className='p-2.5 text-3xl lg:text-4xl bg-[var(--info-card-icon-bg-color)] rounded-lg text-[var(--info-card-icon-color)]'>
             <IoMdLink />
           </div>
-          <div className="w-12">
-            <p className="text-3xl lg:text-4xl">{item.value}</p>
+          <div className='w-12'>
+            <p className='text-3xl lg:text-4xl'>{item.value}</p>
             <p>{item.label}</p>
           </div>
         </div>

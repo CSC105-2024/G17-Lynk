@@ -1,7 +1,7 @@
-import { db } from "../index.ts";
-import bcrypt from "bcryptjs";
+import { db } from '../index.ts';
+import bcrypt from 'bcryptjs';
 
-import jwt from "jsonwebtoken";
+import jwt from 'jsonwebtoken';
 
 type UserPayload = {
   id: number;
@@ -9,17 +9,20 @@ type UserPayload = {
   username: string;
 };
 
-export const hashPassword = async (plainPassword : string) => {
-  return await bcrypt.hash(plainPassword,10);
-}
+export const hashPassword = async (plainPassword: string) => {
+  return await bcrypt.hash(plainPassword, 10);
+};
 
-export const ispasswordMatch = async (plainPassword: string, hashPassword : string) => {
-   return await bcrypt.compare(plainPassword,hashPassword);
-}
+export const ispasswordMatch = async (
+  plainPassword: string,
+  hashPassword: string
+) => {
+  return await bcrypt.compare(plainPassword, hashPassword);
+};
 
 export const generateToken = (user: UserPayload): string => {
   const secret = process.env.ACCESSTOKEN_SECRET_KEY;
-  if (!secret) throw new Error("Missing ACCESSTOKEN_SECRET_KEY");
+  if (!secret) throw new Error('Missing ACCESSTOKEN_SECRET_KEY');
 
   const payload = {
     _id: user.id,
@@ -32,7 +35,7 @@ export const generateToken = (user: UserPayload): string => {
 
 export const generateRefreshToken = (userId: number): string => {
   const refreshSecret = process.env.REFRESH_TOKEN_SECRET_KEY;
-  if (!refreshSecret) throw new Error("Missing REFRESH_TOKEN_SECRET_KEY");
+  if (!refreshSecret) throw new Error('Missing REFRESH_TOKEN_SECRET_KEY');
 
   return jwt.sign({ _id: userId }, refreshSecret, {
     expiresIn: '7d',
@@ -51,7 +54,7 @@ export const createUserIfNotExists = async (
   if (existingUser) {
     return {
       success: false,
-      message: "User already exists",
+      message: 'User already exists',
       user: existingUser,
     };
   }
@@ -60,10 +63,9 @@ export const createUserIfNotExists = async (
     data: {
       email,
       username,
-      password : hashedPassword
+      password: hashedPassword,
     },
   });
 
-  return { success: true, message: "User created", user: newUser };
+  return { success: true, message: 'User created', user: newUser };
 };
-
