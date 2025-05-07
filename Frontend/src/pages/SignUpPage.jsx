@@ -7,6 +7,7 @@ import AuthLayout from '../components/Form/AuthLayout';
 import FormInput from '../components/Form/FormInput';
 import Button from '../components/Button';
 import { title } from '../styles/styles';
+import axios from 'axios';
 
 // Validation Schema
 const userSchema = z.object({
@@ -21,14 +22,12 @@ const userSchema = z.object({
       /[@$!%*?&]/,
       '❌ Must contain at least one special character (@$!%*?&)'
     ),
+  confirmPassword: z.string().min(8, '❌ Password must be at least 8 characters long'),
 });
 
+// SignUp Page Component
 const SignUpPage = () => {
   const navigate = useNavigate();
-
-  function handle_SignUp() {
-    navigate('/login');
-  }
 
   const {
     register,
@@ -39,8 +38,33 @@ const SignUpPage = () => {
     mode: 'onChange',
   });
 
-  const onSubmit = (data) => {
-    console.log('Form Submitted:', data);
+  // On Submit handler
+  const onSubmit = async (data) => {
+    const { email, password, confirmPassword } = data;
+
+    if (password !== confirmPassword) {
+      alert('Passwords do not match!');
+      return;
+    }
+
+    try {
+      const response = await axios.post('http://localhost:3000/register', {
+        email,
+        password,
+        username: email,
+      });
+
+      // On success, navigate to login page
+      if (response.data?.success) {
+        alert('User created successfully! Please log in.'); // //frontend component needs to be created
+        navigate('/login');
+      } else {
+        alert('Error creating user: ' + response.data?.msg);
+      }
+    } catch (error) {
+      console.error('Error during sign up:', error);
+      alert('Something went wrong. Please try again later.'); //frontend component needs to be created
+    }
   };
 
   // Sign up form
@@ -65,14 +89,14 @@ const SignUpPage = () => {
           <FormInput
             type='password'
             placeholder='Confirm Password:'
-            error={errors.password}
-            func={register('password')}
+            error={errors.confirmPassword}
+            func={register('confirmPassword')}
           />
           <Button
             text='Create'
             variant='btnOutline'
             className='mx-auto mt-8 py-2 px-10 text-[var(--btn-primary-outline-text-color)]'
-            onClick={handle_SignUp}
+            type="submit"
           />
         </form>
       </div>
@@ -87,7 +111,6 @@ const SignUpPage = () => {
   );
 
   return (
-    // Passing SignUp form to AuthLayout component to complete Sign Up Page
     <AuthLayout AuthForm={SignUp} />
   );
 };

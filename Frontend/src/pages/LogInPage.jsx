@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { data, useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -7,6 +7,7 @@ import AuthLayout from '../components/Form/AuthLayout';
 import FormInput from '../components/Form/FormInput';
 import Button from '../components/Button';
 import { title } from '../styles/styles';
+import axios from 'axios';
 
 // Validation Schema
 const userSchema = z.object({
@@ -25,9 +26,20 @@ const userSchema = z.object({
 
 const LogInPage = () => {
   const navigate = useNavigate();
-
-  function handle_LogIn() {
-    navigate('/app/dashboard');
+  const loginUser = async() => {
+    try {
+      const response = await axios.post('http://localhost:3000/login',{
+        username : data.email,
+        password : data.password
+      })
+      if(response.data?.message == "Login Success"){
+        console.log("Login Success");
+        navigate('/app/dashboard');
+      }
+    } catch (error) {
+      console.error('Error logging in:', error.response?.data || error);
+      alert('Login failed: ' + (error.response?.data?.message || 'Unknown error')); // front end  needed
+    }
   }
 
   const {
@@ -66,7 +78,6 @@ const LogInPage = () => {
             text='Login'
             variant='btnOutline'
             className='mx-auto mt-8 py-2 px-10 text-[var(--btn-primary-outline-text-color)]'
-            onClick={handle_LogIn}
           ></Button>
         </form>
       </div>

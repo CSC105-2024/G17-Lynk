@@ -5,6 +5,7 @@ import { Prisma } from '@prisma/client/extension';
 import { mainRouter } from './routes/index.route.ts';
 import { cors } from 'hono/cors';
 import { logger } from 'hono/logger';
+import { userRouter } from './routes/user.route.ts';
 import dotenv from 'dotenv'
 
 dotenv.config();
@@ -13,7 +14,8 @@ export const db = new PrismaClient();
 
 app.use(
   cors({
-    origin: ['http://localhost:5173'], // frontend application
+    origin: ['http://localhost:5173'], 
+    credentials: true,
   })
 );
 
@@ -59,3 +61,4 @@ db.$connect()
   });
 
 app.route('', mainRouter);
+app.route('/users', userRouter);
