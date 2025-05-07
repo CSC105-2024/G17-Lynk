@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import Button from '../Button';
 import { FaCircleUser } from 'react-icons/fa6';
 import { IoMdSearch } from 'react-icons/io';
@@ -12,6 +12,9 @@ import { data, useNavigate } from 'react-router-dom';
 import { dummyData } from '@/services/data';
 import { btn, btnFill } from '@/styles/styles';
 import Chip from './Chip';
+import { User } from 'lucide-react';
+import { UserContext } from '@/App';
+import { createPlaylist } from '@/api/playlist';
 
 /**
  * Navigation Bar Card Component
@@ -36,7 +39,8 @@ const NavBarCard = ({ onToggle }) => {
   const searchInputRef = useRef(null);
 
   // Playlist management
-  const [playlists, setPlaylists] = useState([]);
+  // const [playlists, setPlaylists] = useState([]);
+  const { playlists, setPlaylists } = useContext(UserContext);
 
   // Filter related states
   const [showFilterButton, setShowFilterButton] = useState(false);
@@ -83,8 +87,23 @@ const NavBarCard = ({ onToggle }) => {
    * Handles playlist creation
    * @param {Object} playlist - The new playlist data
    */
-  const handleCreatePlaylist = (playlist) => {
+  const handleCreatePlaylist = async (playlist) => {
     console.log('Created playlist:', playlist);
+    try {
+      const [playlistsData] = await createPlaylist(
+        (playlist.userId = 1),
+        playlist.name,
+        playlist.description,
+        playlist.iconLink
+      );
+      console.log('here bar');
+      if (playlistsData.success) {
+        console.log('here bar insdie');
+        setPlaylists(playlistsData.data.data);
+      }
+    } catch (error) {
+      console.error('Error creating data:', error);
+    }
     setPlaylists([...playlists, playlist]);
   };
 

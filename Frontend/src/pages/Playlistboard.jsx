@@ -46,9 +46,17 @@ const Playlistboard = () => {
         icon={IconComponent ? <IconComponent /> : null}
         title={playlistData.name}
         subTitle={playlistData.description}
-        children={bookmarkData.map((item, idx) => (
-          <LinkCard key={idx} data={item} onDelete={handleDelete} />
-        ))}
+        children={
+          bookmarkData.length === 0 ? (
+            <p className='italic'>
+              There's no link in this playlist. Save link now to see!
+            </p>
+          ) : (
+            bookmarkData.map((item, idx) => (
+              <LinkCard key={idx} data={item} onDelete={handleDelete} />
+            ))
+          )
+        }
       ></DisplayCard>
     </div>
   );
