@@ -5,7 +5,9 @@ import { Prisma } from '@prisma/client/extension';
 import { mainRouter } from './routes/index.route.ts';
 import { cors } from 'hono/cors';
 import { logger } from 'hono/logger';
+import dotenv from 'dotenv'
 
+dotenv.config();
 const app = new Hono();
 export const db = new PrismaClient();
 
@@ -33,9 +35,10 @@ app.get('/test-db', async (c) => {
     return c.json({ success: true, data: todos });
   } catch (error) {
     console.error(error);
-    return c.json({ success: false, error: error.message });
+    return c.json({ success: false, error: "Failed to fetch data" });
   }
 });
+
 
 serve(
   {
