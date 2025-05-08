@@ -2,6 +2,7 @@ import type { Context } from "hono";
 import {db} from '../index.ts'
 import {createUserIfNotExists,generateToken,generateRefreshToken,ispasswordMatch}  from "../models/user.model.ts";
 import { setCookie,deleteCookie } from "hono/cookie";
+import jwt from "jsonwebtoken";
 type CreateUserBody = {
   email: string;
   username: string;
@@ -66,13 +67,13 @@ export const registerUserController = async (c: Context) => {
 //login user
 export const loginUserController = async (c: Context) => {
   try{
-  const {username, password} = await c.req.json();
-  if(!username || !password){
+  const {email, password} = await c.req.json();
+  if(!email || !password){
     return c.json({message : "Missing required fields"}, 400)
   }
   const existingUser = await db.user.findFirst({ 
     where: {
-      username,
+      email,
     }
   })
   if(!existingUser){
@@ -130,7 +131,66 @@ export const logoutController = async (c: Context) => {
   }
 }
 
+export const refreshTokenController = async (c: Context) => {
+  try {
+    const cookies = c.req.header("Cookie") || "";
+    const refreshToken = cookies
+      .split("; ")
+      .find((row) => row.startsWith("refreshToken="))
+      ?.split("=")[1];
 
+    if (!refreshToken) {
+      return c.json({ message: "Refresh token not found" }, 401);
+    }
+
+    // Decode the refresh token
+    const decoded = jwt.verify(
+      refreshToken,
+      process.env.REFRESHTOKEN_SECRET_KEY!
+    ) as { _id: number };
+
+    if (!decoded?._id) {
+      return c.json({ message: "Invalid refresh token" }, 401);
+    }
+
+    const user = await db.user.findUnique({
+      where: { id: decoded._id },
+    });
+
+    if (!user) {
+      return c.json({ message: "User not found" }, 404);
+    }
+
+    // Generate new tokens
+    const newAccessToken = generateToken({
+      id: user.id,
+      email: user.email,
+      username: user.username,
+    });
+
+    const newRefreshToken = generateRefreshToken(user.id);
+
+    const isProduction = process.env.NODE_ENV === "production";
+
+    // Set the new cookies
+    setCookie(c, "accessToken", newAccessToken, {
+      httpOnly: true,
+      secure: isProduction,
+      path: "/",
+    });
+
+    setCookie(c, "refreshToken", newRefreshToken, {
+      httpOnly: true,
+      secure: isProduction,
+      path: "/",
+    });
+
+    return c.json({ message: "Token refreshed successfully" }, 200);
+  } catch (error) {
+    console.error("Refresh token error:", error);
+    return c.json({ message: "Invalid or expired refresh token" }, 401);
+  }
+};
 
 //generate access token and refresh token to use within this code 
 const generateTokensController = async (userId: number): Promise<{ accessToken: string; refreshToken: string }> => {
