@@ -70,8 +70,8 @@ const SideBarCard = ({ onToggle, showSideBar }) => {
               <SideBarMenuLink
                 key={index} // Unique key for each playlist link
                 icon={IconComponent ? <IconComponent /> : null} // Display corresponding icon
-                name={playlist.name} // Playlist name
-                linkCount={playlist.linkCount} // Playlist number
+                name={playlist?.name} // Playlist name
+                linkCount={playlist?.links?.length} // Playlist number
                 link={`/app/playlists/${playlist.id}`} // Link to specific playlist page
               />
             );

@@ -149,7 +149,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/Users/adorosis/Desktop/Lynk/G17-Lynk/Backend/src/generated/prisma",
+      "value": "D:\\Desktop\\KMUTT\\FYSS\\CSC105\\G17-Lynk\\Backend\\src\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -158,16 +158,17 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "darwin-arm64",
+        "value": "windows",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/Users/adorosis/Desktop/Lynk/G17-Lynk/Backend/prisma/schema.prisma",
+    "sourceFilePath": "D:\\Desktop\\KMUTT\\FYSS\\CSC105\\G17-Lynk\\Backend\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null
+    "rootEnvPath": null,
+    "schemaEnvPath": "../../../.env"
   },
   "relativePath": "../../../prisma",
   "clientVersion": "6.7.0",
@@ -176,12 +177,11 @@ const config = {
     "db"
   ],
   "activeProvider": "sqlite",
-  "postinstall": true,
   "inlineDatasources": {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": null
+        "value": "file:./dev.db"
       }
     }
   },

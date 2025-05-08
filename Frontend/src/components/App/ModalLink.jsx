@@ -1,9 +1,9 @@
 import { btn, btnFill } from '@/styles/styles';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import Button from '../Button';
 import { Separator } from '@/components/ui/separator';
-import { UserContext } from "@/App";
-import { createLink } from "@/api/links";
+import { UserContext } from '@/App';
+import { createLink } from '@/api/links';
 
 // ModalLink - A modal window for creating a new link
 // Props:
@@ -12,36 +12,52 @@ import { createLink } from "@/api/links";
 
 const ModalLink = ({ show, handleClose }) => {
   // Determine modal visibility based on `show` prop
+
+  const [linkInfo, setLinkInfo] = useState({
+    url: '',
+    title: '',
+    description: '',
+    iconLink: null,
+    tags: [],
+    playlistId: null,
+  });
+
   const showHideClassName = show
     ? 'fixed inset-0 w-full h-full bg-[var(--main-bg-color)] bg-opacity-60 flex justify-center items-center z-100 scroll-y'
     : 'hidden';
   // Dummy create function (you can replace with real logic)
 
-  const {links, setLinks} = useContext(UserContext);
+  const getFavicon = (url) => {
+    const domain = new URL(url).hostname;
+    return `https://www.google.com/s2/favicons?domain=${domain}`;
+  };
+
+  // Returns: https://www.google.com/s2/favicons?domain=example.com
+
+  const { links, setLinks, playlists } = useContext(UserContext);
   const handleCreate = async (link) => {
-      console.log('Created link:', link);
-      try {
-        const [linksData] = await createLink(
-          (link.userId = 1),
-          link.url,
-          link.title,
-          link.description,
-          link.iconLink,
-          link.tags,
-          link.playlistId,
-          link.createdAt
-        );
-        console.log('here bar');
-        if (linksData.success) {
-          console.log('here bar insdie');
-          setLinks(linksData.data.data);
-        }
-      } catch (error) {
-        console.error('Error creating data:', error);
+    console.log('Created link:', link);
+    const faviconUrl = getFavicon(link.url);
+    try {
+      const [linksData] = await createLink(
+        (link.userId = 1),
+        link.url,
+        link.title,
+        link.description,
+        (link.iconLink = faviconUrl),
+        link.tags,
+        link.playlistId
+      );
+      console.log('here bar');
+      if (linksData.success) {
+        console.log('here bar insdie');
+        setLinks(linksData.data.data);
       }
-      setLinks([...linksData, linksData]);
+    } catch (error) {
+      console.error('Error creating data:', error);
+    }
+    setLinks([...links, link]);
     handleClose();
-  }
   };
 
   return (
@@ -88,6 +104,8 @@ const ModalLink = ({ show, handleClose }) => {
           <input
             type='text'
             id='link'
+            value={linkInfo.url}
+            onChange={(e) => setLinkInfo({ ...linkInfo, url: e.target.value })}
             placeholder='e.g. https://example.com'
             className='shadow appearance-none border rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-[var(--modal-input-bg-color)] text-[var(--app-text-color)]'
           />
@@ -104,8 +122,16 @@ const ModalLink = ({ show, handleClose }) => {
           <select
             id='playlist'
             className='shadow appearance-none border rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-[var(--modal-input-bg-color)] text-[var(--app-text-color)]'
+            value={linkInfo.playlistId}
+            onChange={(e) =>
+              setLinkInfo({ ...linkInfo, playlistId: +e.target.value })
+            }
           >
-            <option>Dropdown</option>
+            <option>Select playlist</option>
+            {playlists.map((pl) => {
+              // console.log(pl.name);
+              return <option value={pl.id}>{pl.name}</option>;
+            })}
           </select>
         </div>
 
@@ -122,6 +148,10 @@ const ModalLink = ({ show, handleClose }) => {
             id='name'
             placeholder='e.g. Example Link Name'
             className='shadow appearance-none border rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-[var(--modal-input-bg-color)] text-[var(--app-text-color)]'
+            value={linkInfo.title}
+            onChange={(e) =>
+              setLinkInfo({ ...linkInfo, title: e.target.value })
+            }
           />
         </div>
 
@@ -131,13 +161,18 @@ const ModalLink = ({ show, handleClose }) => {
             htmlFor='tag'
             className='block text-[var(--app-text-color)] text-sm font-semibold mb-2'
           >
-            Tag
+            Tags
           </label>
 
           <textarea
             id='description'
-            placeholder='Enter a Tag name related to the link. Eg. Music, '
+            placeholder='Enter tag names (SEPARATED BY COMMAS) related to the link. Eg. Music, '
             className='shadow appearance-none border rounded-lg w-full py-2 px-3 h-25 leading-tight focus:outline-none focus:shadow-outline bg-[var(--modal-input-bg-color)] text-[var(--app-text-color)]'
+            value={linkInfo.tags}
+            onChange={(e) => {
+              const newTags = e.target.value.split(/[, ]+/);
+              setLinkInfo({ ...linkInfo, tags: newTags });
+            }}
           />
         </div>
 
@@ -153,12 +188,28 @@ const ModalLink = ({ show, handleClose }) => {
             id='description'
             placeholder="What's the reason for saving this link?"
             className='shadow appearance-none border rounded-lg w-full py-2 px-3 h-25 leading-tight focus:outline-none focus:shadow-outline bg-[var(--modal-input-bg-color)] text-[var(--app-text-color)]'
+            value={linkInfo.description}
+            onChange={(e) =>
+              setLinkInfo({ ...linkInfo, description: e.target.value })
+            }
           />
         </div>
 
         {/* Create Button */}
         <div className='flex items-center justify-between'>
-          <Button type='submit' text='Create' onClick={handleCreate} />
+          <Button
+            text='Create'
+            onClick={() => {
+              handleCreate(linkInfo);
+              setLinkInfo({
+                link: '',
+                playlist: '',
+                name: '',
+                tags: '',
+                description: '',
+              });
+            }}
+          />
         </div>
       </form>
     </div>

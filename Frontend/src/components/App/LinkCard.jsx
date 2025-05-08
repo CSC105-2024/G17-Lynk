@@ -18,7 +18,15 @@ const LinkCard = ({ data, onDelete }) => {
   return (
     <div className='bg-[var(--link-card-bg)] rounded-lg shadow py-3 px-3 md:px-10 hover:bg-[var(--link-card-hover-bg)] w-full '>
       <div className='flex items-center gap-2 mb-2'>
-        <img src={iconLink} alt='icon' className='h-5' />
+        {iconLink ? (
+          <img src={iconLink} alt='icon' className='h-6' />
+        ) : (
+          <img
+            src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXJDbx0l_oRW7j2qkvMsg6JXZey2O63913cA&s'
+            alt='icon'
+            className='h-6 rounded-full'
+          />
+        )}
         <p className='flex-grow overflow-hidden text-ellipsis whitespace-nowrap'>
           {title}
         </p>

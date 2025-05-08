@@ -24,14 +24,14 @@ const Playlistboard = () => {
     }
   }, [playlistData]);
 
-  console.log('playlistData: ', playlistData);
-  console.log('bookmark: ', bookmarkData);
+  // console.log('playlistData: ', playlistData);
+  // console.log('bookmark: ', bookmarkData);
   // const iconLink = playlistData[playlistId - 1].iconLink;
 
   const handleDelete = (id) => {
-    console.log('inside handle delete func');
+    // console.log('inside handle delete func');
     setBookmarkData((prevData) => prevData.filter((item) => item.id !== id));
-    console.log('Bookmark data after delete:', bookmarkData);
+    // console.log('Bookmark data after delete:', bookmarkData);
   };
 
   if (!playlistData) {
@@ -41,7 +41,7 @@ const Playlistboard = () => {
   return (
     <div className='md:px-5'>
       {/* Testing playlist id: {playlistId} */}
-      {console.log('render here')}
+      {/* {console.log('render here')} */}
       <DisplayCard
         icon={IconComponent ? <IconComponent /> : null}
         title={playlistData.name}

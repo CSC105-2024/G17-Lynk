@@ -40,11 +40,11 @@ export const createLink = async (
   description,
   iconLink,
   tags,
-  playlistId,
-  createdAt
+  playlistId
 ) => {
+  console.log('inside link api');
   try {
-    const response = await Axios.post(`links/user/${userId}`, {
+    const response = await Axios.post(`/links`, {
       userId,
       url,
       title,
@@ -52,7 +52,6 @@ export const createLink = async (
       iconLink,
       tags,
       playlistId,
-      createdAt,
     });
     return {
       status: response.status,
