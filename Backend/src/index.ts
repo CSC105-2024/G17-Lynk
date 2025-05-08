@@ -1,7 +1,7 @@
 import { serve } from '@hono/node-server';
 import { Hono } from 'hono';
 import { PrismaClient } from './generated/prisma/index.js';
-import { Prisma } from '@prisma/client/extension';
+
 import { mainRouter } from './routes/index.route.ts';
 import { cors } from 'hono/cors';
 import { logger } from 'hono/logger';
@@ -14,7 +14,7 @@ export const db = new PrismaClient();
 
 app.use(
   cors({
-    origin: ['http://localhost:5173'], 
+    origin: 'http://localhost:5173', 
     credentials: true,
   })
 );
@@ -61,4 +61,4 @@ db.$connect()
   });
 
 app.route('', mainRouter);
-app.route('/users', userRouter);
+app.route('', userRouter);

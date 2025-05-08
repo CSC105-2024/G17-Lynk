@@ -1,5 +1,5 @@
 import React from 'react';
-import { data, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -18,29 +18,11 @@ const userSchema = z.object({
     .regex(/[A-Z]/, '❌ Must contain at least one uppercase letter')
     .regex(/[a-z]/, '❌ Must contain at least one lowercase letter')
     .regex(/[0-9]/, '❌ Must contain at least one number')
-    .regex(
-      /[@$!%*?&]/,
-      '❌ Must contain at least one special character (@$!%*?&)'
-    ),
+    .regex(/[@$!%*?&]/, '❌ Must contain at least one special character (@$!%*?&)'),
 });
 
 const LogInPage = () => {
   const navigate = useNavigate();
-  const loginUser = async() => {
-    try {
-      const response = await axios.post('http://localhost:3000/login',{
-        username : data.email,
-        password : data.password
-      })
-      if(response.data?.message == "Login Success"){
-        console.log("Login Success");
-        navigate('/app/dashboard');
-      }
-    } catch (error) {
-      console.error('Error logging in:', error.response?.data || error);
-      alert('Login failed: ' + (error.response?.data?.message || 'Unknown error')); // front end  needed
-    }
-  }
 
   const {
     register,
@@ -51,17 +33,51 @@ const LogInPage = () => {
     mode: 'onChange',
   });
 
-  const onSubmit = (data) => {
-    console.log('Form Submitted:', data);
+  const loginUser = async (data) => {
+    try {
+      const response = await axios.post(
+        'http://localhost:3000/login',
+        {
+          email: data.email,
+          password: data.password,
+        },
+        {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      console.log('Backend Response:', response.data);
+      if (response.data.success || response.data.token) {
+        navigate('/app/dashboard'); 
+      } else {
+        alert(response.data.msg || 'Login failed: No success flag');
+      }
+    } catch (error) {
+      console.error('Login Error:', {
+        message: error.message,
+        response: error.response?.data,
+      });
+      alert(
+        error.response?.data?.msg ||
+        'Login failed. Check console for details.'
+      );
+    }
   };
 
-  // Login form
+  const onSubmit = (data) => {
+    console.log('Form Data:', data); // Verify data before sending
+    loginUser(data);
+  };
 
+  // Login form JSX (unchanged)
   const Login = (
     <>
       <h1 className={`${title} mb-6`}>Login</h1>
       <div className='w-full'>
-        <form className='flex flex-col gap-4' onSubmit={handleSubmit(onSubmit)}>
+        <form className='flex flex-col gap-4'>
           <FormInput
             type='email'
             placeholder='Email:'
@@ -78,20 +94,19 @@ const LogInPage = () => {
             text='Login'
             variant='btnOutline'
             className='mx-auto mt-8 py-2 px-10 text-[var(--btn-primary-outline-text-color)]'
-          ></Button>
+            onSubmit={handleSubmit(onSubmit)}
+          />
         </form>
       </div>
 
       <p className='mt-6 text-center text-sm md:text-base'>
-        Don't have an account?{'  '}
+        Don't have an account?{' '}
         <a href='/signup' className='underline text-blue-400'>
           Sign Up
         </a>
       </p>
     </>
   );
-
-  // Passing Login form to AuthLayout component to complete Login Page
 
   return <AuthLayout AuthForm={Login} />;
 };
