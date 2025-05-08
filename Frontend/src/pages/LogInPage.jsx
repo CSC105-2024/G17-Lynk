@@ -50,7 +50,7 @@ const LogInPage = () => {
       );
 
       console.log('Backend Response:', response.data);
-      if (response.data.success || response.data.token) {
+      if (response.status === 200 && response.data.user) {
         navigate('/app/dashboard'); 
       } else {
         alert(response.data.msg || 'Login failed: No success flag');
@@ -68,7 +68,7 @@ const LogInPage = () => {
   };
 
   const onSubmit = (data) => {
-    console.log('Form Data:', data); // Verify data before sending
+    console.log('Form Data:', data);
     loginUser(data);
   };
 
@@ -77,7 +77,7 @@ const LogInPage = () => {
     <>
       <h1 className={`${title} mb-6`}>Login</h1>
       <div className='w-full'>
-        <form className='flex flex-col gap-4'>
+        <form className='flex flex-col gap-4'  onSubmit={handleSubmit(onSubmit)}>
           <FormInput
             type='email'
             placeholder='Email:'
@@ -90,11 +90,11 @@ const LogInPage = () => {
             error={errors.password}
             func={register('password')}
           />
-          <Button
+          <Button 
+            type='submit'
             text='Login'
             variant='btnOutline'
             className='mx-auto mt-8 py-2 px-10 text-[var(--btn-primary-outline-text-color)]'
-            onSubmit={handleSubmit(onSubmit)}
           />
         </form>
       </div>
