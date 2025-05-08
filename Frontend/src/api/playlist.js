@@ -1,19 +1,41 @@
 import { Axios } from '../../axiosInstance';
 
+// Helper function to format dates consistently
+const formatDate = (dateString) => new Date(dateString).toLocaleString();
+
 export const getPlaylists = async () => {
   try {
     const response = await Axios.get('playlists/user/1');
+
+    // Format dates for each playlist and their nested links
+    const formattedData = response.data.data.map((playlist) => ({
+      ...playlist,
+      createdAt: formatDate(playlist.createdAt),
+      updatedAt: formatDate(playlist.updatedAt),
+      links:
+        playlist.links?.map((link) => ({
+          ...link,
+          createdAt: formatDate(link.createdAt),
+          updatedAt: formatDate(link.updatedAt),
+        })) || [],
+    }));
+
     return {
       status: response.status,
       success: response.data.success,
-      data: response.data,
+      data: {
+        ...response.data,
+        data: formattedData,
+      },
+      msg: response.data.msg,
     };
   } catch (e) {
-    console.error('Error fetching playlist:', e);
+    console.error('Error fetching playlists:', e);
     return {
       status: 500,
       success: false,
       data: null,
+      msg: 'Failed to fetch playlists',
     };
   }
 };
@@ -21,10 +43,28 @@ export const getPlaylists = async () => {
 export const getUser = async () => {
   try {
     const response = await Axios.get('user/1');
+
+    // Format user dates if they exist
+    const formattedData = response.data.data
+      ? {
+          ...response.data.data,
+          ...(response.data.data.createdAt && {
+            createdAt: formatDate(response.data.data.createdAt),
+          }),
+          ...(response.data.data.updatedAt && {
+            updatedAt: formatDate(response.data.data.updatedAt),
+          }),
+        }
+      : response.data.data;
+
     return {
       status: response.status,
       success: response.data.success,
-      data: response.data,
+      data: {
+        ...response.data,
+        data: formattedData,
+      },
+      msg: response.data.msg,
     };
   } catch (e) {
     console.error('Error fetching user:', e);
@@ -32,9 +72,11 @@ export const getUser = async () => {
       status: 500,
       success: false,
       data: null,
+      msg: 'Failed to fetch user',
     };
   }
 };
+
 export const createPlaylist = async (userId, name, description, iconLink) => {
   try {
     const response = await Axios.post('/playlists', {
@@ -43,10 +85,24 @@ export const createPlaylist = async (userId, name, description, iconLink) => {
       description,
       iconLink,
     });
+
+    // Format the newly created playlist's dates
+    const formattedData = response.data.data
+      ? {
+          ...response.data.data,
+          createdAt: formatDate(response.data.data.createdAt),
+          updatedAt: formatDate(response.data.data.updatedAt),
+        }
+      : response.data.data;
+
     return {
       status: response.status,
       success: response.data.success,
-      data: response.data,
+      data: {
+        ...response.data,
+        data: formattedData,
+      },
+      msg: response.data.msg,
     };
   } catch (e) {
     console.error('Error creating playlist', e);
@@ -54,6 +110,7 @@ export const createPlaylist = async (userId, name, description, iconLink) => {
       status: 500,
       success: false,
       data: null,
+      msg: 'Failed to create playlist',
     };
   }
 };

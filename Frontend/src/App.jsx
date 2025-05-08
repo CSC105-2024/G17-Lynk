@@ -30,6 +30,7 @@ const App = () => {
 
       if (playlistsData.success) setPlaylists(playlistsData.data.data);
       if (linksData.success) setLinks(linksData.data.data);
+      // console.log('link is ', links);
     } catch (error) {
       console.error('Error fetching data:', error);
     }

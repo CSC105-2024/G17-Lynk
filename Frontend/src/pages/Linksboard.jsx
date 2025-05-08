@@ -8,7 +8,7 @@ import { UserContext } from '@/App';
 
 const Linksboard = () => {
   const { links } = useContext(UserContext);
-  console.log('links blah blah : ', links);
+  // console.log('links blah blah : ', links);
 
   if (!links || links.length === 0) {
     return (
