@@ -15,14 +15,15 @@ declare module 'hono' {
 const verifyJwt = async (c: Context, next: Next) => {
   const cookies = parse(c.req.header('Cookie') || '');
   const authHeader = c.req.header('Authorization') || '';
-  const token = cookies.accessToken || authHeader.split(' ')[1];
+  const token = authHeader.split(' ')[1] || cookies.accessToken;
 
   if (!token) {
     return c.json({ message: 'Authorization token required' }, 401);
   }
-
+  console.log('Token:', token);
+  console.log('JWT_SECRET:', process.env.JWT_SECRET);
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as { _id: number };
+    const decoded = jwt.verify(token, process.env.ACCESSTOKEN_SECRET_KEY!) as { _id: number };
     
     if (!decoded?._id) {
       return c.json({ message: 'Invalid token payload' }, 401);
