@@ -1,7 +1,9 @@
 import { btn, btnFill } from '@/styles/styles';
-import React from 'react';
+import React, { useContext } from 'react';
 import Button from '../Button';
 import { Separator } from '@/components/ui/separator';
+import { UserContext } from "@/App";
+import { createLink } from "@/api/links";
 
 // ModalLink - A modal window for creating a new link
 // Props:
@@ -14,9 +16,32 @@ const ModalLink = ({ show, handleClose }) => {
     ? 'fixed inset-0 w-full h-full bg-[var(--main-bg-color)] bg-opacity-60 flex justify-center items-center z-100 scroll-y'
     : 'hidden';
   // Dummy create function (you can replace with real logic)
-  const handleCreate = () => {
-    console.log('create new link');
+
+  const {links, setLinks} = useContext(UserContext);
+  const handleCreate = async (link) => {
+      console.log('Created link:', link);
+      try {
+        const [linksData] = await createLink(
+          (link.userId = 1),
+          link.url,
+          link.title,
+          link.description,
+          link.iconLink,
+          link.tags,
+          link.playlistId,
+          link.createdAt
+        );
+        console.log('here bar');
+        if (linksData.success) {
+          console.log('here bar insdie');
+          setLinks(linksData.data.data);
+        }
+      } catch (error) {
+        console.error('Error creating data:', error);
+      }
+      setLinks([...linksData, linksData]);
     handleClose();
+  }
   };
 
   return (

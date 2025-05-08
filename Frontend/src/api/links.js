@@ -1,8 +1,10 @@
 import { Axios } from '../../axiosInstance';
 
+const userId = 1;
+
 export const getLinks = async () => {
   try {
-    const response = await Axios.get('links/user/1');
+    const response = await Axios.get(`links/user/${userId}`);
 
     // Format dates for each link in the array
     const formattedData = response.data.data.map((link) => ({
@@ -27,6 +29,44 @@ export const getLinks = async () => {
       success: false,
       data: null,
       msg: 'Failed to fetch links',
+    };
+  }
+};
+
+export const createLink = async (
+  userId,
+  url,
+  title,
+  description,
+  iconLink,
+  tags,
+  playlistId,
+  createdAt
+) => {
+  try {
+    const response = await Axios.post(`links/user/${userId}`, {
+      userId,
+      url,
+      title,
+      description,
+      iconLink,
+      tags,
+      playlistId,
+      createdAt,
+    });
+    return {
+      status: response.status,
+      success: response.data.success,
+      data: response.data,
+      msg: response.data.msg,
+    };
+  } catch (e) {
+    console.error('Error creating link', e);
+    return {
+      status: 500,
+      success: false,
+      data: null,
+      msg: 'Failed to create link',
     };
   }
 };
