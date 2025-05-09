@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Button } from '@/components/ui/button';
 import { UserContext } from '@/App';
 import { deletePlaylist } from '@/api/playlist';
+import APP_ICONS from '@/constants/icons.js';
 
 const DisplayCard = ({
   icon,
@@ -11,6 +12,8 @@ const DisplayCard = ({
   canDelete,
   playlistId,
 }) => {
+  const IconComponent = APP_ICONS['delete'];
+
   const { playlists, setPlaylists } = useContext(UserContext);
   console.log('this id', playlistId);
   const handleDelete = async () => {
@@ -44,8 +47,12 @@ const DisplayCard = ({
             variant='destructive'
             className=' ml-auto mr-10 cursor-pointer'
             onClick={handleDelete}
+            title='Delete this playlist'
           >
-            Delete this playlist
+            <span className='block md:hidden'>
+              <IconComponent />
+            </span>
+            <span className='hidden md:block'>Delete this playlist</span>
           </Button>
         )}
       </div>

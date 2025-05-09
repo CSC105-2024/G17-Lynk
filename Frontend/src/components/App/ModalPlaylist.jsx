@@ -13,7 +13,7 @@ import APP_ICONS from '@/constants/icons'; // Import your icons
 const ModalPlaylist = ({ isOpen, onClose, onCreate }) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [selectedIcon, setSelectedIcon] = useState('home'); // Default icon
+  const [selectedIcon, setSelectedIcon] = useState('folder'); // Default icon
 
   const handleCreate = () => {
     onCreate({ name, description, iconLink: selectedIcon });
