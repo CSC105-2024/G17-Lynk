@@ -36,7 +36,7 @@ const App = () => {
     }
   };
 
-  console.log(playlists);
+  console.log('app playlist', playlists);
 
   useEffect(() => {
     fetchData();

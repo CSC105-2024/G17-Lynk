@@ -16,7 +16,7 @@ const ModalPlaylist = ({ isOpen, onClose, onCreate }) => {
   const [selectedIcon, setSelectedIcon] = useState('home'); // Default icon
 
   const handleCreate = () => {
-    onCreate({ name, description, icon: selectedIcon });
+    onCreate({ name, description, iconLink: selectedIcon });
     onClose();
   };
 

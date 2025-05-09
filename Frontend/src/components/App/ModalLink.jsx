@@ -62,7 +62,7 @@ const ModalLink = ({ show, handleClose }) => {
 
   return (
     <div className={showHideClassName}>
-      <form className='bg-[var(--modal-bg-color)] rounded-lg p-8 w-full h-2/3 max-w-md shadow-lg  overflow-y-auto'>
+      <form className='bg-[var(--modal-bg-color)] rounded-lg p-8 w-full h-auto max-w-md shadow-lg  overflow-y-auto'>
         {/* Modal Header */}
         <div className='flex justify-between items-center mb-4'>
           <h2 className='text-xl font-bold text-[var(--app-text-color)]'>

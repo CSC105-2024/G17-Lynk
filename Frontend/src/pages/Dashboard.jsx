@@ -38,7 +38,8 @@ const Dashboard = () => {
       >
         {links
           ?.map((item, idx) => <LinkCard key={idx} data={item} />)
-          .sort((a, b) => a.createdAt - b.createdAt)}
+          .sort((a, b) => a.createdAt - b.createdAt)
+          .slice(0, 5)}
       </DisplayCard>
     </div>
   );

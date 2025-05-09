@@ -15,6 +15,9 @@ const Playlistboard = () => {
     (item) => item.id === parseInt(playlistId)
   );
 
+  console.log('playlist id is here', playlistId);
+  console.log('playlist data is here', playlistData);
+
   const IconComponent = APP_ICONS[playlistData?.iconLink];
   const [bookmarkData, setBookmarkData] = useState([]);
 
@@ -46,6 +49,8 @@ const Playlistboard = () => {
         icon={IconComponent ? <IconComponent /> : null}
         title={playlistData.name}
         subTitle={playlistData.description}
+        canDelete={true}
+        playlistId={playlistId}
         children={
           bookmarkData.length === 0 ? (
             <p className='italic'>

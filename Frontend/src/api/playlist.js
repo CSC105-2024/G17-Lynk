@@ -114,3 +114,24 @@ export const createPlaylist = async (userId, name, description, iconLink) => {
     };
   }
 };
+
+export const deletePlaylist = async (playlistId) => {
+  console.log('here api:', playlistId);
+  try {
+    const response = await Axios.delete(`/playlists/${playlistId}`);
+    return {
+      status: response.status,
+      success: response.data.success,
+      data: response.data,
+      msg: response.data.msg,
+    };
+  } catch (e) {
+    console.error('Error deleting playlist', e);
+    return {
+      status: 500,
+      success: false,
+      data: null,
+      msg: 'Failed to delete playlist',
+    };
+  }
+};
