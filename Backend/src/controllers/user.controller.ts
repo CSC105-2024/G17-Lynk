@@ -113,29 +113,29 @@ export const loginUserController = async (c: Context) => {
   }
 };
 
-//logout controller
+//logout controller 
 export const logoutController = async (c: Context) => {
   try {
-    const isProduction = process.env.NODE_ENV === 'production';
-
-    deleteCookie(c, 'accessToken', {
+    const isProduction = process.env.NODE_ENV === "production";
+    
+    deleteCookie(c, "accessToken", {
       httpOnly: true,
       secure: isProduction,
-      path: '/',
+      path: "/",
     });
 
-    deleteCookie(c, 'refreshToken', {
+    deleteCookie(c, "refreshToken", {
       httpOnly: true,
       secure: isProduction,
-      path: '/',
-    });
+      path: "/",
+    }); 
 
-    return c.json({ message: 'Logged out successfully.' }, 200);
+    return c.json({ message: "Logged out successfully." }, 200);
   } catch (e) {
-    console.error('Logout error:', e);
-    return c.json({ message: 'Something went wrong.' }, 500);
+    console.error("Logout error:", e);
+    return c.json({ message: "Something went wrong." }, 500);
   }
-};
+}
 
 export const refreshTokenController = async (c: Context) => {
   try {
