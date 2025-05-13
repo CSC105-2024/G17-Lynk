@@ -24,13 +24,17 @@ export default function ProfilePage() {
 
       if (response.data?.success) {
         alert('Successfully logged out!');
-        navigate('/');
+        setShowLogoutModal(false);
+        navigate('/', { replace: true });
       } else {
         alert('Logout failed: ' + (response.data?.message || 'Unknown error'));
       }
     } catch (error) {
       console.error('Logout error:', error);
       alert('Error logging out: ' + (error.response?.data?.message || 'Unknown error'));
+    }
+    finally{
+      setShowLogoutModal(false);
     }
   };
 
@@ -49,8 +53,6 @@ export default function ProfilePage() {
     }
     setEdit(false);
   };
-
-  const handle_show = () => setShowLogoutModal(!showLogoutModal);
   const handle_edit = () => setEdit(!edit);
 
   return (
@@ -128,7 +130,7 @@ export default function ProfilePage() {
 
           <button
             className='w-full bg-[var(--logout-btn-color)] hover:bg-[var(--logout-btn-hover-color)] text-white font-semibold py-2 rounded-lg transition duration-200 cursor-pointer'
-            onClick={handle_show}
+            onClick={() => setShowLogoutModal(true)}
           >
             Log out
           </button>
