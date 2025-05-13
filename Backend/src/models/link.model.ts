@@ -1,4 +1,4 @@
-import { db } from '../index.ts';
+import { db } from "../index.ts";
 
 //this one for creating links
 
@@ -8,7 +8,7 @@ const createLink = async ({
   title,
   description,
   iconLink,
-  tags,
+  tags = [],
   playlistId,
   createdAt,
 }: {
@@ -28,13 +28,21 @@ const createLink = async ({
       title,
       description,
       iconLink,
-      tags: JSON.stringify(tags || []),
       playlistId,
       createdAt: createdAt || new Date(),
+      tags: {
+        connectOrCreate: tags.map((tagName) => ({
+          where: { name: tagName },
+          create: { name: tagName },
+        })),
+      },
+    },
+    include: {
+      tags: true,
     },
   });
 
-  return { success: true, message: 'Link saved', link: newLink };
+  return { success: true, message: "Link saved", link: newLink };
 };
 
 export { createLink };
@@ -43,13 +51,11 @@ export { createLink };
 const getLinksByUserId = async (userId: number) => {
   const links = await db.link.findMany({
     where: { userId },
-    orderBy: { createdAt: 'desc' },
+    include: { tags: true },
+    orderBy: { createdAt: "desc" },
   });
 
-  return links.map((link) => ({
-    ...link,
-    tags: link.tags ? JSON.parse(link.tags) : [], // Parse tags and provide fallback
-  }));
+  return links;
 };
 
 export { getLinksByUserId };

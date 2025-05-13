@@ -11,6 +11,7 @@ import { UserContext } from '@/App';
 const LinkCard = ({ data, onDelete }) => {
   // Destructure data object to extract relevant properties
   const { playlists } = useContext(UserContext);
+  // console.log("here is dadta that i'm looking", data);
   const { key, iconLink, title, playlistId, tags, url, createdAt } = data;
   // console.log('here  is title: ', title);
   // console.log('here  is playlistId: ', playlistId);
@@ -39,7 +40,7 @@ const LinkCard = ({ data, onDelete }) => {
         <div className='flex overflow-hidden'>
           <p className='w-3/10 min-w-[30%]'>Playlists:</p>
           <div className='flex flex-nowrap gap-1 overflow-auto [scrollbar-width:none]'>
-            {playlists.map(
+            {playlists?.map(
               (playlist, index) =>
                 playlistId === playlist.id && (
                   <Chip key={index} name={playlist.name} />
@@ -63,8 +64,8 @@ const LinkCard = ({ data, onDelete }) => {
         <div className='flex overflow-hidden'>
           <p className='w-3/10 min-w-[30%]'>Tags:</p>
           <div className='flex flex-nowrap gap-1 overflow-auto [scrollbar-width:none]'>
-            {tags.map((tag, index) => (
-              <Chip key={index} name={`${tag}`} />
+            {tags?.map((tag, index) => (
+              <Chip key={index} name={`${tag.name}`} />
             ))}
           </div>
         </div>
@@ -72,7 +73,7 @@ const LinkCard = ({ data, onDelete }) => {
         {/* Created At timestamp */}
         <div className='flex overflow-hidden'>
           <p className='w-3/10 min-w-[30%]'>Created at:</p>
-          <p>{createdAt.toLocaleString()}</p>
+          <p>{createdAt?.toLocaleString()}</p>
         </div>
       </div>
     </div>

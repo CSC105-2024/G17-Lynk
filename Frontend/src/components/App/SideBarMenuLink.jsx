@@ -26,7 +26,7 @@ const SideBarMenuLink = ({ icon, name, linkCount, link }) => {
       </p>
 
       {/* Number section: Displays the number associated with the menu item */}
-      <p className='ml-auto pl-2'>{!linkCount ? 0 : linkCount}</p>
+      <p className='ml-auto pl-2'>{linkCount}</p>
     </NavLink>
   );
 };

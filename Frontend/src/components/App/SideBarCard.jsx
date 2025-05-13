@@ -14,7 +14,6 @@ import Logo from '../Logo'; // Import Logo component for branding
 // Sidebar component accepting onToggle and showSideBar as props
 const SideBarCard = ({ onToggle, showSideBar }) => {
   const { playlists, links } = useContext(UserContext);
-  // console.log('here is playlists: ', playlists);
   // console.log('here is links: ', links);
   const tags = dummyTags;
 
@@ -22,7 +21,6 @@ const SideBarCard = ({ onToggle, showSideBar }) => {
   const sideBarDisplayStatus = showSideBar
     ? 'min-w-full md:min-w-60 md:block fixed inset-0 z-50 overflow-y-auto'
     : 'hidden md:block min-w-60';
-
   return (
     <div
       className={`${sideBarDisplayStatus} bg-[var(--sidebar-bg-color)] text-lg md:min-h-screen md:text-md py-3 px-5`}

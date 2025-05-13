@@ -36,9 +36,11 @@ const ModalLink = ({ show, handleClose }) => {
 
   const { links, setLinks, playlists } = useContext(UserContext);
   const handleCreate = async (link) => {
-    console.log('Created link:', link);
-    const faviconUrl = getFavicon(link.url);
+    // console.log('Created link:', link);
     try {
+      const faviconUrl = getFavicon(link.url);
+      const updatedTags = link.tags.filter((tag) => tag.length > 0);
+      link = { ...link, tags: updatedTags };
       const [linksData] = await createLink(
         (link.userId = 1),
         link.url,
@@ -48,9 +50,9 @@ const ModalLink = ({ show, handleClose }) => {
         link.tags,
         link.playlistId
       );
-      console.log('here bar');
+      // console.log('here bar');
       if (linksData.success) {
-        console.log('here bar insdie');
+        // console.log('here bar insdie');
         setLinks(linksData.data.data);
       }
     } catch (error) {
@@ -121,7 +123,7 @@ const ModalLink = ({ show, handleClose }) => {
           </label>
           <select
             id='playlist'
-            className='shadow appearance-none border rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-[var(--modal-input-bg-color)] text-[var(--app-text-color)]'
+            className='shadow appearance-none border rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-[var(--modal-input-bg-color)] text-[var(--app-text-color)] required'
             value={linkInfo.playlistId}
             onChange={(e) =>
               setLinkInfo({ ...linkInfo, playlistId: +e.target.value })
@@ -170,7 +172,10 @@ const ModalLink = ({ show, handleClose }) => {
             className='shadow appearance-none border rounded-lg w-full py-2 px-3 h-25 leading-tight focus:outline-none focus:shadow-outline bg-[var(--modal-input-bg-color)] text-[var(--app-text-color)]'
             value={linkInfo.tags}
             onChange={(e) => {
+              console.log('stupdi', e.target.value.trim());
               const newTags = e.target.value.split(/[, ]+/);
+
+              // console.log("here new trim", newTags)
               setLinkInfo({ ...linkInfo, tags: newTags });
             }}
           />

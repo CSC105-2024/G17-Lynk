@@ -15,13 +15,13 @@ const DisplayCard = ({
   const IconComponent = APP_ICONS['delete'];
 
   const { playlists, setPlaylists } = useContext(UserContext);
-  console.log('this id', playlistId);
+  // console.log('this id', playlistId);
   const handleDelete = async () => {
-    console.log('deleting this playlist', playlistId);
+    // console.log('deleting this playlist', playlistId);
     try {
-      const [playlistsData] = await deletePlaylist(playlistId);
+      const playlistsData = await deletePlaylist(playlistId);
       if (playlistsData.success) {
-        console.log('here bar insdie');
+        // console.log('here bar insdie');
         setPlaylists(playlistsData.data.data);
       }
     } catch (error) {

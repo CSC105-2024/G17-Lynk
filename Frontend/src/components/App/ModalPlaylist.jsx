@@ -18,6 +18,9 @@ const ModalPlaylist = ({ isOpen, onClose, onCreate }) => {
   const handleCreate = () => {
     onCreate({ name, description, iconLink: selectedIcon });
     onClose();
+    setName('');
+    setDescription('');
+    setSelectedIcon('');
   };
 
   if (!isOpen) return null;

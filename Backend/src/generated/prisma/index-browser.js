@@ -132,11 +132,11 @@ exports.Prisma.LinkScalarFieldEnum = {
   title: 'title',
   description: 'description',
   iconLink: 'iconLink',
-  tags: 'tags',
   playlistId: 'playlistId',
   userId: 'userId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  isPinned: 'isPinned'
 };
 
 exports.Prisma.PlaylistScalarFieldEnum = {
@@ -146,6 +146,13 @@ exports.Prisma.PlaylistScalarFieldEnum = {
   iconLink: 'iconLink',
   linkCount: 'linkCount',
   userId: 'userId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.TagScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -164,7 +171,8 @@ exports.Prisma.NullsOrder = {
 exports.Prisma.ModelName = {
   User: 'User',
   Link: 'Link',
-  Playlist: 'Playlist'
+  Playlist: 'Playlist',
+  Tag: 'Tag'
 };
 
 /**

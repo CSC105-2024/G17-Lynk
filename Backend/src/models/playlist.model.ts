@@ -1,4 +1,4 @@
-import { db } from '../index.ts';
+import { db } from "../index.ts";
 
 const createPlaylist = async ({
   userId,
@@ -27,18 +27,16 @@ const getPlaylistsByUserId = async (userId: number) => {
   const playlists = await db.playlist.findMany({
     where: { userId },
     include: {
-      links: true,
+      links: {
+        include: {
+          tags: true,
+        },
+      },
     },
-    orderBy: { createdAt: 'desc' },
+    orderBy: { createdAt: "desc" },
   });
 
-  return playlists.map((playlist) => ({
-    ...playlist,
-    links: playlist.links.map((link) => ({
-      ...link,
-      tags: link.tags ? JSON.parse(link.tags) : [],
-    })),
-  }));
+  return playlists;
 };
 
 export { createPlaylist, getPlaylistsByUserId };
@@ -48,16 +46,17 @@ const getLinksInPlaylist = async (playlistId: number) => {
   const playlistWithLinks = await db.playlist.findUnique({
     where: { id: playlistId },
     include: {
-      links: true,
+      links: {
+        include: {
+          tags: true,
+        },
+      },
     },
   });
 
   if (!playlistWithLinks) return [];
 
-  return playlistWithLinks.links.map((link) => ({
-    ...link,
-    tags: link.tags ? JSON.parse(link.tags) : [],
-  }));
+  return playlistWithLinks.links;
 };
 // m shi yin empty array
 

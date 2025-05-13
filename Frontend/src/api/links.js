@@ -69,3 +69,18 @@ export const createLink = async (
     };
   }
 };
+
+export const deleteLink = async (linkId) => {
+  console.log('here link api:', linkId);
+  try {
+    // TODO
+  } catch (e) {
+    console.error('Error deleting link', e);
+    return {
+      status: 500,
+      success: false,
+      data: null,
+      msg: 'Failed to delete link',
+    };
+  }
+};

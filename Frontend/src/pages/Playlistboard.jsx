@@ -15,8 +15,8 @@ const Playlistboard = () => {
     (item) => item.id === parseInt(playlistId)
   );
 
-  console.log('playlist id is here', playlistId);
-  console.log('playlist data is here', playlistData);
+  // console.log('playlist id is here', playlistId);
+  // console.log('playlist data is here', playlistData);
 
   const IconComponent = APP_ICONS[playlistData?.iconLink];
   const [bookmarkData, setBookmarkData] = useState([]);
