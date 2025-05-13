@@ -23,14 +23,14 @@ const verifyJwt = async (c: Context, next: Next) => {
   console.log('Token:', token);
   console.log('JWT_SECRET:', process.env.JWT_SECRET);
   try {
-    const decoded = jwt.verify(token, process.env.ACCESSTOKEN_SECRET_KEY!) as { id: number };
+    const decoded = jwt.verify(token, process.env.ACCESSTOKEN_SECRET_KEY!) as { _id: number };
     
-    if (!decoded?.id) {
+    if (!decoded?._id) {
       return c.json({ message: 'Invalid token payload' }, 401);
     }
 
     const user = await db.user.findUnique({
-      where: { id: decoded.id },
+      where: { id: decoded._id },
       select: { id: true, username: true } 
     });
 
