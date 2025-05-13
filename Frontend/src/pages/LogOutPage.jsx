@@ -21,7 +21,6 @@ export default function ProfilePage() {
         {},
         { withCredentials: true }
       );
-
       if (response.data?.success) {
         alert('Successfully logged out!');
         setShowLogoutModal(false);
@@ -31,9 +30,11 @@ export default function ProfilePage() {
       }
     } catch (error) {
       console.error('Logout error:', error);
-      alert('Error logging out: ' + (error.response?.data?.message || 'Unknown error'));
-    }
-    finally{
+      alert(
+        'Error logging out: ' +
+          (error.response?.data?.message || 'Unknown error')
+      );
+    } finally {
       setShowLogoutModal(false);
     }
   };
@@ -60,7 +61,10 @@ export default function ProfilePage() {
       <div className='min-h-screen bg-[var(--logout-bg-color)] text-[var(--logout-text-color)] flex flex-col items-center justify-center px-4'>
         <div className='w-full max-w-sm rounded-lg shadow-xl p-8'>
           <div className='flex justify-between items-center mb-4'>
-            <button className='mb-4 cursor-pointer' onClick={() => navigate(-1)}>
+            <button
+              className='mb-4 cursor-pointer'
+              onClick={() => navigate(-1)}
+            >
               <FaArrowLeft size={12} />
             </button>
             <ModeToggle className='fixed top-5 right-5 z-50' />
@@ -107,7 +111,9 @@ export default function ProfilePage() {
           </div>
 
           <div className='mb-6'>
-            <label className='text-sm font-semibold mb-1 block'>Your Email</label>
+            <label className='text-sm font-semibold mb-1 block'>
+              Your Email
+            </label>
             <div className='flex items-center bg-[var(--logout-input-bg-color)] text-[var(--logout-input-text-color)] rounded-lg px-3 py-2'>
               <FaEnvelope className='mr-2 text-gray-400' />
               <input

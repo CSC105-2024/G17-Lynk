@@ -36,7 +36,7 @@ const ModalLink = ({ show, handleClose }) => {
 
   const { links, setLinks, playlists } = useContext(UserContext);
   const handleCreate = async (link) => {
-    // console.log('Created link:', link);
+    console.log('Created link:', link);
     try {
       const faviconUrl = getFavicon(link.url);
       const updatedTags = link.tags.filter((tag) => tag.length > 0);
@@ -50,7 +50,7 @@ const ModalLink = ({ show, handleClose }) => {
         link.tags,
         link.playlistId
       );
-      // console.log('here bar');
+      console.log('here bar');
       if (linksData.success) {
         // console.log('here bar insdie');
         setLinks(linksData.data.data);

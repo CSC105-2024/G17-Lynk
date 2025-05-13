@@ -18,7 +18,10 @@ const userSchema = z.object({
     .regex(/[A-Z]/, '❌ Must contain at least one uppercase letter')
     .regex(/[a-z]/, '❌ Must contain at least one lowercase letter')
     .regex(/[0-9]/, '❌ Must contain at least one number')
-    .regex(/[@$!%*?&]/, '❌ Must contain at least one special character (@$!%*?&)'),
+    .regex(
+      /[@$!%*?&]/,
+      '❌ Must contain at least one special character (@$!%*?&)'
+    ),
 });
 
 const LogInPage = () => {
@@ -51,7 +54,7 @@ const LogInPage = () => {
 
       console.log('Backend Response:', response.data);
       if (response.status === 200 && response.data.user) {
-        navigate('/app/dashboard'); 
+        navigate('/app/dashboard');
       } else {
         alert(response.data.msg || 'Login failed: No success flag');
       }
@@ -61,8 +64,7 @@ const LogInPage = () => {
         response: error.response?.data,
       });
       alert(
-        error.response?.data?.msg ||
-        'Login failed. Check console for details.'
+        error.response?.data?.msg || 'Login failed. Check console for details.'
       );
     }
   };
@@ -77,7 +79,7 @@ const LogInPage = () => {
     <>
       <h1 className={`${title} mb-6`}>Login</h1>
       <div className='w-full'>
-        <form className='flex flex-col gap-4'  onSubmit={handleSubmit(onSubmit)}>
+        <form className='flex flex-col gap-4' onSubmit={handleSubmit(onSubmit)}>
           <FormInput
             type='email'
             placeholder='Email:'
@@ -90,7 +92,7 @@ const LogInPage = () => {
             error={errors.password}
             func={register('password')}
           />
-          <Button 
+          <Button
             type='submit'
             text='Login'
             variant='btnOutline'
