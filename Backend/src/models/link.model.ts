@@ -80,4 +80,48 @@ const addLinkToPlaylist = async (linkId: number, playlistId: number) => {
 
 export { addLinkToPlaylist };
 
-//get playlists
+const editLink = async (
+  linkId: number,
+  {
+    title,
+    url,
+    description,
+    iconLink,
+    tags,
+    playlistId,
+  }: {
+    title?: string;
+    url?: string;
+    description?: string;
+    iconLink?: string;
+    tags?: string[];
+    playlistId?: number;
+  }
+) => {
+  const updatedLink = await db.link.update({
+    where: { id: linkId },
+    data: {
+      title,
+      url,
+      description,
+      iconLink,
+      playlistId,
+      tags: tags
+        ? {
+            set: [],
+            connectOrCreate: tags.map((tagName) => ({
+              where: { name: tagName },
+              create: { name: tagName },
+            })),
+          }
+        : undefined,
+    },
+    include: {
+      tags: true,
+    },
+  });
+
+  return { success: true, message: "Link updated", link: updatedLink };
+};
+
+export { editLink };
