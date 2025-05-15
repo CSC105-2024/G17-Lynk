@@ -8,7 +8,7 @@ type CreatePlaylistBody = {
   iconLink?: string;
 };
 
-const createPlaylist = async (c: Context) => {
+export const createPlaylist = async (c: Context) => {
   try {
     const body = await c.req.json<CreatePlaylistBody>();
     const { userId, name, description, iconLink } = body;
@@ -40,7 +40,7 @@ const createPlaylist = async (c: Context) => {
   }
 };
 
-const getUserPlaylists = async (c: Context) => {
+export const getUserPlaylists = async (c: Context) => {
   try {
     const userId = Number(c.req.param("userId"));
 
@@ -66,9 +66,8 @@ const getUserPlaylists = async (c: Context) => {
   }
 };
 
-export { createPlaylist, getUserPlaylists };
 
-const getLinksInPlaylist = async (c: Context) => {
+export const getLinksInPlaylist = async (c: Context) => {
   try {
     const playlistId = Number(c.req.param("playlistId"));
 
@@ -102,10 +101,9 @@ const getLinksInPlaylist = async (c: Context) => {
   }
 };
 
-export { getLinksInPlaylist };
 
 //delete
-const deletePlaylist = async (c: Context) => {
+export const deletePlaylist = async (c: Context) => {
   try {
     const playlistId = Number(c.req.param("playlistId"));
 
@@ -131,4 +129,3 @@ const deletePlaylist = async (c: Context) => {
   }
 };
 
-export { deletePlaylist };
