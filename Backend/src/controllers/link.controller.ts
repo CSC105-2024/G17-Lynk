@@ -12,7 +12,7 @@ type CreateLinkBody = {
   createdAt?: string; // ISO string expected
 };
 
-const createLink = async (c: Context) => {
+export const createLink = async (c: Context) => {
   try {
     const body = await c.req.json<CreateLinkBody>();
 
@@ -66,11 +66,9 @@ const createLink = async (c: Context) => {
   }
 };
 
-export { createLink };
 
 //getting links for specific user
-
-const getLinksByUser = async (c: Context) => {
+export const getLinksByUser = async (c: Context) => {
   try {
     const userId = Number(c.req.param('userId'));
 
@@ -104,14 +102,14 @@ const getLinksByUser = async (c: Context) => {
   }
 };
 
-export { getLinksByUser };
+
 
 type AddLinkToPlaylistBody = {
   linkId: number;
   playlistId: number;
 };
 
-const addLinkToPlaylist = async (c: Context) => {
+export const addLinkToPlaylist = async (c: Context) => {
   try {
     const body = await c.req.json<AddLinkToPlaylistBody>();
     const { linkId, playlistId } = body;
@@ -138,4 +136,4 @@ const addLinkToPlaylist = async (c: Context) => {
   }
 };
 
-export { addLinkToPlaylist };
+
