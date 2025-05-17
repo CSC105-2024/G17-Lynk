@@ -132,3 +132,65 @@ export const addLinkToPlaylist = async (c: Context) => {
     );
   }
 };
+
+type EditLinkBody = {
+  title?: string;
+  url?: string;
+  description?: string;
+  iconLink?: string;
+  tags?: string[];
+  playlistId?: number;
+};
+
+export const editLink = async (c: Context) => {
+  try {
+    const linkId = Number(c.req.param("linkId")); // assuming /links/:linkId
+    const body = await c.req.json<EditLinkBody>();
+
+    if (isNaN(linkId)) {
+      return c.json(
+        { success: false, data: null, msg: "Invalid link ID" },
+        400
+      );
+    }
+
+    const updated = await linkModel.editLink(linkId, body);
+
+    return c.json({
+      success: true,
+      data: updated.link,
+      msg: updated.message,
+    });
+  } catch (e) {
+    return c.json(
+      { success: false, data: null, msg: `Internal Server Error: ${e}` },
+      500
+    );
+  }
+};
+
+export const deleteLink = async (c: Context) => {
+  try {
+    const linkId = Number(c.req.param("linkId")); // assuming /links/:linkId
+
+    if (isNaN(linkId)) {
+      return c.json(
+        { success: false, data: null, msg: "Invalid link ID" },
+        400
+      );
+    }
+
+    const deleted = await linkModel.deleteLink(linkId);
+
+    return c.json({
+      success: true,
+      data: deleted,
+      msg: "Link deleted successfully",
+    });
+  } catch (e) {
+    return c.json(
+      { success: false, data: null, msg: `Internal Server Error: ${e}` },
+      500
+    );
+  }
+};

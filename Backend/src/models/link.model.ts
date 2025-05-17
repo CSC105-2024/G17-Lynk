@@ -125,3 +125,9 @@ const editLink = async (
 };
 
 export { editLink };
+
+const deleteLink = async (linkId: number) => {
+  return await db.link.delete({ where: { id: linkId } });
+};
+
+export { deleteLink };
