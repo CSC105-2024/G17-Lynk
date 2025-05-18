@@ -18,17 +18,11 @@ const SideBarCard = ({ onToggle, showSideBar }) => {
     ...playlist,
     links: links.filter((link) => link.playlistId === playlist.id),
   }));
-  // console.log('links from sidebar ', links);
+  console.log('links from sidebar ', links);
   const tags = [];
   links.forEach((link) => {
     (link.tags || []).forEach((tag) => {
-      // console.log('here tag looks like', tag);
-      if (
-        !tags.some((existingTag) => {
-          console.log('exi', existingTag);
-          existingTag === tag.name;
-        })
-      ) {
+      if (!tags.some((existingTag) => existingTag.name === tag.name)) {
         tags.push(tag);
       }
     });
@@ -82,7 +76,7 @@ const SideBarCard = ({ onToggle, showSideBar }) => {
       {/* Playlist section */}
       <div className='mt-3 mb-8' onClick={onToggle}>
         <h2 className='text-lg mb-3'>Playlists</h2>
-        {playlistsWithLinks.map((playlist, index) => {
+        {playlistsWithLinks?.map((playlist, index) => {
           {
             const IconComponent = APP_ICONS[playlist.iconLink]; // Get icon component dynamically from APP_ICONS
             return (
@@ -105,7 +99,7 @@ const SideBarCard = ({ onToggle, showSideBar }) => {
       <div className='mt-3 mb-8'>
         <h2 className='text-lg'>Tags</h2>
         <div className='px-5 my-2 py-1 flex flex-col gap-2'>
-          {tags.map((tag, index) => {
+          {tags?.map((tag, index) => {
             return <p key={index}>{tag.name}</p>; // Display each tag name
           })}
         </div>
