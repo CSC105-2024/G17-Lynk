@@ -3,166 +3,134 @@ import PopoverContent from './PopoverContent';
 import Button from '../Button';
 import EditLinkModal from '@/components/App/Edit';
 import { UserContext } from '@/App';
-import { deleteLink } from '@/api/links';
+import { deleteLink, editLink } from '@/api/links';
 
 /**
  * A popover component that shows additional actions (Edit, Pin, Delete)
  * for a link item with associated modals for each action
  */
 const MorePopover = ({ data }) => {
-  // console.log('data id is here bar', data.id);
   // State for controlling popover visibility
   const [isOpen, setIsOpen] = useState(false);
-
-  // State for controlling edit modal visibility
   const [showEditModal, setShowEditModal] = useState(false);
-
-  // State for controlling pin notification visibility
   const [showLinkModal, setShowLinkModal] = useState(false);
 
   const { setLinks, playlists } = useContext(UserContext);
-
-  // Mock data for testing the edit functionality
+  // Initialize with the correct structure that EditLinkModal expects
   const [initialLinkData, setInitialLinkData] = useState({
-    link: data.url,
-    playlist: playlists.filter((pl) => pl.id == data.playlistId).name,
-    name: data.title,
-    tag: 'tag1',
+    url: data.url,
+    title: data.title,
     description: data.description,
+    tags: data.tags ? data.tags.map((tag) => tag.name) : [],
+    playlistId: data.playlistId || null,
+    id: data.id, // Make sure to include the ID for editing
   });
 
-  /**
-   * Opens the edit modal and closes the popover
-   */
   const openEditModal = () => {
     setIsOpen(false);
     setShowEditModal(true);
   };
 
-  /**
-   * Closes the edit modal
-   */
   const closeEditModal = () => setShowEditModal(false);
 
-  /**
-   * Handles saving edited link data
-   * @param {Object} updatedData - The new link data after editing
-   */
-  const handleSaveEditedLink = (updatedData) => {
+  const handleSaveEditedLink = async (updatedData) => {
     console.log('Updated link data:', updatedData);
-    // In a real app, you would update state or send to backend here
+    try {
+      const res = await editLink(updatedData);
+      if (res.success) {
+        console.log('here is res data', res.data.data);
+        setLinks(res.data.data);
+      }
+    } catch (error) {
+      console.error('Error updating link:', error);
+    }
   };
 
-  /**
-   * Opens the pin notification modal
-   */
   const openLinkModal = () => {
     setShowLinkModal(true);
   };
 
-  /**
-   * Closes the pin notification modal
-   */
   const closeLinkModal = () => setShowLinkModal(false);
 
-  /**
-   * Handles pinning a link to dashboard
-   * Shows a temporary notification and closes the popover
-   */
   const handlePinLink = () => {
     console.log('Pinned Link!');
     openLinkModal();
     setIsOpen(false);
-    // Auto-close the notification after 3 seconds
     setTimeout(() => {
       closeLinkModal();
     }, 3000);
   };
 
-  /**
-   * Handles deleting a link
-   * (Currently just logs to console)
-   */
   const handleDeleteLink = async () => {
     const linkId = data.id;
     try {
       const res = await deleteLink(linkId);
       if (res.success) {
-        console.log('inside somthing idk: ', res.data.data);
         setLinks(res.data.data);
       }
-    } catch (e) {
+    } catch (error) {
       console.error('Error deleting data:', error);
     }
-    // setLink([...link,link]);
     setIsOpen(false);
   };
 
   return (
-    <>
-      <div className='relative'>
-        {/* Main "More..." button that toggles the popover */}
-        <Button
-          text='More...'
-          action='more'
-          onClick={() => {
-            setIsOpen(!isOpen);
-            // Auto-close the popover after 5 seconds
-            setTimeout(() => {
-              setIsOpen(false);
-            }, 5000);
-          }}
-        />
+    <div className='relative'>
+      {/* Main "More..." button that toggles the popover */}
+      <Button
+        text='More...'
+        action='more'
+        onClick={() => {
+          setIsOpen(!isOpen);
+          setTimeout(() => {
+            setIsOpen(false);
+          }, 5000);
+        }}
+      />
 
-        {/* Popover content that appears when isOpen is true */}
-        {isOpen && (
-          <PopoverContent>
-            <div className='flex flex-col gap-2 p-4'>
-              {/* Pin to Dashboard button */}
-              <Button
-                variant='btnNotFilled'
-                text='Pin to Dashboard'
-                onClick={handlePinLink}
-                className='text-[var(--text-primary-color)]'
-              />
-
-              {/* Edit link button */}
-              <Button
-                variant='btnNotFilled'
-                text='Edit link'
-                onClick={openEditModal}
-                className='text-[var(--text-primary-color)]'
-              />
-
-              {/* Delete link button */}
-              <Button
-                variant='btnDanger'
-                text='Delete'
-                onClick={handleDeleteLink}
-                className='text-[var(--text-primary-color)]'
-              />
-            </div>
-          </PopoverContent>
-        )}
-
-        {/* Edit Link Modal - appears when showEditModal is true */}
-        <EditLinkModal
-          isOpen={showEditModal}
-          onClose={closeEditModal}
-          onSave={handleSaveEditedLink}
-          initialLinkData={initialLinkData}
-        />
-
-        {/* Pin Notification - appears briefly when a link is pinned */}
-        {showLinkModal && (
-          <div className='fixed top-0 left-0 w-full flex justify-center p-5 z-50'>
-            <div className='bg-[var(--link-pin-bg-colour)] py-2 px-5 rounded-md text-white shadow-lg'>
-              Link Pinned!
-            </div>
+      {/* Popover content that appears when isOpen is true */}
+      {isOpen && (
+        <PopoverContent>
+          <div className='flex flex-col gap-2 p-4'>
+            <Button
+              variant='btnNotFilled'
+              text='Pin to Dashboard'
+              onClick={handlePinLink}
+              className='text-[var(--text-primary-color)]'
+            />
+            <Button
+              variant='btnNotFilled'
+              text='Edit link'
+              onClick={openEditModal}
+              className='text-[var(--text-primary-color)]'
+            />
+            <Button
+              variant='btnDanger'
+              text='Delete'
+              onClick={handleDeleteLink}
+              className='text-[var(--text-primary-color)]'
+            />
           </div>
-        )}
-      </div>
-    </>
+        </PopoverContent>
+      )}
+
+      {/* Edit Link Modal */}
+      <EditLinkModal
+        isOpen={showEditModal}
+        onClose={closeEditModal}
+        onSave={handleSaveEditedLink}
+        initialLinkData={initialLinkData}
+      />
+
+      {/* Pin Notification */}
+      {showLinkModal && (
+        <div className='fixed top-0 left-0 w-full flex justify-center p-5 z-50'>
+          <div className='bg-[var(--link-pin-bg-colour)] py-2 px-5 rounded-md text-white shadow-lg'>
+            Link Pinned!
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 

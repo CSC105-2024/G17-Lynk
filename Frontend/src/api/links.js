@@ -90,3 +90,32 @@ export const deleteLink = async (linkId) => {
     };
   }
 };
+
+export const editLink = async (linkData) => {
+  const linkId = linkData.id;
+  console.log('inside edit api', linkData);
+  try {
+    const response = await Axios.put(`links/${linkId}`, {
+      title: linkData.title,
+      url: linkData.url,
+      description: linkData.description,
+      iconLink: linkData.iconLink,
+      tags: linkData.tags,
+      playlistId: linkData.playlistId,
+    });
+    return {
+      status: response.status,
+      success: response.data.success,
+      data: response.data,
+      msg: response.data.msg,
+    };
+  } catch (e) {
+    console.error('Error updating link', e);
+    return {
+      status: 500,
+      success: false,
+      data: null,
+      msg: 'Failed to update link',
+    };
+  }
+};

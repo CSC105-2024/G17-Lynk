@@ -5,7 +5,10 @@ import { UserContext } from '@/App';
 
 const EditLinkModal = ({ isOpen, onClose, onSave, initialLinkData }) => {
   const { playlists } = useContext(UserContext);
-
+  const getFavicon = (url) => {
+    const domain = new URL(url).hostname;
+    return `https://www.google.com/s2/favicons?domain=${domain}`;
+  };
   // Initialize state with the same structure as ModalLink
   const [linkInfo, setLinkInfo] = useState(
     initialLinkData || {
@@ -21,6 +24,7 @@ const EditLinkModal = ({ isOpen, onClose, onSave, initialLinkData }) => {
   if (!isOpen) return null;
 
   const handleSave = () => {
+    console.log('here bar kwar');
     const updatedTags = linkInfo.tags.filter((tag) => tag.length > 0);
     const updatedLink = { ...linkInfo, tags: updatedTags };
     onSave(updatedLink);
@@ -71,7 +75,13 @@ const EditLinkModal = ({ isOpen, onClose, onSave, initialLinkData }) => {
             type='text'
             id='link'
             value={linkInfo.url}
-            onChange={(e) => setLinkInfo({ ...linkInfo, url: e.target.value })}
+            onChange={(e) =>
+              setLinkInfo({
+                ...linkInfo,
+                url: e.target.value,
+                iconLink: getFavicon(e.target.value),
+              })
+            }
             placeholder='e.g. https://example.com'
             className='shadow appearance-none border rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-[var(--modal-input-bg-color)] text-[var(--app-text-color)]'
           />
@@ -89,9 +99,10 @@ const EditLinkModal = ({ isOpen, onClose, onSave, initialLinkData }) => {
             id='playlist'
             className='shadow appearance-none border rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-[var(--modal-input-bg-color)] text-[var(--app-text-color)] required'
             value={linkInfo.playlistId || ''}
-            onChange={(e) =>
-              setLinkInfo({ ...linkInfo, playlistId: +e.target.value })
-            }
+            onChange={(e) => {
+              console.log('my new pl id', e.target.value);
+              setLinkInfo({ ...linkInfo, playlistId: +e.target.value });
+            }}
           >
             <option value=''>Select playlist</option>
             {playlists.map((pl) => (
@@ -166,7 +177,7 @@ const EditLinkModal = ({ isOpen, onClose, onSave, initialLinkData }) => {
           <Button
             text='Save Changes'
             onClick={(e) => {
-              e.preventDefault();
+              // e.preventDefault();
               handleSave();
             }}
           />
