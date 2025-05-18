@@ -142,6 +142,29 @@ type EditLinkBody = {
   playlistId?: number;
 };
 
+export const pinLink = async (c: Context) => {
+  try {
+    const linkId = Number(c.req.param('linkId'));
+    if (isNaN(linkId)) {
+      return c.json(
+        { success: false, data: null, msg: 'Invalid link ID' },
+        400
+      );
+    }
+    const updated = await linkModel.pinLink(linkId);
+    return c.json({
+      success: true,
+      data: updated.link,
+      msg: updated.message,
+    });
+  } catch (e) {
+    return c.json(
+      { success: false, data: null, msg: `Internal Server Error: ${e}` },
+      500
+    );
+  }
+};
+
 export const editLink = async (c: Context) => {
   try {
     const linkId = Number(c.req.param('linkId')); // assuming /links/:linkId

@@ -3,19 +3,21 @@ import PopoverContent from './PopoverContent';
 import Button from '../Button';
 import EditLinkModal from '@/components/App/Edit';
 import { UserContext } from '@/App';
-import { deleteLink, editLink } from '@/api/links';
+import { deleteLink, editLink, pinLink } from '@/api/links';
 
 /**
  * A popover component that shows additional actions (Edit, Pin, Delete)
  * for a link item with associated modals for each action
  */
 const MorePopover = ({ data }) => {
+  const linkId = data.id;
+
   // State for controlling popover visibility
   const [isOpen, setIsOpen] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showLinkModal, setShowLinkModal] = useState(false);
 
-  const { setLinks, playlists } = useContext(UserContext);
+  const { links, setLinks } = useContext(UserContext);
   // Initialize with the correct structure that EditLinkModal expects
   const [initialLinkData, setInitialLinkData] = useState({
     url: data.url,
@@ -38,8 +40,12 @@ const MorePopover = ({ data }) => {
     try {
       const res = await editLink(updatedData);
       if (res.success) {
-        console.log('here is res data', res.data.data);
-        setLinks(res.data.data);
+        console.log('edited link from morepopover', res.data.data);
+        setLinks(
+          links.map((link) =>
+            link.id === updatedData.id ? res.data.data : link
+          )
+        );
       }
     } catch (error) {
       console.error('Error updating link:', error);
@@ -52,8 +58,18 @@ const MorePopover = ({ data }) => {
 
   const closeLinkModal = () => setShowLinkModal(false);
 
-  const handlePinLink = () => {
+  const handlePinLink = async () => {
     console.log('Pinned Link!');
+    try {
+      const res = await pinLink(linkId);
+      if (res.success) {
+        setLinks(
+          links.map((link) => (link.id === linkId ? res.data.data : link))
+        );
+      }
+    } catch (error) {
+      console.error('Error pinning link:', error);
+    }
     openLinkModal();
     setIsOpen(false);
     setTimeout(() => {
@@ -62,11 +78,11 @@ const MorePopover = ({ data }) => {
   };
 
   const handleDeleteLink = async () => {
-    const linkId = data.id;
     try {
       const res = await deleteLink(linkId);
       if (res.success) {
-        setLinks(res.data.data);
+        setLinks(links.filter((link) => link.id !== linkId));
+        console.log('links after deleting', links);
       }
     } catch (error) {
       console.error('Error deleting data:', error);
@@ -94,7 +110,9 @@ const MorePopover = ({ data }) => {
           <div className='flex flex-col gap-2 p-4'>
             <Button
               variant='btnNotFilled'
-              text='Pin to Dashboard'
+              text={
+                !data.isPinned ? 'Pin to Dashboard' : 'Unpin from Dashboard'
+              }
               onClick={handlePinLink}
               className='text-[var(--text-primary-color)]'
             />
@@ -126,7 +144,7 @@ const MorePopover = ({ data }) => {
       {showLinkModal && (
         <div className='fixed top-0 left-0 w-full flex justify-center p-5 z-50'>
           <div className='bg-[var(--link-pin-bg-colour)] py-2 px-5 rounded-md text-white shadow-lg'>
-            Link Pinned!
+            {`${data.isPinned ? 'Link Pinned!' : 'Link Unpinned!'}`}
           </div>
         </div>
       )}

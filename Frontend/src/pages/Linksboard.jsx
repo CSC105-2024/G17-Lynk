@@ -24,7 +24,7 @@ const Linksboard = () => {
         icon={<MdOutlineDatasetLinked />}
         title='All Links'
         subTitle={'All your saved links will be shown here'}
-        children={links.map(
+        children={links?.map(
           (item, idx) => (
             console.log('item: ', item), // Log the item to the console
             (<LinkCard key={idx} data={item} />)

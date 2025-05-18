@@ -82,6 +82,24 @@ const addLinkToPlaylist = async (linkId: number, playlistId: number) => {
 
 export { addLinkToPlaylist };
 
+const pinLink = async (linkId: number) => {
+  const currentLink = await db.link.findUnique({
+    where: { id: linkId },
+  });
+
+  if (!currentLink) throw new Error('Link not found');
+  const updatedLink = await db.link.update({
+    where: { id: linkId },
+    data: {
+      isPinned: !currentLink.isPinned,
+    },
+  });
+
+  return { success: true, message: 'Link Pinned!', link: updatedLink };
+};
+
+export { pinLink };
+
 const editLink = async (
   linkId: number,
   {

@@ -15,7 +15,7 @@ const LinkCard = ({ data }) => {
   const { id, iconLink, title, playlistId, tags, url, createdAt } = data;
   // console.log('here  is title: ', title);
   // console.log('here  is playlistId: ', playlistId);
-  console.log('ths is the data:', data);
+  // console.log('ths is the data:', data);
   return (
     <div className='bg-[var(--link-card-bg)] rounded-lg shadow py-3 px-3 md:px-10 hover:bg-[var(--link-card-hover-bg)] w-full '>
       <div className='flex items-center gap-2 mb-2'>

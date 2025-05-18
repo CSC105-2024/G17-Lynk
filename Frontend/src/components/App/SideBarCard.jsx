@@ -14,8 +14,29 @@ import Logo from '../Logo'; // Import Logo component for branding
 // Sidebar component accepting onToggle and showSideBar as props
 const SideBarCard = ({ onToggle, showSideBar }) => {
   const { playlists, links } = useContext(UserContext);
-  // console.log('here is links: ', links);
-  const tags = dummyTags;
+  const playlistsWithLinks = playlists.map((playlist) => ({
+    ...playlist,
+    links: links.filter((link) => link.playlistId === playlist.id),
+  }));
+  // console.log('links from sidebar ', links);
+  const tags = [];
+  links.forEach((link) => {
+    (link.tags || []).forEach((tag) => {
+      // console.log('here tag looks like', tag);
+      if (
+        !tags.some((existingTag) => {
+          console.log('exi', existingTag);
+          existingTag === tag.name;
+        })
+      ) {
+        tags.push(tag);
+      }
+    });
+  });
+
+  // const tags = dummyTags;
+
+  console.log('tags ddis ', tags);
 
   // Conditional class for sidebar display based on showSideBar status
   const sideBarDisplayStatus = showSideBar
@@ -50,7 +71,7 @@ const SideBarCard = ({ onToggle, showSideBar }) => {
         <SideBarMenuLink
           icon={<TiPin />} // Icon for 'Pins'
           name='Pins' // Menu name
-          linkCount='3' // Placeholder number for the 'Pins'
+          linkCount={links?.filter((link) => link.isPinned).length} // Placeholder number for the 'Pins'
           link='/app/pins' // Link to the Pins page
         />
       </div>
@@ -61,7 +82,7 @@ const SideBarCard = ({ onToggle, showSideBar }) => {
       {/* Playlist section */}
       <div className='mt-3 mb-8' onClick={onToggle}>
         <h2 className='text-lg mb-3'>Playlists</h2>
-        {playlists.map((playlist, index) => {
+        {playlistsWithLinks.map((playlist, index) => {
           {
             const IconComponent = APP_ICONS[playlist.iconLink]; // Get icon component dynamically from APP_ICONS
             return (

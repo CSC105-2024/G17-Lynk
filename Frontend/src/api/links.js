@@ -71,7 +71,7 @@ export const createLink = async (
 };
 
 export const deleteLink = async (linkId) => {
-  console.log('here link api:', linkId);
+  // console.log('here link api:', linkId);
   try {
     const response = await Axios.delete(`/links/${linkId}`);
     return {
@@ -116,6 +116,26 @@ export const editLink = async (linkData) => {
       success: false,
       data: null,
       msg: 'Failed to update link',
+    };
+  }
+};
+
+export const pinLink = async (linkId) => {
+  try {
+    const response = await Axios.put(`links/pin/${linkId}`);
+    return {
+      status: response.status,
+      success: response.data.success,
+      data: response.data,
+      msg: response.data.msg,
+    };
+  } catch (e) {
+    console.error('Error pinning link', e);
+    return {
+      status: 500,
+      success: false,
+      data: null,
+      msg: 'Failed to pin link',
     };
   }
 };

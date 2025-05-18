@@ -1,4 +1,4 @@
-import { db } from "../index.ts";
+import { db } from '../index.ts';
 
 const createTag = async (name: string) => {
   const tag = await db.tag.upsert({
@@ -7,7 +7,7 @@ const createTag = async (name: string) => {
     create: { name },
   });
 
-  return { success: true, message: "Tag ensured", tag };
+  return { success: true, message: 'Tag ensured', tag };
 };
 
 export { createTag };
@@ -19,14 +19,14 @@ const deleteTag = async (tagId: number) => {
   });
 
   if (!existingTag) {
-    return { success: false, message: "Tag not found" };
+    return { success: false, message: 'Tag not found' };
   }
 
   await db.tag.delete({
     where: { id: tagId },
   });
 
-  return { success: true, message: "Tag deleted successfully" };
+  return { success: true, message: 'Tag deleted successfully' };
 };
 
 export { deleteTag };

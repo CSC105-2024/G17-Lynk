@@ -1,12 +1,14 @@
 import DefaultWelcomeCard from '@/components/App/DefaultWelcomeCard';
 import LinkCard from '@/components/App/LinkCard';
-import React from 'react';
+import React, { useContext } from 'react';
 import { dummyData } from '@/services/data.js';
 import DisplayCard from '@/components/App/DisplayCard';
 import { TiPin } from 'react-icons/ti';
+import { UserContext } from '@/App';
 
 const Pinboard = () => {
-  const data = dummyData;
+  const { links } = useContext(UserContext);
+  const data = links.filter((link) => link.isPinned);
   if (!data || data.length === 0) {
     return (
       <DefaultWelcomeCard
