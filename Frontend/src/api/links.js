@@ -73,7 +73,13 @@ export const createLink = async (
 export const deleteLink = async (linkId) => {
   console.log('here link api:', linkId);
   try {
-    // TODO
+    const response = await Axios.delete(`/links/${linkId}`);
+    return {
+      status: response.status,
+      success: response.data.success,
+      data: response.data,
+      msg: response.data.msg,
+    };
   } catch (e) {
     console.error('Error deleting link', e);
     return {

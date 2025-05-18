@@ -2,14 +2,15 @@ import React, { useContext, useState } from 'react';
 import PopoverContent from './PopoverContent';
 import Button from '../Button';
 import EditLinkModal from '@/components/App/Edit';
-import { btn, btnDanger } from '@/styles/styles';
 import { UserContext } from '@/App';
+import { deleteLink } from '@/api/links';
 
 /**
  * A popover component that shows additional actions (Edit, Pin, Delete)
  * for a link item with associated modals for each action
  */
-const MorePopover = () => {
+const MorePopover = ({ data }) => {
+  // console.log('data id is here bar', data.id);
   // State for controlling popover visibility
   const [isOpen, setIsOpen] = useState(false);
 
@@ -19,15 +20,15 @@ const MorePopover = () => {
   // State for controlling pin notification visibility
   const [showLinkModal, setShowLinkModal] = useState(false);
 
-  const { links } = useContext(UserContext);
+  const { setLinks, playlists } = useContext(UserContext);
 
   // Mock data for testing the edit functionality
   const [initialLinkData, setInitialLinkData] = useState({
-    link: 'https://example.com',
-    playlist: 'playlist1',
-    name: 'Example Link Name',
+    link: data.url,
+    playlist: playlists.filter((pl) => pl.id == data.playlistId).name,
+    name: data.title,
     tag: 'tag1',
-    description: 'This is a test description for editing.',
+    description: data.description,
   });
 
   /**
@@ -82,8 +83,18 @@ const MorePopover = () => {
    * Handles deleting a link
    * (Currently just logs to console)
    */
-  const handleDeleteLink = () => {
-    console.log('Deleted Link!');
+  const handleDeleteLink = async () => {
+    const linkId = data.id;
+    try {
+      const res = await deleteLink(linkId);
+      if (res.success) {
+        console.log('inside somthing idk: ', res.data.data);
+        setLinks(res.data.data);
+      }
+    } catch (e) {
+      console.error('Error deleting data:', error);
+    }
+    // setLink([...link,link]);
     setIsOpen(false);
   };
 

@@ -1,5 +1,5 @@
-import type { Context } from 'hono';
-import * as linkModel from '../models/link.model.ts';
+import type { Context } from "hono";
+import * as linkModel from "../models/link.model.ts";
 
 type CreateLinkBody = {
   userId: number;
@@ -32,7 +32,7 @@ export const createLink = async (c: Context) => {
         {
           success: false,
           data: null,
-          msg: 'Missing required fields',
+          msg: "Missing required fields",
         },
         400
       );
@@ -52,7 +52,7 @@ export const createLink = async (c: Context) => {
     return c.json({
       success: true,
       data: result.link,
-      msg: 'Link created successfully!',
+      msg: "Link created successfully!",
     });
   } catch (e) {
     return c.json(
@@ -66,18 +66,17 @@ export const createLink = async (c: Context) => {
   }
 };
 
-
 //getting links for specific user
 export const getLinksByUser = async (c: Context) => {
   try {
-    const userId = Number(c.req.param('userId'));
+    const userId = Number(c.req.param("userId"));
 
     if (isNaN(userId)) {
       return c.json(
         {
           success: false,
           data: null,
-          msg: 'Invalid user ID',
+          msg: "Invalid user ID",
         },
         400
       );
@@ -88,7 +87,7 @@ export const getLinksByUser = async (c: Context) => {
     return c.json({
       success: true,
       data: links,
-      msg: 'Fetched links successfully',
+      msg: "Fetched links successfully",
     });
   } catch (e) {
     return c.json(
@@ -101,8 +100,6 @@ export const getLinksByUser = async (c: Context) => {
     );
   }
 };
-
-
 
 type AddLinkToPlaylistBody = {
   linkId: number;
@@ -116,7 +113,7 @@ export const addLinkToPlaylist = async (c: Context) => {
 
     if (!linkId || !playlistId) {
       return c.json(
-        { success: false, data: null, msg: 'Missing required fields' },
+        { success: false, data: null, msg: "Missing required fields" },
         400
       );
     }
@@ -126,7 +123,7 @@ export const addLinkToPlaylist = async (c: Context) => {
     return c.json({
       success: true,
       data: updatedLink,
-      msg: 'Link added to playlist successfully',
+      msg: "Link added to playlist successfully",
     });
   } catch (e) {
     return c.json(
@@ -136,4 +133,64 @@ export const addLinkToPlaylist = async (c: Context) => {
   }
 };
 
+type EditLinkBody = {
+  title?: string;
+  url?: string;
+  description?: string;
+  iconLink?: string;
+  tags?: string[];
+  playlistId?: number;
+};
 
+export const editLink = async (c: Context) => {
+  try {
+    const linkId = Number(c.req.param("linkId")); // assuming /links/:linkId
+    const body = await c.req.json<EditLinkBody>();
+
+    if (isNaN(linkId)) {
+      return c.json(
+        { success: false, data: null, msg: "Invalid link ID" },
+        400
+      );
+    }
+
+    const updated = await linkModel.editLink(linkId, body);
+
+    return c.json({
+      success: true,
+      data: updated.link,
+      msg: updated.message,
+    });
+  } catch (e) {
+    return c.json(
+      { success: false, data: null, msg: `Internal Server Error: ${e}` },
+      500
+    );
+  }
+};
+
+export const deleteLink = async (c: Context) => {
+  try {
+    const linkId = Number(c.req.param("linkId")); // assuming /links/:linkId
+
+    if (isNaN(linkId)) {
+      return c.json(
+        { success: false, data: null, msg: "Invalid link ID" },
+        400
+      );
+    }
+
+    const deleted = await linkModel.deleteLink(linkId);
+
+    return c.json({
+      success: true,
+      data: deleted,
+      msg: "Link deleted successfully",
+    });
+  } catch (e) {
+    return c.json(
+      { success: false, data: null, msg: `Internal Server Error: ${e}` },
+      500
+    );
+  }
+};
