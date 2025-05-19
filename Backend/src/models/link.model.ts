@@ -8,7 +8,7 @@ const createLink = async ({
   title,
   description,
   iconLink,
-  tags,
+  tags = [],
   playlistId,
   createdAt,
 }: {
@@ -28,9 +28,17 @@ const createLink = async ({
       title,
       description,
       iconLink,
-      tags: JSON.stringify(tags || []),
       playlistId,
       createdAt: createdAt || new Date(),
+      tags: {
+        connectOrCreate: tags.map((tagName) => ({
+          where: { name: tagName },
+          create: { name: tagName },
+        })),
+      },
+    },
+    include: {
+      tags: true,
     },
   });
 
@@ -43,6 +51,7 @@ export { createLink };
 const getLinksByUserId = async (userId: number) => {
   const links = await db.link.findMany({
     where: { userId },
+    include: { tags: true },
     orderBy: { createdAt: "desc" },
   });
 
@@ -71,4 +80,54 @@ const addLinkToPlaylist = async (linkId: number, playlistId: number) => {
 
 export { addLinkToPlaylist };
 
-//get playlists
+const editLink = async (
+  linkId: number,
+  {
+    title,
+    url,
+    description,
+    iconLink,
+    tags,
+    playlistId,
+  }: {
+    title?: string;
+    url?: string;
+    description?: string;
+    iconLink?: string;
+    tags?: string[];
+    playlistId?: number;
+  }
+) => {
+  const updatedLink = await db.link.update({
+    where: { id: linkId },
+    data: {
+      title,
+      url,
+      description,
+      iconLink,
+      playlistId,
+      tags: tags
+        ? {
+            set: [],
+            connectOrCreate: tags.map((tagName) => ({
+              where: { name: tagName },
+              create: { name: tagName },
+            })),
+          }
+        : undefined,
+    },
+    include: {
+      tags: true,
+    },
+  });
+
+  return { success: true, message: "Link updated", link: updatedLink };
+};
+
+export { editLink };
+
+const deleteLink = async (linkId: number) => {
+  return await db.link.delete({ where: { id: linkId } });
+};
+
+export { deleteLink };

@@ -12,7 +12,7 @@ type CreateLinkBody = {
   createdAt?: string; // ISO string expected
 };
 
-const createLink = async (c: Context) => {
+export const createLink = async (c: Context) => {
   try {
     const body = await c.req.json<CreateLinkBody>();
 
@@ -66,11 +66,8 @@ const createLink = async (c: Context) => {
   }
 };
 
-export { createLink };
-
 //getting links for specific user
-
-const getLinksByUser = async (c: Context) => {
+export const getLinksByUser = async (c: Context) => {
   try {
     const userId = Number(c.req.param("userId"));
 
@@ -104,16 +101,12 @@ const getLinksByUser = async (c: Context) => {
   }
 };
 
-export { getLinksByUser };
-
-//
-
 type AddLinkToPlaylistBody = {
   linkId: number;
   playlistId: number;
 };
 
-const addLinkToPlaylist = async (c: Context) => {
+export const addLinkToPlaylist = async (c: Context) => {
   try {
     const body = await c.req.json<AddLinkToPlaylistBody>();
     const { linkId, playlistId } = body;
@@ -140,4 +133,64 @@ const addLinkToPlaylist = async (c: Context) => {
   }
 };
 
-export { addLinkToPlaylist };
+type EditLinkBody = {
+  title?: string;
+  url?: string;
+  description?: string;
+  iconLink?: string;
+  tags?: string[];
+  playlistId?: number;
+};
+
+export const editLink = async (c: Context) => {
+  try {
+    const linkId = Number(c.req.param("linkId")); // assuming /links/:linkId
+    const body = await c.req.json<EditLinkBody>();
+
+    if (isNaN(linkId)) {
+      return c.json(
+        { success: false, data: null, msg: "Invalid link ID" },
+        400
+      );
+    }
+
+    const updated = await linkModel.editLink(linkId, body);
+
+    return c.json({
+      success: true,
+      data: updated.link,
+      msg: updated.message,
+    });
+  } catch (e) {
+    return c.json(
+      { success: false, data: null, msg: `Internal Server Error: ${e}` },
+      500
+    );
+  }
+};
+
+export const deleteLink = async (c: Context) => {
+  try {
+    const linkId = Number(c.req.param("linkId")); // assuming /links/:linkId
+
+    if (isNaN(linkId)) {
+      return c.json(
+        { success: false, data: null, msg: "Invalid link ID" },
+        400
+      );
+    }
+
+    const deleted = await linkModel.deleteLink(linkId);
+
+    return c.json({
+      success: true,
+      data: deleted,
+      msg: "Link deleted successfully",
+    });
+  } catch (e) {
+    return c.json(
+      { success: false, data: null, msg: `Internal Server Error: ${e}` },
+      500
+    );
+  }
+};

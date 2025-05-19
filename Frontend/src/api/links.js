@@ -1,0 +1,86 @@
+import { Axios } from '../../axiosInstance';
+
+const userId = 1;
+
+export const getLinks = async () => {
+  try {
+    const response = await Axios.get(`links/user/${userId}`);
+
+    // Format dates for each link in the array
+    const formattedData = response.data.data.map((link) => ({
+      ...link,
+      createdAt: new Date(link.createdAt).toLocaleString(),
+      updatedAt: new Date(link.updatedAt).toLocaleString(),
+    }));
+
+    return {
+      status: response.status,
+      success: response.data.success,
+      data: {
+        ...response.data,
+        data: formattedData, // Replace original data with formatted data
+      },
+      msg: response.data.msg,
+    };
+  } catch (e) {
+    console.error('Error fetching links:', e);
+    return {
+      status: 500,
+      success: false,
+      data: null,
+      msg: 'Failed to fetch links',
+    };
+  }
+};
+
+export const createLink = async (
+  userId,
+  url,
+  title,
+  description,
+  iconLink,
+  tags,
+  playlistId
+) => {
+  console.log('inside link api');
+  try {
+    const response = await Axios.post(`/links`, {
+      userId,
+      url,
+      title,
+      description,
+      iconLink,
+      tags,
+      playlistId,
+    });
+    return {
+      status: response.status,
+      success: response.data.success,
+      data: response.data,
+      msg: response.data.msg,
+    };
+  } catch (e) {
+    console.error('Error creating link', e);
+    return {
+      status: 500,
+      success: false,
+      data: null,
+      msg: 'Failed to create link',
+    };
+  }
+};
+
+export const deleteLink = async (linkId) => {
+  console.log('here link api:', linkId);
+  try {
+    // TODO
+  } catch (e) {
+    console.error('Error deleting link', e);
+    return {
+      status: 500,
+      success: false,
+      data: null,
+      msg: 'Failed to delete link',
+    };
+  }
+};

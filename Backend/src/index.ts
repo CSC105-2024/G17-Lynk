@@ -1,17 +1,21 @@
 import { serve } from '@hono/node-server';
 import { Hono } from 'hono';
 import { PrismaClient } from './generated/prisma/index.js';
-import { Prisma } from '@prisma/client/extension';
+
 import { mainRouter } from './routes/index.route.ts';
 import { cors } from 'hono/cors';
 import { logger } from 'hono/logger';
+import { userRouter } from './routes/user.route.ts';
+import dotenv from 'dotenv'
 
+dotenv.config();
 const app = new Hono();
 export const db = new PrismaClient();
 
 app.use(
   cors({
-    origin: ['http://localhost:5173'], // frontend application
+    origin: 'http://localhost:5173', 
+    credentials: true,
   })
 );
 
@@ -33,9 +37,10 @@ app.get('/test-db', async (c) => {
     return c.json({ success: true, data: todos });
   } catch (error) {
     console.error(error);
-    return c.json({ success: false, error: error.message });
+    return c.json({ success: false, error: "Failed to fetch data" });
   }
 });
+
 
 serve(
   {
@@ -56,3 +61,4 @@ db.$connect()
   });
 
 app.route('', mainRouter);
+app.route('', userRouter);

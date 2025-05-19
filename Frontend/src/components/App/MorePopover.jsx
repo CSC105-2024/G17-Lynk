@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import PopoverContent from './PopoverContent';
 import Button from '../Button';
 import EditLinkModal from '@/components/App/Edit';
 import { btn, btnDanger } from '@/styles/styles';
+import { UserContext } from '@/App';
 
 /**
  * A popover component that shows additional actions (Edit, Pin, Delete)
@@ -17,6 +18,8 @@ const MorePopover = () => {
 
   // State for controlling pin notification visibility
   const [showLinkModal, setShowLinkModal] = useState(false);
+
+  const { links } = useContext(UserContext);
 
   // Mock data for testing the edit functionality
   const [initialLinkData, setInitialLinkData] = useState({

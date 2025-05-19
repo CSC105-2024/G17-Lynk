@@ -7,6 +7,7 @@ import AuthLayout from '../components/Form/AuthLayout';
 import FormInput from '../components/Form/FormInput';
 import Button from '../components/Button';
 import { title } from '../styles/styles';
+import axios from 'axios';
 
 // Validation Schema
 const userSchema = z.object({
@@ -26,10 +27,6 @@ const userSchema = z.object({
 const LogInPage = () => {
   const navigate = useNavigate();
 
-  function handle_LogIn() {
-    navigate('/app/dashboard');
-  }
-
   const {
     register,
     handleSubmit,
@@ -39,12 +36,45 @@ const LogInPage = () => {
     mode: 'onChange',
   });
 
-  const onSubmit = (data) => {
-    console.log('Form Submitted:', data);
+  const loginUser = async (data) => {
+    try {
+      const response = await axios.post(
+        'http://localhost:3000/login',
+        {
+          email: data.email,
+          password: data.password,
+        },
+        {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      console.log('Backend Response:', response.data);
+      if (response.status === 200 && response.data.user) {
+        navigate('/app/dashboard');
+      } else {
+        alert(response.data.msg || 'Login failed: No success flag');
+      }
+    } catch (error) {
+      console.error('Login Error:', {
+        message: error.message,
+        response: error.response?.data,
+      });
+      alert(
+        error.response?.data?.msg || 'Login failed. Check console for details.'
+      );
+    }
   };
 
-  // Login form
+  const onSubmit = (data) => {
+    console.log('Form Data:', data);
+    loginUser(data);
+  };
 
+  // Login form JSX (unchanged)
   const Login = (
     <>
       <h1 className={`${title} mb-6`}>Login</h1>
@@ -63,24 +93,22 @@ const LogInPage = () => {
             func={register('password')}
           />
           <Button
+            type='submit'
             text='Login'
             variant='btnOutline'
             className='mx-auto mt-8 py-2 px-10 text-[var(--btn-primary-outline-text-color)]'
-            onClick={handle_LogIn}
-          ></Button>
+          />
         </form>
       </div>
 
       <p className='mt-6 text-center text-sm md:text-base'>
-        Don't have an account?{'  '}
+        Don't have an account?{' '}
         <a href='/signup' className='underline text-blue-400'>
           Sign Up
         </a>
       </p>
     </>
   );
-
-  // Passing Login form to AuthLayout component to complete Login Page
 
   return <AuthLayout AuthForm={Login} />;
 };

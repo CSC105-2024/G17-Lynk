@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { MdHome, MdTimelapse } from 'react-icons/md';
 import DisplayCard from '@/components/App/DisplayCard';
 import InfoCard from '@/components/App/InfoCard';
 import LinkCard from '@/components/App/LinkCard';
 
 import { dummyData } from '@/services/data.js';
+import { UserContext } from '@/App';
 
 const Dashboard = () => {
-  const data = dummyData;
-
+  const data = null;
+  const { links } = useContext(UserContext);
   return (
     <div className='bg-[var(--dashboard-bg-color)] min-h-screen'>
-      
       {/* Display Cards */}
       <DisplayCard
         icon={<MdHome />}
@@ -26,7 +26,7 @@ const Dashboard = () => {
         title='Most Visited'
         subTitle='Your top visited links'
       >
-        {data.map((item, idx) => (
+        {data?.map((item, idx) => (
           <LinkCard key={idx} data={item} />
         ))}
       </DisplayCard>
@@ -36,9 +36,10 @@ const Dashboard = () => {
         title='Recent'
         subTitle='Links you’ve added recently'
       >
-        {data.map((item, idx) => (
-          <LinkCard key={idx} data={item} />
-        ))}
+        {links
+          ?.map((item, idx) => <LinkCard key={idx} data={item} />)
+          .sort((a, b) => a.createdAt - b.createdAt)
+          .slice(0, 5)}
       </DisplayCard>
     </div>
   );
