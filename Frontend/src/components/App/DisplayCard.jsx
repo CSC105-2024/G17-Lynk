@@ -27,7 +27,7 @@ const DisplayCard = ({
     } catch (error) {
       console.error('Error deleting data:', error);
     }
-    setPlaylists([...playlists, playlist]);
+    // setPlaylists([...playlists, playlist]);
   };
 
   return (

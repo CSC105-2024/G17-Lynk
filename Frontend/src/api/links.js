@@ -71,9 +71,15 @@ export const createLink = async (
 };
 
 export const deleteLink = async (linkId) => {
-  console.log('here link api:', linkId);
+  // console.log('here link api:', linkId);
   try {
-    // TODO
+    const response = await Axios.delete(`/links/${linkId}`);
+    return {
+      status: response.status,
+      success: response.data.success,
+      data: response.data,
+      msg: response.data.msg,
+    };
   } catch (e) {
     console.error('Error deleting link', e);
     return {
@@ -81,6 +87,55 @@ export const deleteLink = async (linkId) => {
       success: false,
       data: null,
       msg: 'Failed to delete link',
+    };
+  }
+};
+
+export const editLink = async (linkData) => {
+  const linkId = linkData.id;
+  console.log('inside edit api', linkData);
+  try {
+    const response = await Axios.put(`links/${linkId}`, {
+      title: linkData.title,
+      url: linkData.url,
+      description: linkData.description,
+      iconLink: linkData.iconLink,
+      tags: linkData.tags,
+      playlistId: linkData.playlistId,
+    });
+    return {
+      status: response.status,
+      success: response.data.success,
+      data: response.data,
+      msg: response.data.msg,
+    };
+  } catch (e) {
+    console.error('Error updating link', e);
+    return {
+      status: 500,
+      success: false,
+      data: null,
+      msg: 'Failed to update link',
+    };
+  }
+};
+
+export const pinLink = async (linkId) => {
+  try {
+    const response = await Axios.put(`links/pin/${linkId}`);
+    return {
+      status: response.status,
+      success: response.data.success,
+      data: response.data,
+      msg: response.data.msg,
+    };
+  } catch (e) {
+    console.error('Error pinning link', e);
+    return {
+      status: 500,
+      success: false,
+      data: null,
+      msg: 'Failed to pin link',
     };
   }
 };

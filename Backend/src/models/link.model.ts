@@ -1,4 +1,4 @@
-import { db } from "../index.ts";
+import { db } from '../index.ts';
 
 //this one for creating links
 
@@ -20,6 +20,7 @@ const createLink = async ({
   tags?: string[];
   playlistId?: number;
   createdAt?: Date;
+  isPinned?: boolean;
 }) => {
   const newLink = await db.link.create({
     data: {
@@ -36,13 +37,14 @@ const createLink = async ({
           create: { name: tagName },
         })),
       },
+      isPinned: false,
     },
     include: {
       tags: true,
     },
   });
 
-  return { success: true, message: "Link saved", link: newLink };
+  return { success: true, message: 'Link saved', link: newLink };
 };
 
 export { createLink };
@@ -52,7 +54,7 @@ const getLinksByUserId = async (userId: number) => {
   const links = await db.link.findMany({
     where: { userId },
     include: { tags: true },
-    orderBy: { createdAt: "desc" },
+    orderBy: { createdAt: 'desc' },
   });
 
   return links;
@@ -79,6 +81,24 @@ const addLinkToPlaylist = async (linkId: number, playlistId: number) => {
 };
 
 export { addLinkToPlaylist };
+
+const pinLink = async (linkId: number) => {
+  const currentLink = await db.link.findUnique({
+    where: { id: linkId },
+  });
+
+  if (!currentLink) throw new Error('Link not found');
+  const updatedLink = await db.link.update({
+    where: { id: linkId },
+    data: {
+      isPinned: !currentLink.isPinned,
+    },
+  });
+
+  return { success: true, message: 'Link Pinned!', link: updatedLink };
+};
+
+export { pinLink };
 
 const editLink = async (
   linkId: number,
@@ -121,7 +141,7 @@ const editLink = async (
     },
   });
 
-  return { success: true, message: "Link updated", link: updatedLink };
+  return { success: true, message: 'Link updated', link: updatedLink };
 };
 
 export { editLink };

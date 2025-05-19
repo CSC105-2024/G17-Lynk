@@ -1,137 +1,188 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Button from '../Button';
+import { Separator } from '@/components/ui/separator';
+import { UserContext } from '@/App';
 
 const EditLinkModal = ({ isOpen, onClose, onSave, initialLinkData }) => {
-  // Initialize local state with existing link data if available (for editing)
-  const [link, setLink] = useState(initialLinkData?.link || '');
-  const [playlist, setPlaylist] = useState(initialLinkData?.playlist || '');
-  const [name, setName] = useState(initialLinkData?.name || '');
-  const [tag, setTag] = useState(initialLinkData?.tag || '');
-  const [description, setDescription] = useState(
-    initialLinkData?.description || ''
+  const { playlists } = useContext(UserContext);
+  const getFavicon = (url) => {
+    const domain = new URL(url).hostname;
+    return `https://www.google.com/s2/favicons?domain=${domain}`;
+  };
+  // Initialize state with the same structure as ModalLink
+  const [linkInfo, setLinkInfo] = useState(
+    initialLinkData || {
+      url: '',
+      title: '',
+      description: '',
+      iconLink: null,
+      tags: [],
+      playlistId: null,
+    }
   );
 
-  // Collects all form data and triggers save and close actions
+  if (!isOpen) return null;
+
   const handleSave = () => {
-    const linkData = { link, playlist, name, tag, description };
-    onSave(linkData);
+    console.log('here bar kwar');
+    const updatedTags = linkInfo.tags.filter((tag) => tag.length > 0);
+    const updatedLink = { ...linkInfo, tags: updatedTags };
+    onSave(updatedLink);
     onClose();
   };
 
-  // If modal is not open, don't render anything
-  if (!isOpen) return null;
-
   return (
-    // Modal layout: centered overlay with semi-transparent background
-    <div className='fixed top-0 left-0 w-full h-full bg-[var(--main-bg-color)] bg-opacity-60 flex justify-center items-center z-100 text-[var(--app-text-color)]'>
-      <div className='bg-[var(--modal-bg-color)] p-6 rounded-lg shadow-lg w-full max-w-md overflow-y-auto'>
-        {/* Header with title and close button */}
+    <div className='fixed inset-0 w-full h-full bg-[var(--main-bg-color)] bg-opacity-60 flex justify-center items-center z-100 scroll-y'>
+      <form className='bg-[var(--modal-bg-color)] rounded-lg p-8 w-full h-auto max-w-md shadow-lg overflow-y-auto'>
+        {/* Modal Header */}
         <div className='flex justify-between items-center mb-4'>
-          <h2 className='text-xl font-semibold'>Edit a Link</h2>
+          <h2 className='text-xl font-bold text-[var(--app-text-color)]'>
+            Edit Link
+          </h2>
           <button
             onClick={onClose}
-            className='cursor-pointer text-gray-500 hover:text-[var(--app-text-color)] focus:outline-none'
+            className='cursor-pointer text-[var(--app-secondary-text-color)] hover:text-[var(--app-text-color)]'
           >
-            {/* Close (X) icon */}
             <svg
               className='h-6 w-6'
               fill='none'
-              viewBox='0 0 24 24'
               stroke='currentColor'
+              viewBox='0 0 24 24'
+              xmlns='http://www.w3.org/2000/svg'
             >
               <path
                 strokeLinecap='round'
                 strokeLinejoin='round'
                 strokeWidth='2'
                 d='M6 18L18 6M6 6l12 12'
-              />
+              ></path>
             </svg>
           </button>
         </div>
 
-        {/* Input field for the link */}
+        {/* Separator */}
+        <Separator className='bg-[var(--seperator-color)] mb-4' />
+
+        {/* Link Input */}
         <div className='mb-4'>
-          <label htmlFor='link' className='block text-sm font-bold mb-2'>
+          <label
+            htmlFor='link'
+            className='block text-[var(--app-text-color)] text-sm font-semibold mb-2'
+          >
             Link
           </label>
           <input
             type='text'
             id='link'
-            className='shadow appearance-none border rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-[var(--modal-input-bg-color)] '
+            value={linkInfo.url}
+            onChange={(e) =>
+              setLinkInfo({
+                ...linkInfo,
+                url: e.target.value,
+                iconLink: getFavicon(e.target.value),
+              })
+            }
             placeholder='e.g. https://example.com'
-            value={link}
-            onChange={(e) => setLink(e.target.value)}
+            className='shadow appearance-none border rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-[var(--modal-input-bg-color)] text-[var(--app-text-color)]'
           />
         </div>
 
-        {/* Dropdown to select a playlist */}
+        {/* Playlist Dropdown */}
         <div className='mb-4'>
-          <label htmlFor='playlist' className='block text-sm font-bold mb-2'>
+          <label
+            htmlFor='playlist'
+            className='block text-[var(--app-text-color)] text-sm font-semibold mb-2'
+          >
             Playlist
           </label>
           <select
             id='playlist'
-            className='shadow appearance-none border rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline  bg-[var(--modal-input-bg-color)] text-[var(--app-text-color)]'
-            value={playlist}
-            onChange={(e) => setPlaylist(e.target.value)}
+            className='shadow appearance-none border rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-[var(--modal-input-bg-color)] text-[var(--app-text-color)] required'
+            value={linkInfo.playlistId || ''}
+            onChange={(e) => {
+              console.log('my new pl id', e.target.value);
+              setLinkInfo({ ...linkInfo, playlistId: +e.target.value });
+            }}
           >
-            <option value=''>Select Playlist</option>
-            <option value='playlist1'>Playlist 1</option>
-            <option value='playlist2'>Playlist 2</option>
+            <option value=''>Select playlist</option>
+            {playlists.map((pl) => (
+              <option key={pl.id} value={pl.id}>
+                {pl.name}
+              </option>
+            ))}
           </select>
         </div>
 
-        {/* Input field for the name */}
+        {/* Name Input */}
         <div className='mb-4'>
-          <label htmlFor='name' className='block text-sm font-bold mb-2'>
+          <label
+            htmlFor='name'
+            className='block text-[var(--app-text-color)] text-sm font-semibold mb-2'
+          >
             Name
           </label>
           <input
             type='text'
             id='name'
-            className='shadow appearance-none border rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-[var(--modal-input-bg-color)] '
             placeholder='e.g. Example Link Name'
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            className='shadow appearance-none border rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-[var(--modal-input-bg-color)] text-[var(--app-text-color)]'
+            value={linkInfo.title}
+            onChange={(e) =>
+              setLinkInfo({ ...linkInfo, title: e.target.value })
+            }
           />
         </div>
 
-        {/* Dropdown to select a tag */}
+        {/* Tag Input */}
         <div className='mb-4'>
-          <label htmlFor='tag' className='block text-sm font-bold mb-2'>
-            Tag
-          </label>
-          <select
-            id='tag'
-            className='shadow appearance-none border rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline  bg-[var(--modal-input-bg-color)]'
-            value={tag}
-            onChange={(e) => setTag(e.target.value)}
+          <label
+            htmlFor='tag'
+            className='block text-[var(--app-text-color)] text-sm font-semibold mb-2'
           >
-            <option value=''>Select Tag</option>
-            <option value='tag1'>Tag 1</option>
-            <option value='tag2'>Tag 2</option>
-          </select>
+            Tags
+          </label>
+          <textarea
+            id='description'
+            placeholder='Enter tag names (SEPARATED BY COMMAS) related to the link. Eg. Music, '
+            className='shadow appearance-none border rounded-lg w-full py-2 px-3 h-25 leading-tight focus:outline-none focus:shadow-outline bg-[var(--modal-input-bg-color)] text-[var(--app-text-color)]'
+            value={linkInfo.tags.join(', ')}
+            onChange={(e) => {
+              const newTags = e.target.value.split(/[, ]+/);
+              setLinkInfo({ ...linkInfo, tags: newTags });
+            }}
+          />
         </div>
 
-        {/* Textarea for description */}
+        {/* Description Textarea */}
         <div className='mb-6'>
-          <label htmlFor='description' className='block text-sm font-bold mb-2'>
+          <label
+            htmlFor='description'
+            className='block text-[var(--app-text-color)] text-sm font-semibold mb-2'
+          >
             Description
           </label>
           <textarea
             id='description'
-            className='shadow appearance-none border rounded-lg w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline  bg-[var(--modal-input-bg-color)] h-24 resize-none'
             placeholder="What's the reason for saving this link?"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            className='shadow appearance-none border rounded-lg w-full py-2 px-3 h-25 leading-tight focus:outline-none focus:shadow-outline bg-[var(--modal-input-bg-color)] text-[var(--app-text-color)]'
+            value={linkInfo.description}
+            onChange={(e) =>
+              setLinkInfo({ ...linkInfo, description: e.target.value })
+            }
           />
         </div>
 
-        {/* Save button at the bottom */}
-        <div className='flex items-center justify-end'>
-          <Button type='submit' text='Done' onClick={handleSave} />
+        {/* Save Button */}
+        <div className='flex items-center justify-between'>
+          <Button
+            text='Save Changes'
+            onClick={(e) => {
+              // e.preventDefault();
+              handleSave();
+            }}
+          />
         </div>
-      </div>
+      </form>
     </div>
   );
 };

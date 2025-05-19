@@ -8,14 +8,14 @@ import { UserContext } from '@/App';
 // It shows link icon, name, playlists, tags, link URL, and creation time
 // Also includes a MorePopover for options like deleting the link
 
-const LinkCard = ({ data, onDelete }) => {
+const LinkCard = ({ data }) => {
   // Destructure data object to extract relevant properties
   const { playlists } = useContext(UserContext);
   // console.log("here is dadta that i'm looking", data);
-  const { key, iconLink, title, playlistId, tags, url, createdAt } = data;
+  const { id, iconLink, title, playlistId, tags, url, createdAt } = data;
   // console.log('here  is title: ', title);
   // console.log('here  is playlistId: ', playlistId);
-
+  // console.log('ths is the data:', data);
   return (
     <div className='bg-[var(--link-card-bg)] rounded-lg shadow py-3 px-3 md:px-10 hover:bg-[var(--link-card-hover-bg)] w-full '>
       <div className='flex items-center gap-2 mb-2'>
@@ -31,7 +31,7 @@ const LinkCard = ({ data, onDelete }) => {
         <p className='flex-grow overflow-hidden text-ellipsis whitespace-nowrap'>
           {title}
         </p>
-        <MorePopover onDelete={() => onDelete(key)} />
+        <MorePopover data={data} />
       </div>
 
       {/* Grid section: playlists, link URL, tags, created time */}
