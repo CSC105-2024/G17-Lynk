@@ -7,11 +7,19 @@ import { UserContext } from '@/App';
 const InfoCard = () => {
   const { playlists, links } = useContext(UserContext); // Get playlists from context
   // console.log('here is playlists: ', playlists); // Log playlists to console
+  const tags = [];
+  links.forEach((link) => {
+    (link.tags || []).forEach((tag) => {
+      if (!tags.some((existingTag) => existingTag.name === tag.name)) {
+        tags.push(tag);
+      }
+    });
+  });
 
   const infoData = [
     { label: 'Links', value: links.length },
     { label: 'Playlists', value: playlists.length },
-    { label: 'Tags', value: '?' },
+    { label: 'Tags', value: tags.length },
   ];
 
   return (

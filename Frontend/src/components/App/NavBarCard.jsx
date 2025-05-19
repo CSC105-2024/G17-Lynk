@@ -128,8 +128,9 @@ const NavBarCard = ({ onToggle }) => {
   // Create playlist handler
   const handleCreatePlaylist = async (playlist) => {
     try {
+      const userId = JSON.parse(localStorage.getItem('user')).id;
       const [playlistsData] = await createPlaylist(
-        1, // userId
+        userId,
         playlist.name,
         playlist.description,
         playlist.iconLink

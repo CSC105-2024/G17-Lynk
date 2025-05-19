@@ -35,7 +35,6 @@ export const getLinks = async () => {
 };
 
 export const createLink = async (
-  userId,
   url,
   title,
   description,
