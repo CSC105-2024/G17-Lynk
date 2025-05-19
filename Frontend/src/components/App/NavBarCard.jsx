@@ -164,7 +164,7 @@ const NavBarCard = ({ onToggle }) => {
       {/* Main Navigation Bar */}
       <div className='px-5 py-5 md:px-8 md:py-3 flex items-center gap-3 md:gap-10 flex-wrap'>
         {/* Mobile Menu Toggle */}
-        <div className='text-3xl p-3 block md:hidden'>
+        <div className='text-3xl p-3 block md:hidden cursor-pointer'>
           <IoMenu onClick={onToggle} />
         </div>
 

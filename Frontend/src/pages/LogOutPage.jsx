@@ -8,7 +8,7 @@ import { updateUser } from '@/api/user';
 
 const user = JSON.parse(localStorage.getItem('user'));
 const id = user.id;
-console.log('userId here', user);
+// console.log('userId here', user);
 
 export default function ProfilePage() {
   const [username, setUsername] = useState('');
@@ -114,15 +114,15 @@ export default function ProfilePage() {
             >
               <FaArrowLeft size={12} />
             </button>
-            <div className=' bg-gray-100 p-3 rounded-full shadow-sm'>
+            <div className='flex justify-end gap-5'>
               <button
                 onClick={handle_edit}
-                className='w-full h-full flex items-center justify-center bg-gray-200 hover:bg-gray-300 rounded-full transition cursor-pointer'
+                className='bg-[var(--logout-input-bg-color)] hover:bg-[var(--secondary-foreground)] p-3 w-full h-full flex items-center justify-center rounded-full transition cursor-pointer rounded-full shadow-sm'
               >
                 <FaPen size={15} className='text-gray-600' />
               </button>
+              <ModeToggle className='fixed top-5 right-5 z-50' />
             </div>
-            <ModeToggle className='fixed top-5 right-5 z-50' />
           </div>
 
           {/* <div className='relative w-28 h-28 mx-auto mb-4'>
