@@ -1,7 +1,7 @@
-import { db } from '../index.ts';
-import bcrypt from 'bcryptjs';
+import { db } from "../index.ts";
+import bcrypt from "bcryptjs";
 
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 
 type UserPayload = {
   id: number;
@@ -22,7 +22,7 @@ export const ispasswordMatch = async (
 
 export const generateToken = (user: UserPayload): string => {
   const secret = process.env.JWT_SECRET;
-  if (!secret) throw new Error('Missing JWT_SECRET');
+  if (!secret) throw new Error("Missing JWT_SECRET");
 
   const payload = {
     _id: user.id,
@@ -30,15 +30,15 @@ export const generateToken = (user: UserPayload): string => {
     username: user.username,
   };
 
-  return jwt.sign(payload, secret, { expiresIn: '15m' });
+  return jwt.sign(payload, secret, { expiresIn: "15m" });
 };
 
 export const generateRefreshToken = (userId: number): string => {
   const refreshSecret = process.env.REFRESH_TOKEN_SECRET_KEY;
-  if (!refreshSecret) throw new Error('Missing REFRESH_TOKEN_SECRET_KEY');
+  if (!refreshSecret) throw new Error("Missing REFRESH_TOKEN_SECRET_KEY");
 
   return jwt.sign({ _id: userId }, refreshSecret, {
-    expiresIn: '7d',
+    expiresIn: "7d",
   });
 };
 
@@ -54,7 +54,7 @@ export const createUserIfNotExists = async (
   if (existingUser) {
     return {
       success: false,
-      message: 'User already exists',
+      message: "User already exists",
       user: existingUser,
     };
   }
@@ -67,5 +67,30 @@ export const createUserIfNotExists = async (
     },
   });
 
-  return { success: true, message: 'User created', user: newUser };
+  return { success: true, message: "User created", user: newUser };
+};
+
+export const updateUsername = async (userId: number, newUsername: string) => {
+  const existingUser = await db.user.findUnique({
+    where: { id: userId },
+  });
+
+  if (!existingUser) {
+    return {
+      success: false,
+      message: "User not found",
+      user: null,
+    };
+  }
+
+  const updatedUser = await db.user.update({
+    where: { id: userId },
+    data: { username: newUsername },
+  });
+
+  return {
+    success: true,
+    message: "Username updated",
+    user: updatedUser,
+  };
 };

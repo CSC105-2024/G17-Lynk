@@ -4,6 +4,7 @@ import { FaArrowLeft, FaPen, FaUser, FaEnvelope } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { ThemeProvider } from '@/components/theme-provider';
 import axios from 'axios';
+import { updateUser } from '@/api/user';
 
 const user = JSON.parse(localStorage.getItem('user'));
 const id = user.id;
@@ -82,6 +83,24 @@ export default function ProfilePage() {
     localStorage.setItem('user', JSON.stringify(userData));
 
     setEdit(false);
+
+    // Send updated data to the backend
+    async () => {
+      console.log('here bruh');
+      try {
+        const res = await updateUser(userData);
+        if (res.success) {
+          console.log('User updated successfully:', res.data);
+          alert('User updated successfully');
+        }
+      } catch (error) {
+        console.error('Error updating user:', error);
+        alert(
+          'Error updating user: ' +
+            (error.response?.data?.message || 'Unknown error')
+        );
+      }
+    };
   };
   const handle_edit = () => setEdit(!edit);
 

@@ -1,13 +1,15 @@
-import type { Context } from 'hono';
-import { db } from '../index.ts';
+import type { Context } from "hono";
+import { db } from "../index.ts";
 import {
   createUserIfNotExists,
   generateToken,
   generateRefreshToken,
   ispasswordMatch,
-} from '../models/user.model.ts';
-import { setCookie, deleteCookie } from 'hono/cookie';
-import jwt from 'jsonwebtoken';
+  updateUsername,
+} from "../models/user.model.ts";
+import { setCookie, deleteCookie } from "hono/cookie";
+import jwt from "jsonwebtoken";
+
 type CreateUserBody = {
   email: string;
   username: string;
@@ -29,7 +31,7 @@ export const registerUserController = async (c: Context) => {
         {
           success: false,
           data: null,
-          msg: 'Missing required fields',
+          msg: "Missing required fields",
         },
         400
       );
@@ -42,7 +44,7 @@ export const registerUserController = async (c: Context) => {
         {
           success: false,
           data: null,
-          msg: 'User already exists',
+          msg: "User already exists",
         },
         409
       );
@@ -51,7 +53,7 @@ export const registerUserController = async (c: Context) => {
     return c.json({
       success: true,
       data: result.user,
-      msg: 'Created new user!',
+      msg: "Created new user!",
     });
   } catch (e) {
     return c.json(
@@ -70,7 +72,7 @@ export const loginUserController = async (c: Context) => {
   try {
     const { email, password } = await c.req.json();
     if (!email || !password) {
-      return c.json({ message: 'Missing required fields' }, 400);
+      return c.json({ message: "Missing required fields" }, 400);
     }
     const existingUser = await db.user.findFirst({
       where: {
@@ -78,7 +80,7 @@ export const loginUserController = async (c: Context) => {
       },
     });
     if (!existingUser) {
-      return c.json({ message: 'User not found' }, 404);
+      return c.json({ message: "User not found" }, 404);
     }
     const isPasswordMatch = await ispasswordMatch(
       password,
@@ -86,7 +88,7 @@ export const loginUserController = async (c: Context) => {
     );
 
     if (!isPasswordMatch) {
-      return c.json({ message: 'Invalid password' }, 401);
+      return c.json({ message: "Invalid password" }, 401);
     }
     const accessToken = generateToken({
       id: existingUser.id,
@@ -100,57 +102,57 @@ export const loginUserController = async (c: Context) => {
       email: existingUser.email,
       username: existingUser.username,
     };
-    const isProduction = process.env.NODE_ENV === 'production';
+    const isProduction = process.env.NODE_ENV === "production";
 
-    setCookie(c, 'accessToken', accessToken, {
+    setCookie(c, "accessToken", accessToken, {
       httpOnly: true,
       secure: isProduction,
     });
-    setCookie(c, 'refreshToken', refreshToken, {
+    setCookie(c, "refreshToken", refreshToken, {
       httpOnly: true,
       secure: isProduction,
     });
-    return c.json({ user: userResponse, message: 'Login success.' }, 200);
+    return c.json({ user: userResponse, message: "Login success." }, 200);
   } catch (e) {
     console.log(e);
-    return c.json({ message: 'Internal Server Error' }, 500);
+    return c.json({ message: "Internal Server Error" }, 500);
   }
 };
 
 //logout controller
 export const logoutController = async (c: Context) => {
   try {
-    const isProduction = process.env.NODE_ENV === 'production';
+    const isProduction = process.env.NODE_ENV === "production";
 
-    deleteCookie(c, 'accessToken', {
+    deleteCookie(c, "accessToken", {
       httpOnly: true,
       secure: isProduction,
-      path: '/',
+      path: "/",
     });
 
-    deleteCookie(c, 'refreshToken', {
+    deleteCookie(c, "refreshToken", {
       httpOnly: true,
       secure: isProduction,
-      path: '/',
+      path: "/",
     });
 
-    return c.json({ success: true, message: 'Logged out successfully.' }, 200);
+    return c.json({ success: true, message: "Logged out successfully." }, 200);
   } catch (e) {
-    console.error('Logout error:', e);
-    return c.json({ message: 'Something went wrong.' }, 500);
+    console.error("Logout error:", e);
+    return c.json({ message: "Something went wrong." }, 500);
   }
 };
 
 export const refreshTokenController = async (c: Context) => {
   try {
-    const cookies = c.req.header('Cookie') || '';
+    const cookies = c.req.header("Cookie") || "";
     const refreshToken = cookies
-      .split('; ')
-      .find((row) => row.startsWith('refreshToken='))
-      ?.split('=')[1];
+      .split("; ")
+      .find((row) => row.startsWith("refreshToken="))
+      ?.split("=")[1];
 
     if (!refreshToken) {
-      return c.json({ message: 'Refresh token not found' }, 401);
+      return c.json({ message: "Refresh token not found" }, 401);
     }
 
     // Decode the refresh token
@@ -160,7 +162,7 @@ export const refreshTokenController = async (c: Context) => {
     ) as { _id: number };
 
     if (!decoded?._id) {
-      return c.json({ message: 'Invalid refresh token' }, 401);
+      return c.json({ message: "Invalid refresh token" }, 401);
     }
 
     const user = await db.user.findUnique({
@@ -168,7 +170,7 @@ export const refreshTokenController = async (c: Context) => {
     });
 
     if (!user) {
-      return c.json({ message: 'User not found' }, 404);
+      return c.json({ message: "User not found" }, 404);
     }
 
     // Generate new tokens
@@ -180,25 +182,25 @@ export const refreshTokenController = async (c: Context) => {
 
     const newRefreshToken = generateRefreshToken(user.id);
 
-    const isProduction = process.env.NODE_ENV === 'production';
+    const isProduction = process.env.NODE_ENV === "production";
 
     // Set the new cookies
-    setCookie(c, 'accessToken', newAccessToken, {
+    setCookie(c, "accessToken", newAccessToken, {
       httpOnly: true,
       secure: isProduction,
-      path: '/',
+      path: "/",
     });
 
-    setCookie(c, 'refreshToken', newRefreshToken, {
+    setCookie(c, "refreshToken", newRefreshToken, {
       httpOnly: true,
       secure: isProduction,
-      path: '/',
+      path: "/",
     });
 
-    return c.json({ message: 'Token refreshed successfully' }, 200);
+    return c.json({ message: "Token refreshed successfully" }, 200);
   } catch (error) {
-    console.error('Refresh token error:', error);
-    return c.json({ message: 'Invalid or expired refresh token' }, 401);
+    console.error("Refresh token error:", error);
+    return c.json({ message: "Invalid or expired refresh token" }, 401);
   }
 };
 
@@ -214,7 +216,7 @@ const generateTokensController = async (
     });
 
     if (!existingUser) {
-      throw new Error('User not found');
+      throw new Error("User not found");
     }
 
     const { id, email, username } = existingUser;
@@ -224,6 +226,55 @@ const generateTokensController = async (
     return { accessToken, refreshToken };
   } catch (e) {
     console.log(e);
-    throw new Error('Failed to generate tokens');
+    throw new Error("Failed to generate tokens");
+  }
+};
+
+// update username controller
+export const updateUsernameController = async (c: Context) => {
+  try {
+    const { username } = await c.req.json();
+
+    if (!username) {
+      return c.json({ message: "Username is required" }, 400);
+    }
+
+    const cookies = c.req.header("Cookie") || "";
+    const accessToken = cookies
+      .split("; ")
+      .find((row) => row.startsWith("accessToken="))
+      ?.split("=")[1];
+
+    if (!accessToken) {
+      return c.json({ message: "Access token not found" }, 401);
+    }
+
+    const decoded = jwt.verify(accessToken, process.env.JWT_SECRET!) as {
+      _id: number;
+    };
+
+    if (!decoded?._id) {
+      return c.json({ message: "Invalid token" }, 401);
+    }
+
+    const result = await updateUsername(decoded._id, username);
+
+    if (!result.success || !result.user) {
+      return c.json({ message: result.message }, 400);
+    }
+
+    const { id, email, username: updatedUsername } = result.user;
+
+    return c.json({
+      message: "Username updated successfully",
+      user: {
+        id,
+        email,
+        username: updatedUsername,
+      },
+    });
+  } catch (error) {
+    console.error("Update username error:", error);
+    return c.json({ message: "Something went wrong" }, 500);
   }
 };
