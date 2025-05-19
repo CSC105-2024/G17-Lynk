@@ -2,9 +2,11 @@ import { Axios } from '../../axiosInstance';
 
 export const updateUser = async ({ username }) => {
   try {
-    const response = await Axios.put(`/users/update-username`, {
-      username,
-    });
+    const response = await Axios.put(
+      `/users/update-username`,
+      { username },
+      { withCredentials: true } // <-- Add this line
+    );
     return {
       status: response.status,
       success: response.data.success,

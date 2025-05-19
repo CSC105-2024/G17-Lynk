@@ -42,6 +42,7 @@ export default function ProfilePage() {
       );
       if (response.data?.success) {
         localStorage.clear();
+        sessionStorage.clear();
         alert('Successfully logged out!');
         setShowLogoutModal(false);
         navigate('/', { replace: true });
@@ -67,7 +68,7 @@ export default function ProfilePage() {
     }
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     // if (tempImage) {
     //   setProfileImage(tempImage);
     //   setTempImage(null);
@@ -83,24 +84,22 @@ export default function ProfilePage() {
     localStorage.setItem('user', JSON.stringify(userData));
 
     setEdit(false);
-
+    console.log('hdahha');
     // Send updated data to the backend
-    async () => {
-      console.log('here bruh');
-      try {
-        const res = await updateUser(userData);
-        if (res.success) {
-          console.log('User updated successfully:', res.data);
-          alert('User updated successfully');
-        }
-      } catch (error) {
-        console.error('Error updating user:', error);
-        alert(
-          'Error updating user: ' +
-            (error.response?.data?.message || 'Unknown error')
-        );
+
+    try {
+      const res = updateUser(userData);
+      if (res.success) {
+        console.log('User updated successfully:', res.data);
+        alert('User updated successfully');
       }
-    };
+    } catch (error) {
+      console.error('Error updating user:', error);
+      alert(
+        'Error updating user: ' +
+          (error.response?.data?.message || 'Unknown error')
+      );
+    }
   };
   const handle_edit = () => setEdit(!edit);
 
