@@ -54,6 +54,8 @@ const LogInPage = () => {
 
       console.log('Backend Response:', response.data);
       if (response.status === 200 && response.data.user) {
+        const userData = response.data.user;
+        localStorage.setItem('user', JSON.stringify(userData));
         navigate('/app/dashboard');
       } else {
         alert(response.data.msg || 'Login failed: No success flag');

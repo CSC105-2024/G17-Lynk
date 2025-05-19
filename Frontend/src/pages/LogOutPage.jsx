@@ -1,18 +1,35 @@
 import { ModeToggle } from '@/components/mode-toggle';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaArrowLeft, FaPen, FaUser, FaEnvelope } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { ThemeProvider } from '@/components/theme-provider';
 import axios from 'axios';
 
+const user = JSON.parse(localStorage.getItem('user'));
+const userId = user.id;
+
 export default function ProfilePage() {
-  const [username, setUsername] = useState('bambi');
-  const [email, setEmail] = useState('xxx@gmail.com');
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [edit, setEdit] = useState(false);
-  const [profileImage, setProfileImage] = useState('/dummy_pf.jpg');
+  const [profileImage, setProfileImage] = useState('/dummy.jpg');
   const [tempImage, setTempImage] = useState(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Load data from localStorage when component mounts
+    const userData = localStorage.getItem('user');
+    if (userData) {
+      const parsedData = JSON.parse(userData);
+      setUsername(parsedData.username || '');
+      setEmail(parsedData.email || '');
+      // Set profile image if available in localStorage
+      if (parsedData.profileImage) {
+        setProfileImage(parsedData.profileImage);
+      }
+    }
+  }, []);
 
   const handleLogout = async () => {
     try {
@@ -22,6 +39,7 @@ export default function ProfilePage() {
         { withCredentials: true }
       );
       if (response.data?.success) {
+        localStorage.clear();
         alert('Successfully logged out!');
         setShowLogoutModal(false);
         navigate('/', { replace: true });
@@ -52,6 +70,16 @@ export default function ProfilePage() {
       setProfileImage(tempImage);
       setTempImage(null);
     }
+    console.log('Saving data:', userId);
+    // Save to localStorage
+    const userData = {
+      userId,
+      username,
+      email,
+      profileImage: tempImage || profileImage,
+    };
+    localStorage.setItem('user', JSON.stringify(userData));
+
     setEdit(false);
   };
   const handle_edit = () => setEdit(!edit);

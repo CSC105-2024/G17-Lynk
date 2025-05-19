@@ -1,6 +1,7 @@
 import { Axios } from '../../axiosInstance';
 
-const userId = 1;
+const user = JSON.parse(localStorage.getItem('user'));
+const userId = user.id;
 
 export const getLinks = async () => {
   try {

@@ -1,12 +1,15 @@
 import { Axios } from '../../axiosInstance';
 
+const user = JSON.parse(localStorage.getItem('user'));
+const userId = user.id;
+
 // Helper function to format dates consistently
 const formatDate = (dateString) => new Date(dateString).toLocaleString();
 
 export const getPlaylists = async () => {
   try {
-    const response = await Axios.get('playlists/user/1');
-
+    const response = await Axios.get(`playlists/user/${userId}`);
+    console.log('res', response);
     // Format dates for each playlist and their nested links
     const formattedData = response.data.data.map((playlist) => ({
       ...playlist,
@@ -42,7 +45,7 @@ export const getPlaylists = async () => {
 
 export const getUser = async () => {
   try {
-    const response = await Axios.get('user/1');
+    const response = await Axios.get(`user/${userId}`);
 
     // Format user dates if they exist
     const formattedData = response.data.data

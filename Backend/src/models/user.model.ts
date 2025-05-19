@@ -21,8 +21,8 @@ export const ispasswordMatch = async (
 };
 
 export const generateToken = (user: UserPayload): string => {
-  const secret = process.env.ACCESSTOKEN_SECRET_KEY;
-  if (!secret) throw new Error('Missing ACCESSTOKEN_SECRET_KEY');
+  const secret = process.env.JWT_SECRET;
+  if (!secret) throw new Error('Missing JWT_SECRET');
 
   const payload = {
     _id: user.id,
