@@ -6,15 +6,16 @@ import { ThemeProvider } from '@/components/theme-provider';
 import axios from 'axios';
 
 const user = JSON.parse(localStorage.getItem('user'));
-const userId = user.id;
+const id = user.id;
+console.log('userId here', user);
 
 export default function ProfilePage() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [edit, setEdit] = useState(false);
-  const [profileImage, setProfileImage] = useState('/dummy.jpg');
-  const [tempImage, setTempImage] = useState(null);
+  // const [profileImage, setProfileImage] = useState('/dummy.jpg');
+  // const [tempImage, setTempImage] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,9 +26,9 @@ export default function ProfilePage() {
       setUsername(parsedData.username || '');
       setEmail(parsedData.email || '');
       // Set profile image if available in localStorage
-      if (parsedData.profileImage) {
-        setProfileImage(parsedData.profileImage);
-      }
+      // if (parsedData.profileImage) {
+      //   setProfileImage(parsedData.profileImage);
+      // }
     }
   }, []);
 
@@ -66,17 +67,17 @@ export default function ProfilePage() {
   };
 
   const handleSave = () => {
-    if (tempImage) {
-      setProfileImage(tempImage);
-      setTempImage(null);
-    }
-    console.log('Saving data:', userId);
+    // if (tempImage) {
+    //   setProfileImage(tempImage);
+    //   setTempImage(null);
+    // }
+    console.log('Saving data:', id);
     // Save to localStorage
     const userData = {
-      userId,
+      id,
       username,
       email,
-      profileImage: tempImage || profileImage,
+      // profileImage: tempImage || profileImage,
     };
     localStorage.setItem('user', JSON.stringify(userData));
 
@@ -95,24 +96,24 @@ export default function ProfilePage() {
             >
               <FaArrowLeft size={12} />
             </button>
+            <div className=' bg-gray-100 p-3 rounded-full shadow-sm'>
+              <button
+                onClick={handle_edit}
+                className='w-full h-full flex items-center justify-center bg-gray-200 hover:bg-gray-300 rounded-full transition cursor-pointer'
+              >
+                <FaPen size={15} className='text-gray-600' />
+              </button>
+            </div>
             <ModeToggle className='fixed top-5 right-5 z-50' />
           </div>
 
-          <div className='relative w-28 h-28 mx-auto mb-4'>
+          {/* <div className='relative w-28 h-28 mx-auto mb-4'>
             <img
               src={tempImage || profileImage}
               alt='Profile'
               className='w-full h-full object-cover rounded-full border-2 border-white'
-            />
-            <div className='absolute bottom-2 right-2 bg-gray-100 p-1 rounded-full shadow-sm'>
-              <button
-                onClick={handle_edit}
-                className='w-4 h-4 flex items-center justify-center bg-gray-200 hover:bg-gray-300 rounded-full transition cursor-pointer'
-              >
-                <FaPen size={12} className='text-gray-600' />
-              </button>
-            </div>
-
+            /> */}
+          {/* 
             {edit && (
               <input
                 type='file'
@@ -120,8 +121,8 @@ export default function ProfilePage() {
                 onChange={handleImageChange}
                 className='absolute bottom-0 left-0 w-full h-full opacity-0 cursor-pointer'
               />
-            )}
-          </div>
+            )} */}
+          {/* </div> */}
 
           <h2 className='text-center text-lg font-medium mb-6'>{username}</h2>
 
@@ -133,7 +134,10 @@ export default function ProfilePage() {
                 type='text'
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                className='bg-transparent outline-none w-full'
+                className={`${
+                  edit ? '' : 'opacity-50 cursor-not-allowed' // Example disabled styles
+                } bg-transparent outline-none w-full`}
+                disabled={!edit}
               />
             </div>
           </div>
@@ -142,13 +146,16 @@ export default function ProfilePage() {
             <label className='text-sm font-semibold mb-1 block'>
               Your Email
             </label>
-            <div className='flex items-center bg-[var(--logout-input-bg-color)] text-[var(--logout-input-text-color)] rounded-lg px-3 py-2'>
+            <div className='flex items-center bg-[var(--logout-input-bg-color)] text-[var(--logout-input-text-color)] rounded-lg px-3 py-2 '>
               <FaEnvelope className='mr-2 text-gray-400' />
               <input
                 type='email'
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className='bg-transparent outline-none w-full'
+                className={`${
+                  edit ? '' : 'opacity-50 cursor-not-allowed' // Example disabled styles
+                } bg-transparent outline-none w-full`}
+                disabled={!edit}
               />
             </div>
           </div>
