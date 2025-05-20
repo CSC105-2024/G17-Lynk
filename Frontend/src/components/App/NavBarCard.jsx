@@ -9,7 +9,7 @@ import Fuse from 'fuse.js';
 import { ModeToggle } from '../mode-toggle';
 import { useNavigate } from 'react-router-dom';
 import { btn, btnFill } from '@/styles/styles';
-import { UserContext } from '@/App';
+import { UserContext } from '@/AppLayout';
 import { createPlaylist } from '@/api/playlist';
 
 const NavBarCard = ({ onToggle }) => {

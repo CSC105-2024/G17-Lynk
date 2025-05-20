@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { UserContext } from '@/App'; // Import context for playlists
+import { UserContext } from '@/AppLayout'; // Import context for playlists
 import SideBarMenuLink from './SideBarMenuLink'; // Import custom component for sidebar menu links
 import { MdHome, MdTimelapse } from 'react-icons/md'; // Import icons from react-icons
 import { Separator } from '@/components/ui/separator'; // Import separator component for styling

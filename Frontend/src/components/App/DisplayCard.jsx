@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Button } from '@/components/ui/button';
-import { UserContext } from '@/App';
+import { UserContext } from '@/AppLayout';
 import { deletePlaylist } from '@/api/playlist';
 import APP_ICONS from '@/constants/icons.js';
 

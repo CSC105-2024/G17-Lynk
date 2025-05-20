@@ -6,11 +6,9 @@ import { ThemeProvider } from '@/components/theme-provider';
 import axios from 'axios';
 import { updateUser } from '@/api/user';
 
-const user = JSON.parse(localStorage.getItem('user'));
-const id = user.id;
-// console.log('userId here', user);
-
 export default function ProfilePage() {
+  const user = JSON.parse(localStorage.getItem('user'));
+  const id = user.id;
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [showLogoutModal, setShowLogoutModal] = useState(false);
@@ -117,7 +115,7 @@ export default function ProfilePage() {
             <div className='flex justify-end gap-5'>
               <button
                 onClick={handle_edit}
-                className='bg-[var(--logout-input-bg-color)] hover:bg-[var(--secondary-foreground)] p-3 w-full h-full flex items-center justify-center rounded-full transition cursor-pointer rounded-full shadow-sm'
+                className='bg-[var(--logout-input-bg-color)] hover:bg-[var(--secondary-foreground)] p-3 w-full h-full flex items-center justify-center rounded-full transition cursor-pointer shadow-sm'
               >
                 <FaPen size={15} className='text-gray-600' />
               </button>

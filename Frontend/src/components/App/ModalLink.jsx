@@ -2,7 +2,7 @@ import { btn, btnFill } from '@/styles/styles';
 import React, { useContext, useState } from 'react';
 import Button from '../Button';
 import { Separator } from '@/components/ui/separator';
-import { UserContext } from '@/App';
+import { UserContext } from '@/AppLayout';
 import { createLink } from '@/api/links';
 
 // ModalLink - A modal window for creating a new link

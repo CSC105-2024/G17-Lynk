@@ -4,7 +4,7 @@ import React, { useContext } from 'react';
 import { dummyData } from '@/services/data.js';
 import DisplayCard from '@/components/App/DisplayCard';
 import { TiPin } from 'react-icons/ti';
-import { UserContext } from '@/App';
+import { UserContext } from '@/AppLayout';
 
 const Pinboard = () => {
   const { links } = useContext(UserContext);

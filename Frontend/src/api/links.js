@@ -1,9 +1,16 @@
 import { Axios } from '../../axiosInstance';
 
-const user = JSON.parse(localStorage.getItem('user'));
-const userId = user.id;
-
 export const getLinks = async () => {
+  const user = JSON.parse(localStorage.getItem('user'));
+  if (user === null) {
+    console.error('User not found in localStorage');
+    throw new Error('User not found in localStorage');
+  } else {
+    user.id = user.id;
+  }
+
+  console.log('user:', user);
+  const userId = user.id;
   try {
     const response = await Axios.get(`links/user/${userId}`);
 

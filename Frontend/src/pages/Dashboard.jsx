@@ -5,7 +5,7 @@ import InfoCard from '@/components/App/InfoCard';
 import LinkCard from '@/components/App/LinkCard';
 
 import { dummyData } from '@/services/data.js';
-import { UserContext } from '@/App';
+import { UserContext } from '@/AppLayout';
 
 const Dashboard = () => {
   const data = null;

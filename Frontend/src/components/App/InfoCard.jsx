@@ -2,7 +2,7 @@ import { getPlaylists } from '@/api/playlist';
 import React, { useEffect, useState } from 'react';
 import { IoMdLink } from 'react-icons/io';
 import { useContext } from 'react';
-import { UserContext } from '@/App';
+import { UserContext } from '@/AppLayout';
 
 const InfoCard = () => {
   const { playlists, links } = useContext(UserContext); // Get playlists from context

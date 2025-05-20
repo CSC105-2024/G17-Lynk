@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import Button from '../Button';
 import Chip from './Chip';
 import MorePopover from './MorePopover';
-import { UserContext } from '@/App';
+import { UserContext } from '@/AppLayout';
 
 // LinkCard displays detailed information about a single saved link
 // It shows link icon, name, playlists, tags, link URL, and creation time

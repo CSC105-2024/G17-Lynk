@@ -1,12 +1,11 @@
 import { Axios } from '../../axiosInstance';
 
-const user = JSON.parse(localStorage.getItem('user'));
-const userId = user.id;
-
-// Helper function to format dates consistently
-const formatDate = (dateString) => new Date(dateString).toLocaleString();
-
 export const getPlaylists = async () => {
+  const user = JSON.parse(localStorage.getItem('user'));
+  const userId = user.id;
+
+  // Helper function to format dates consistently
+  const formatDate = (dateString) => new Date(dateString).toLocaleString();
   try {
     const response = await Axios.get(`playlists/user/${userId}`);
     console.log('res', response);

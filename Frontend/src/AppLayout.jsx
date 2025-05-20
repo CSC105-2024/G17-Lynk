@@ -10,7 +10,7 @@ import { getLinks } from './api/links';
 
 export const UserContext = createContext();
 
-const App = () => {
+const AppLayout = () => {
   const [showSideBar, setShowSideBar] = useState(false);
   const [playlists, setPlaylists] = useState([]);
   const [links, setLinks] = useState([]);
@@ -22,6 +22,7 @@ const App = () => {
   };
 
   const fetchData = async () => {
+    // console.log('fetching data');
     try {
       const [playlistsData, linksData] = await Promise.all([
         getPlaylists(),
@@ -65,4 +66,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default AppLayout;
