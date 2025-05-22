@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { ThemeProvider } from '@/components/theme-provider';
 import axios from 'axios';
 import { updateUser } from '@/api/user';
+import { useRef } from 'react';
 
 export default function ProfilePage() {
   const user = JSON.parse(localStorage.getItem('user'));
@@ -16,6 +17,7 @@ export default function ProfilePage() {
   // const [profileImage, setProfileImage] = useState('/dummy.jpg');
   // const [tempImage, setTempImage] = useState(null);
   const navigate = useNavigate();
+  const usernameInputRef = useRef(null);
 
   useEffect(() => {
     // Load data from localStorage when component mounts
@@ -31,12 +33,17 @@ export default function ProfilePage() {
     }
   }, []);
 
+  useEffect(() => {
+    if (edit && usernameInputRef.current) {
+      usernameInputRef.current.focus();
+    }
+  }, [edit]);
+
   const handleLogout = async () => {
     try {
       const response = await axios.post(
         'http://localhost:3000/users/logout',
-        {},
-        { withCredentials: true }
+        {}
       );
       if (response.data?.success) {
         localStorage.clear();
@@ -113,12 +120,6 @@ export default function ProfilePage() {
               <FaArrowLeft size={12} />
             </button>
             <div className='flex justify-end gap-5'>
-              <button
-                onClick={handle_edit}
-                className='bg-[var(--logout-input-bg-color)] hover:bg-[var(--secondary-foreground)] p-3 w-full h-full flex items-center justify-center rounded-full transition cursor-pointer shadow-sm'
-              >
-                <FaPen size={15} className='text-gray-600' />
-              </button>
               <ModeToggle className='fixed top-5 right-5 z-50' />
             </div>
           </div>
@@ -147,14 +148,26 @@ export default function ProfilePage() {
             <div className='flex items-center bg-[var(--logout-input-bg-color)] text-[var(--logout-input-text-color)] rounded-lg px-3 py-2'>
               <FaUser className='mr-2 text-gray-400' />
               <input
+                ref={usernameInputRef}
                 type='text'
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 className={`${
-                  edit ? '' : 'opacity-50 cursor-not-allowed' // Example disabled styles
+                  edit
+                    ? 'opacity-100 cursor-text'
+                    : 'opacity-50 cursor-not-allowed'
                 } bg-transparent outline-none w-full`}
                 disabled={!edit}
               />
+              <button
+                onClick={handle_edit}
+                className='bg-[var(--logout-input-bg-color)]  px-1 flex items-center justify-center transition cursor-pointer shadow-sm'
+              >
+                <FaPen
+                  size={15}
+                  className='text-gray-600 hover:text-[var(--secondary-foreground)]'
+                />
+              </button>
             </div>
           </div>
 
@@ -168,10 +181,9 @@ export default function ProfilePage() {
                 type='email'
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className={`${
-                  edit ? '' : 'opacity-50 cursor-not-allowed' // Example disabled styles
-                } bg-transparent outline-none w-full`}
-                disabled={!edit}
+                className='opacity-50 cursor-not-allowed
+              bg-transparent outline-none w-full'
+                disabled
               />
             </div>
           </div>
