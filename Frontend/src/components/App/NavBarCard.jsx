@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import { btn, btnFill } from '@/styles/styles';
 import { UserContext } from '@/AppLayout';
 import { createPlaylist } from '@/api/playlist';
+import { getCurrentUser } from '@/api/user';
 
 const NavBarCard = ({ onToggle }) => {
   const [showLinkModal, setShowLinkModal] = useState(false);
@@ -128,9 +129,9 @@ const NavBarCard = ({ onToggle }) => {
   // Create playlist handler
   const handleCreatePlaylist = async (playlist) => {
     try {
-      const userId = JSON.parse(localStorage.getItem('user')).id;
+      const user = await getCurrentUser();
+      if (!user) throw new Error('User not authenticated');
       const [playlistsData] = await createPlaylist(
-        userId,
         playlist.name,
         playlist.description,
         playlist.iconLink

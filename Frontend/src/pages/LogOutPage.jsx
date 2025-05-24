@@ -1,15 +1,14 @@
 import { ModeToggle } from '@/components/mode-toggle';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { FaArrowLeft, FaPen, FaUser, FaEnvelope } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { ThemeProvider } from '@/components/theme-provider';
 import axios from 'axios';
-import { updateUser } from '@/api/user';
-import { useRef } from 'react';
+import { updateUser, getCurrentUser } from '@/api/user';
 
 export default function ProfilePage() {
-  const user = JSON.parse(localStorage.getItem('user'));
-  const id = user.id;
+  // const user = JSON.parse(localStorage.getItem('user'));
+  // const id = user.id;
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [showLogoutModal, setShowLogoutModal] = useState(false);
@@ -19,19 +18,30 @@ export default function ProfilePage() {
   const navigate = useNavigate();
   const usernameInputRef = useRef(null);
 
+  // useEffect(() => {
+  //   // Load data from localStorage when component mounts
+  //   const userData = localStorage.getItem('user');
+  //   if (userData) {
+  //     const parsedData = JSON.parse(userData);
+  //     setUsername(parsedData.username || '');
+  //     setEmail(parsedData.email || '');
+  //     // Set profile image if available in localStorage
+  //     // if (parsedData.profileImage) {
+  //     //   setProfileImage(parsedData.profileImage);
+  //     // }
+  //   }
+  // }, []);
+
   useEffect(() => {
-    // Load data from localStorage when component mounts
-    const userData = localStorage.getItem('user');
-    if (userData) {
-      const parsedData = JSON.parse(userData);
-      setUsername(parsedData.username || '');
-      setEmail(parsedData.email || '');
-      // Set profile image if available in localStorage
-      // if (parsedData.profileImage) {
-      //   setProfileImage(parsedData.profileImage);
-      // }
-    }
+    getCurrentUser().then((user) => {
+      if (user) {
+        setUsername(user.username);
+        setEmail(user.email);
+      }
+    });
   }, []);
+  console.log('username:', username);
+  console.log('email:', email);
 
   useEffect(() => {
     if (edit && usernameInputRef.current) {
@@ -43,10 +53,12 @@ export default function ProfilePage() {
     try {
       const response = await axios.post(
         'http://localhost:3000/users/logout',
-        {}
+        {},
+        {
+          withCredentials: true,
+        }
       );
       if (response.data?.success) {
-        localStorage.clear();
         sessionStorage.clear();
         alert('Successfully logged out!');
         setShowLogoutModal(false);
@@ -74,29 +86,18 @@ export default function ProfilePage() {
   };
 
   const handleSave = async () => {
-    // if (tempImage) {
-    //   setProfileImage(tempImage);
-    //   setTempImage(null);
-    // }
-    console.log('Saving data:', id);
-    // Save to localStorage
-    const userData = {
-      id,
-      username,
-      email,
-      // profileImage: tempImage || profileImage,
-    };
-    localStorage.setItem('user', JSON.stringify(userData));
-
     setEdit(false);
-    console.log('hdahha');
-    // Send updated data to the backend
-
     try {
-      const res = updateUser(userData);
+      const res = await updateUser({ username });
       if (res.success) {
-        console.log('User updated successfully:', res.data);
         alert('User updated successfully');
+        // Optionally, refresh user info from backend
+        getCurrentUser().then((user) => {
+          if (user) {
+            setUsername(user.username);
+            setEmail(user.email);
+          }
+        });
       }
     } catch (error) {
       console.error('Error updating user:', error);

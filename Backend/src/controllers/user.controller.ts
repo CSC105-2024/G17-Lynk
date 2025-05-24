@@ -19,6 +19,19 @@ type DecodedToken = {
   _id: number;
 };
 
+export const getCurrentUserController = async (c: Context) => {
+  if (!c.user) return c.json({ message: 'Unauthorized' }, 401);
+
+  // Fetch full user info from DB (including email)
+  const user = await db.user.findUnique({
+    where: { id: c.user.id },
+    select: { id: true, username: true, email: true },
+  });
+
+  if (!user) return c.json({ message: 'User not found' }, 404);
+  return c.json({ user });
+};
+
 //register user
 export const registerUserController = async (c: Context) => {
   try {

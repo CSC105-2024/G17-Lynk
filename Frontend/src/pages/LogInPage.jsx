@@ -45,7 +45,7 @@ const LogInPage = () => {
           password: data.password,
         },
         {
-          withCredentials: true,
+          withCredentials: true, // Important for cookies
           headers: {
             'Content-Type': 'application/json',
           },
@@ -53,21 +53,14 @@ const LogInPage = () => {
       );
 
       console.log('Backend Response:', response.data);
-      if (response.status === 200 && response.data.user) {
-        const userData = response.data.user;
-        localStorage.setItem('user', JSON.stringify(userData));
+      if (response.status === 200) {
         navigate('/app/dashboard');
       } else {
-        alert(response.data.msg || 'Login failed: No success flag');
+        alert(response.data.msg || 'Login failed');
       }
     } catch (error) {
-      console.error('Login Error:', {
-        message: error.message,
-        response: error.response?.data,
-      });
-      alert(
-        error.response?.data?.msg || 'Login failed. Check console for details.'
-      );
+      console.error('Login Error:', error);
+      alert(error.response?.data?.msg || 'Login failed');
     }
   };
 

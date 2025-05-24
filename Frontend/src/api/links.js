@@ -1,18 +1,17 @@
 import { Axios } from '../../axiosInstance';
+import { getCurrentUser } from './user';
 
 export const getLinks = async () => {
-  const user = JSON.parse(localStorage.getItem('user'));
-  if (user === null) {
-    console.error('User not found in localStorage');
-    throw new Error('User not found in localStorage');
-  } else {
-    user.id = user.id;
+  const user = await getCurrentUser();
+  if (!user) {
+    throw new Error('User not authenticated');
   }
-
   console.log('user:', user);
   const userId = user.id;
   try {
-    const response = await Axios.get(`links/user/${userId}`);
+    const response = await Axios.get(`links/user/${userId}`, {
+      withCredentials: true,
+    });
 
     // Format dates for each link in the array
     const formattedData = response.data.data.map((link) => ({
@@ -49,6 +48,12 @@ export const createLink = async (
   tags,
   playlistId
 ) => {
+  const user = await getCurrentUser();
+  if (!user) {
+    throw new Error('User not authenticated');
+  }
+  console.log('user:', user);
+  const userId = user.id;
   console.log('inside link api');
   try {
     const response = await Axios.post(`/links`, {

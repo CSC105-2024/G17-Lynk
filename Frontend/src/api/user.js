@@ -1,5 +1,14 @@
 import { Axios } from '../../axiosInstance';
 
+export const getCurrentUser = async () => {
+  try {
+    const response = await Axios.get('/users/me', { withCredentials: true });
+    return response.data.user;
+  } catch (e) {
+    return null;
+  }
+};
+
 export const updateUser = async ({ username }) => {
   try {
     const response = await Axios.put(
