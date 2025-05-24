@@ -3,7 +3,7 @@ import Button from '../Button';
 import Chip from './Chip';
 import MorePopover from './MorePopover';
 import { UserContext } from '@/AppLayout';
-
+import { incrementClickCount } from '@/api/links';
 // LinkCard displays detailed information about a single saved link
 // It shows link icon, name, playlists, tags, link URL, and creation time
 // Also includes a MorePopover for options like deleting the link
@@ -16,6 +16,9 @@ const LinkCard = ({ data }) => {
   // console.log('here  is title: ', title);
   // console.log('here  is playlistId: ', playlistId);
   // console.log('ths is the data:', data);
+  const handleLinkClick = async () => {
+    await incrementClickCount(id);
+  };
   return (
     <div className='bg-[var(--link-card-bg)] rounded-lg shadow py-3 px-3 md:px-10 hover:bg-[var(--link-card-hover-bg)] w-full '>
       <div className='flex items-center gap-2 mb-2'>
@@ -55,6 +58,8 @@ const LinkCard = ({ data }) => {
           <a
             href={url}
             className='block max-w-xs overflow-hidden text-ellipsis whitespace-nowrap underline'
+            onClick={handleLinkClick}
+            target='_blank'
           >
             {url}
           </a>

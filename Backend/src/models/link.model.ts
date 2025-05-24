@@ -151,3 +151,12 @@ const deleteLink = async (linkId: number) => {
 };
 
 export { deleteLink };
+
+export const incrementClickCount = async (linkId: number) => {
+  const updated = await db.link.update({
+    where: { id: linkId },
+    data: { clickCount: { increment: 1 } },
+  });
+
+  return { success: true, link: updated };
+};

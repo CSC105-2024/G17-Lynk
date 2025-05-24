@@ -151,3 +151,22 @@ export const pinLink = async (linkId) => {
     };
   }
 };
+
+export const incrementClickCount = async (linkId) => {
+  try {
+    await Axios.post(`/links/increment-click/${linkId}`);
+  } catch (e) {
+    console.error('Failed to increment click count', e);
+  }
+};
+
+// export const getMostVisitedLinks = async (userId, limit = 5) => {
+//   try {
+//     const response = await Axios.get(`/links/user/${userId}`);
+//     // Sort by clickCount descending and take top N
+//     const sorted = response.data.sort((a, b) => b.clickCount - a.clickCount);
+//     return sorted.slice(0, limit);
+//   } catch (e) {
+//     return [];
+//   }
+// };

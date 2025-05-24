@@ -136,7 +136,8 @@ exports.Prisma.LinkScalarFieldEnum = {
   userId: 'userId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  isPinned: 'isPinned'
+  isPinned: 'isPinned',
+  clickCount: 'clickCount'
 };
 
 exports.Prisma.PlaylistScalarFieldEnum = {

@@ -13,25 +13,8 @@ export default function ProfilePage() {
   const [email, setEmail] = useState('');
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [edit, setEdit] = useState(false);
-  // const [profileImage, setProfileImage] = useState('/dummy.jpg');
-  // const [tempImage, setTempImage] = useState(null);
   const navigate = useNavigate();
   const usernameInputRef = useRef(null);
-
-  // useEffect(() => {
-  //   // Load data from localStorage when component mounts
-  //   const userData = localStorage.getItem('user');
-  //   if (userData) {
-  //     const parsedData = JSON.parse(userData);
-  //     setUsername(parsedData.username || '');
-  //     setEmail(parsedData.email || '');
-  //     // Set profile image if available in localStorage
-  //     // if (parsedData.profileImage) {
-  //     //   setProfileImage(parsedData.profileImage);
-  //     // }
-  //   }
-  // }, []);
-
   useEffect(() => {
     getCurrentUser().then((user) => {
       if (user) {

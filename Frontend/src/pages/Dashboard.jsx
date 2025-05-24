@@ -8,8 +8,8 @@ import { dummyData } from '@/services/data.js';
 import { UserContext } from '@/AppLayout';
 
 const Dashboard = () => {
-  const data = null;
   const { links } = useContext(UserContext);
+  console.log('links: ', links);
   return (
     <div className='bg-[var(--dashboard-bg-color)] min-h-screen'>
       {/* Display Cards */}
@@ -24,11 +24,18 @@ const Dashboard = () => {
       <DisplayCard
         icon={<MdTimelapse />}
         title='Most Visited'
-        subTitle='Your top visited links'
+        subTitle='Your top 5 most visited links of all time'
       >
-        {data?.map((item, idx) => (
+        {/* {link?.map((item, idx) => (
           <LinkCard key={idx} data={item} />
-        ))}
+        ))} */}
+        {links
+          ?.slice() // copy array to avoid mutating original
+          .sort((a, b) => b.clickCount - a.clickCount) // descending order
+          .slice(0, 5)
+          .map((item) => (
+            <LinkCard key={item.id} data={item} />
+          ))}
       </DisplayCard>
 
       <DisplayCard
@@ -37,9 +44,12 @@ const Dashboard = () => {
         subTitle='Links you’ve added recently'
       >
         {links
-          ?.map((item, idx) => <LinkCard key={idx} data={item} />)
-          .sort((a, b) => a.createdAt - b.createdAt)
-          .slice(0, 5)}
+          ?.slice()
+          .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+          .slice(0, 5)
+          .map((item) => (
+            <LinkCard key={item.id} data={item} />
+          ))}
       </DisplayCard>
     </div>
   );
