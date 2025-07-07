@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { UserContext } from '@/App'; // Import context for playlists
+import { UserContext } from '@/AppLayout'; // Import context for playlists
 import SideBarMenuLink from './SideBarMenuLink'; // Import custom component for sidebar menu links
 import { MdHome, MdTimelapse } from 'react-icons/md'; // Import icons from react-icons
 import { Separator } from '@/components/ui/separator'; // Import separator component for styling
@@ -18,7 +18,6 @@ const SideBarCard = ({ onToggle, showSideBar }) => {
     ...playlist,
     links: links.filter((link) => link.playlistId === playlist.id),
   }));
-  console.log('links from sidebar ', links);
   const tags = [];
   links.forEach((link) => {
     (link.tags || []).forEach((tag) => {
@@ -28,13 +27,9 @@ const SideBarCard = ({ onToggle, showSideBar }) => {
     });
   });
 
-  // const tags = dummyTags;
-
-  console.log('tags ddis ', tags);
-
   // Conditional class for sidebar display based on showSideBar status
   const sideBarDisplayStatus = showSideBar
-    ? 'min-w-full md:min-w-60 md:block fixed inset-0 z-50 overflow-y-auto'
+    ? 'min-w-full md:min-w-60 md:block fixed inset-0 z-100 overflow-y-auto'
     : 'hidden md:block min-w-60';
   return (
     <div
@@ -46,7 +41,10 @@ const SideBarCard = ({ onToggle, showSideBar }) => {
           <Logo version='v2' className='w-30' /> {/* Render Logo component */}
         </Link>
         {/* Close button for the sidebar in mobile view */}
-        <FaXmark className='text-4xl block md:hidden' onClick={onToggle} />{' '}
+        <FaXmark
+          className='text-4xl block md:hidden cursor-pointer'
+          onClick={onToggle}
+        />{' '}
       </div>
 
       {/* Default 3 sidebar menu links */}

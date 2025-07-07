@@ -4,7 +4,7 @@ import React, { useContext } from 'react';
 import { dummyData } from '@/services/data.js';
 import { MdOutlineDatasetLinked } from 'react-icons/md';
 import DisplayCard from '@/components/App/DisplayCard';
-import { UserContext } from '@/App';
+import { UserContext } from '@/AppLayout';
 
 const Linksboard = () => {
   const { links } = useContext(UserContext);

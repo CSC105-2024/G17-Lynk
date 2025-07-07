@@ -217,3 +217,29 @@ export const deleteLink = async (c: Context) => {
     );
   }
 };
+
+export const incrementClickCount = async (c: Context) => {
+  try {
+    const linkId = Number(c.req.param('linkId')); // assuming /links/increment-click/:linkId
+    console.log('linkId:', linkId);
+    if (isNaN(linkId)) {
+      return c.json(
+        { success: false, data: null, msg: 'Invalid link ID' },
+        400
+      );
+    }
+
+    const updated = await linkModel.incrementClickCount(linkId);
+
+    return c.json({
+      success: true,
+      data: updated.link,
+      msg: 'Click count incremented successfully',
+    });
+  } catch (e) {
+    return c.json(
+      { success: false, data: null, msg: `Internal Server Error: ${e}` },
+      500
+    );
+  }
+};

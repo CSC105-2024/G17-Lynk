@@ -5,9 +5,11 @@ import {
   generateToken,
   generateRefreshToken,
   ispasswordMatch,
+  updateUsername,
 } from '../models/user.model.ts';
 import { setCookie, deleteCookie } from 'hono/cookie';
 import jwt from 'jsonwebtoken';
+
 type CreateUserBody = {
   email: string;
   username: string;
@@ -15,6 +17,19 @@ type CreateUserBody = {
 };
 type DecodedToken = {
   _id: number;
+};
+
+export const getCurrentUserController = async (c: Context) => {
+  if (!c.user) return c.json({ message: 'Unauthorized' }, 401);
+
+  // Fetch full user info from DB (including email)
+  const user = await db.user.findUnique({
+    where: { id: c.user.id },
+    select: { id: true, username: true, email: true },
+  });
+
+  if (!user) return c.json({ message: 'User not found' }, 404);
+  return c.json({ user });
 };
 
 //register user
@@ -225,5 +240,54 @@ const generateTokensController = async (
   } catch (e) {
     console.log(e);
     throw new Error('Failed to generate tokens');
+  }
+};
+
+// update username controller
+export const updateUsernameController = async (c: Context) => {
+  try {
+    const { username } = await c.req.json();
+
+    if (!username) {
+      return c.json({ message: 'Username is required' }, 400);
+    }
+
+    const cookies = c.req.header('Cookie') || '';
+    const accessToken = cookies
+      .split('; ')
+      .find((row) => row.startsWith('accessToken='))
+      ?.split('=')[1];
+
+    if (!accessToken) {
+      return c.json({ message: 'Access token not found' }, 401);
+    }
+
+    const decoded = jwt.verify(accessToken, process.env.JWT_SECRET!) as {
+      _id: number;
+    };
+
+    if (!decoded?._id) {
+      return c.json({ message: 'Invalid token' }, 401);
+    }
+
+    const result = await updateUsername(decoded._id, username);
+
+    if (!result.success || !result.user) {
+      return c.json({ message: result.message }, 400);
+    }
+
+    const { id, email, username: updatedUsername } = result.user;
+
+    return c.json({
+      message: 'Username updated successfully',
+      user: {
+        id,
+        email,
+        username: updatedUsername,
+      },
+    });
+  } catch (error) {
+    console.error('Update username error:', error);
+    return c.json({ message: 'Something went wrong' }, 500);
   }
 };

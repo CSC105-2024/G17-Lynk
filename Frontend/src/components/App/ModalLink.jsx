@@ -2,7 +2,7 @@ import { btn, btnFill } from '@/styles/styles';
 import React, { useContext, useState } from 'react';
 import Button from '../Button';
 import { Separator } from '@/components/ui/separator';
-import { UserContext } from '@/App';
+import { UserContext } from '@/AppLayout';
 import { createLink } from '@/api/links';
 
 // ModalLink - A modal window for creating a new link
@@ -42,7 +42,6 @@ const ModalLink = ({ show, handleClose }) => {
       const updatedTags = link.tags.filter((tag) => tag.length > 0);
       link = { ...link, tags: updatedTags };
       const [linksData] = await createLink(
-        (link.userId = 1),
         link.url,
         link.title,
         link.description,

@@ -1,27 +1,48 @@
 import { ModeToggle } from '@/components/mode-toggle';
-import { useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { FaArrowLeft, FaPen, FaUser, FaEnvelope } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { ThemeProvider } from '@/components/theme-provider';
 import axios from 'axios';
+import { updateUser, getCurrentUser } from '@/api/user';
 
 export default function ProfilePage() {
-  const [username, setUsername] = useState('bambi');
-  const [email, setEmail] = useState('xxx@gmail.com');
+  // const user = JSON.parse(localStorage.getItem('user'));
+  // const id = user.id;
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [edit, setEdit] = useState(false);
-  const [profileImage, setProfileImage] = useState('/dummy_pf.jpg');
-  const [tempImage, setTempImage] = useState(null);
   const navigate = useNavigate();
+  const usernameInputRef = useRef(null);
+  useEffect(() => {
+    getCurrentUser().then((user) => {
+      if (user) {
+        setUsername(user.username);
+        setEmail(user.email);
+      }
+    });
+  }, []);
+  console.log('username:', username);
+  console.log('email:', email);
+
+  useEffect(() => {
+    if (edit && usernameInputRef.current) {
+      usernameInputRef.current.focus();
+    }
+  }, [edit]);
 
   const handleLogout = async () => {
     try {
       const response = await axios.post(
         'http://localhost:3000/users/logout',
         {},
-        { withCredentials: true }
+        {
+          withCredentials: true,
+        }
       );
       if (response.data?.success) {
+        sessionStorage.clear();
         alert('Successfully logged out!');
         setShowLogoutModal(false);
         navigate('/', { replace: true });
@@ -47,12 +68,27 @@ export default function ProfilePage() {
     }
   };
 
-  const handleSave = () => {
-    if (tempImage) {
-      setProfileImage(tempImage);
-      setTempImage(null);
-    }
+  const handleSave = async () => {
     setEdit(false);
+    try {
+      const res = await updateUser({ username });
+      if (res.success) {
+        alert('User updated successfully');
+        // Optionally, refresh user info from backend
+        getCurrentUser().then((user) => {
+          if (user) {
+            setUsername(user.username);
+            setEmail(user.email);
+          }
+        });
+      }
+    } catch (error) {
+      console.error('Error updating user:', error);
+      alert(
+        'Error updating user: ' +
+          (error.response?.data?.message || 'Unknown error')
+      );
+    }
   };
   const handle_edit = () => setEdit(!edit);
 
@@ -67,24 +103,18 @@ export default function ProfilePage() {
             >
               <FaArrowLeft size={12} />
             </button>
-            <ModeToggle className='fixed top-5 right-5 z-50' />
+            <div className='flex justify-end gap-5'>
+              <ModeToggle className='fixed top-5 right-5 z-50' />
+            </div>
           </div>
 
-          <div className='relative w-28 h-28 mx-auto mb-4'>
+          {/* <div className='relative w-28 h-28 mx-auto mb-4'>
             <img
               src={tempImage || profileImage}
               alt='Profile'
               className='w-full h-full object-cover rounded-full border-2 border-white'
-            />
-            <div className='absolute bottom-2 right-2 bg-gray-100 p-1 rounded-full shadow-sm'>
-              <button
-                onClick={handle_edit}
-                className='w-4 h-4 flex items-center justify-center bg-gray-200 hover:bg-gray-300 rounded-full transition cursor-pointer'
-              >
-                <FaPen size={12} className='text-gray-600' />
-              </button>
-            </div>
-
+            /> */}
+          {/* 
             {edit && (
               <input
                 type='file'
@@ -92,8 +122,8 @@ export default function ProfilePage() {
                 onChange={handleImageChange}
                 className='absolute bottom-0 left-0 w-full h-full opacity-0 cursor-pointer'
               />
-            )}
-          </div>
+            )} */}
+          {/* </div> */}
 
           <h2 className='text-center text-lg font-medium mb-6'>{username}</h2>
 
@@ -102,11 +132,26 @@ export default function ProfilePage() {
             <div className='flex items-center bg-[var(--logout-input-bg-color)] text-[var(--logout-input-text-color)] rounded-lg px-3 py-2'>
               <FaUser className='mr-2 text-gray-400' />
               <input
+                ref={usernameInputRef}
                 type='text'
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                className='bg-transparent outline-none w-full'
+                className={`${
+                  edit
+                    ? 'opacity-100 cursor-text'
+                    : 'opacity-50 cursor-not-allowed'
+                } bg-transparent outline-none w-full`}
+                disabled={!edit}
               />
+              <button
+                onClick={handle_edit}
+                className='bg-[var(--logout-input-bg-color)]  px-1 flex items-center justify-center transition cursor-pointer shadow-sm'
+              >
+                <FaPen
+                  size={15}
+                  className='text-gray-600 hover:text-[var(--secondary-foreground)]'
+                />
+              </button>
             </div>
           </div>
 
@@ -114,13 +159,15 @@ export default function ProfilePage() {
             <label className='text-sm font-semibold mb-1 block'>
               Your Email
             </label>
-            <div className='flex items-center bg-[var(--logout-input-bg-color)] text-[var(--logout-input-text-color)] rounded-lg px-3 py-2'>
+            <div className='flex items-center bg-[var(--logout-input-bg-color)] text-[var(--logout-input-text-color)] rounded-lg px-3 py-2 '>
               <FaEnvelope className='mr-2 text-gray-400' />
               <input
                 type='email'
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className='bg-transparent outline-none w-full'
+                className='opacity-50 cursor-not-allowed
+              bg-transparent outline-none w-full'
+                disabled
               />
             </div>
           </div>

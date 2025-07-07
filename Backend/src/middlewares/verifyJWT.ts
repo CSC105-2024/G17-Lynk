@@ -23,7 +23,7 @@ const verifyJwt = async (c: Context, next: Next) => {
   console.log('Token:', token);
   console.log('JWT_SECRET:', process.env.JWT_SECRET);
   try {
-    const decoded = jwt.verify(token, process.env.ACCESSTOKEN_SECRET_KEY!) as {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as {
       _id: number;
     };
 

@@ -1,10 +1,17 @@
 import { Axios } from '../../axiosInstance';
-
-const userId = 1;
+import { getCurrentUser } from './user';
 
 export const getLinks = async () => {
+  const user = await getCurrentUser();
+  if (!user) {
+    throw new Error('User not authenticated');
+  }
+  console.log('user:', user);
+  const userId = user.id;
   try {
-    const response = await Axios.get(`links/user/${userId}`);
+    const response = await Axios.get(`links/user/${userId}`, {
+      withCredentials: true,
+    });
 
     // Format dates for each link in the array
     const formattedData = response.data.data.map((link) => ({
@@ -34,7 +41,6 @@ export const getLinks = async () => {
 };
 
 export const createLink = async (
-  userId,
   url,
   title,
   description,
@@ -42,6 +48,12 @@ export const createLink = async (
   tags,
   playlistId
 ) => {
+  const user = await getCurrentUser();
+  if (!user) {
+    throw new Error('User not authenticated');
+  }
+  console.log('user:', user);
+  const userId = user.id;
   console.log('inside link api');
   try {
     const response = await Axios.post(`/links`, {
@@ -139,3 +151,22 @@ export const pinLink = async (linkId) => {
     };
   }
 };
+
+export const incrementClickCount = async (linkId) => {
+  try {
+    await Axios.post(`/links/increment-click/${linkId}`);
+  } catch (e) {
+    console.error('Failed to increment click count', e);
+  }
+};
+
+// export const getMostVisitedLinks = async (userId, limit = 5) => {
+//   try {
+//     const response = await Axios.get(`/links/user/${userId}`);
+//     // Sort by clickCount descending and take top N
+//     const sorted = response.data.sort((a, b) => b.clickCount - a.clickCount);
+//     return sorted.slice(0, limit);
+//   } catch (e) {
+//     return [];
+//   }
+// };

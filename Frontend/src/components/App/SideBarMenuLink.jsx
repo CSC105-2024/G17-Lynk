@@ -3,8 +3,6 @@ import { NavLink } from 'react-router-dom'; // Import NavLink for routing with a
 
 // SideBarMenuLink component to render individual sidebar menu items
 const SideBarMenuLink = ({ icon, name, linkCount, link }) => {
-  console.log('sidebar menu link ', name, linkCount);
-
   return (
     // NavLink component is used for routing with active class handling
     <NavLink

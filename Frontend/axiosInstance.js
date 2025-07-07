@@ -1,43 +1,34 @@
 import axios from 'axios';
-import { decodeToken } from '../Frontend/src/utils/decodeToken';
 
-const getUserIdFromToken = () => {
-  const token = document.cookie
-    .split('; ')
-    .find((row) => row.startsWith('accessToken='))
-    ?.split('=')[1];
-
-  if (!token) return null;
-
-  const decoded = decodeToken(token);
-  return decoded?._id;
-};
-
-export const Axios = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
+const Axios = axios.create({
+  baseURL: 'http://localhost:3000', // backend URL
+  withCredentials: true,
 });
 
-// Add request interceptor
-Axios.interceptors.request.use((config) => {
-  const token = document.cookie
-    .split('; ')
-    .find((row) => row.startsWith('accessToken='))
-    ?.split('=')[1];
-
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-
-    // For user-specific endpoints
-    if (config.url.includes('/user/')) {
-      const userId = getUserIdFromToken();
-      if (userId) {
-        config.url = config.url.replace('/user/', `/user/${userId}/`);
+Axios.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const originalRequest = error.config;
+    // If 401 and not already retried
+    if (
+      error.response &&
+      error.response.status === 401 &&
+      !originalRequest._retry
+    ) {
+      originalRequest._retry = true;
+      try {
+        // Try to refresh token
+        await Axios.post('/users/refresh-token');
+        // Retry original request
+        return Axios(originalRequest);
+      } catch (refreshError) {
+        // If refresh fails, redirect to login or handle logout
+        window.location.href = '/login';
+        return Promise.reject(refreshError);
       }
     }
+    return Promise.reject(error);
   }
+);
 
-  return config;
-});
+export { Axios };

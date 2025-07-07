@@ -4,7 +4,7 @@ import { dummyData, dummyPlaylist } from '@/services/data';
 import LinkCard from '@/components/App/LinkCard';
 import APP_ICONS from '@/constants/icons.js';
 import DisplayCard from '@/components/App/DisplayCard';
-import { UserContext } from '@/App';
+import { UserContext } from '@/AppLayout';
 
 const Playlistboard = () => {
   const { playlists } = useContext(UserContext);

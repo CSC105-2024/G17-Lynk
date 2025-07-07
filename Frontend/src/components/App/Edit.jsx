@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import Button from '../Button';
 import { Separator } from '@/components/ui/separator';
-import { UserContext } from '@/App';
+import { UserContext } from '@/AppLayout';
 
 const EditLinkModal = ({ isOpen, onClose, onSave, initialLinkData }) => {
   const { playlists } = useContext(UserContext);

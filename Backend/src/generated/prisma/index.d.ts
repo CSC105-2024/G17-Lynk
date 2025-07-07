@@ -2433,12 +2433,14 @@ export namespace Prisma {
     id: number | null
     playlistId: number | null
     userId: number | null
+    clickCount: number | null
   }
 
   export type LinkSumAggregateOutputType = {
     id: number | null
     playlistId: number | null
     userId: number | null
+    clickCount: number | null
   }
 
   export type LinkMinAggregateOutputType = {
@@ -2452,6 +2454,7 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     isPinned: boolean | null
+    clickCount: number | null
   }
 
   export type LinkMaxAggregateOutputType = {
@@ -2465,6 +2468,7 @@ export namespace Prisma {
     createdAt: Date | null
     updatedAt: Date | null
     isPinned: boolean | null
+    clickCount: number | null
   }
 
   export type LinkCountAggregateOutputType = {
@@ -2478,6 +2482,7 @@ export namespace Prisma {
     createdAt: number
     updatedAt: number
     isPinned: number
+    clickCount: number
     _all: number
   }
 
@@ -2486,12 +2491,14 @@ export namespace Prisma {
     id?: true
     playlistId?: true
     userId?: true
+    clickCount?: true
   }
 
   export type LinkSumAggregateInputType = {
     id?: true
     playlistId?: true
     userId?: true
+    clickCount?: true
   }
 
   export type LinkMinAggregateInputType = {
@@ -2505,6 +2512,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     isPinned?: true
+    clickCount?: true
   }
 
   export type LinkMaxAggregateInputType = {
@@ -2518,6 +2526,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     isPinned?: true
+    clickCount?: true
   }
 
   export type LinkCountAggregateInputType = {
@@ -2531,6 +2540,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     isPinned?: true
+    clickCount?: true
     _all?: true
   }
 
@@ -2631,6 +2641,7 @@ export namespace Prisma {
     createdAt: Date
     updatedAt: Date
     isPinned: boolean | null
+    clickCount: number
     _count: LinkCountAggregateOutputType | null
     _avg: LinkAvgAggregateOutputType | null
     _sum: LinkSumAggregateOutputType | null
@@ -2663,6 +2674,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     isPinned?: boolean
+    clickCount?: boolean
     tags?: boolean | Link$tagsArgs<ExtArgs>
     playlist?: boolean | Link$playlistArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -2680,6 +2692,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     isPinned?: boolean
+    clickCount?: boolean
     playlist?: boolean | Link$playlistArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["link"]>
@@ -2695,6 +2708,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     isPinned?: boolean
+    clickCount?: boolean
     playlist?: boolean | Link$playlistArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["link"]>
@@ -2710,9 +2724,10 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     isPinned?: boolean
+    clickCount?: boolean
   }
 
-  export type LinkOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "url" | "title" | "description" | "iconLink" | "playlistId" | "userId" | "createdAt" | "updatedAt" | "isPinned", ExtArgs["result"]["link"]>
+  export type LinkOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "url" | "title" | "description" | "iconLink" | "playlistId" | "userId" | "createdAt" | "updatedAt" | "isPinned" | "clickCount", ExtArgs["result"]["link"]>
   export type LinkInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tags?: boolean | Link$tagsArgs<ExtArgs>
     playlist?: boolean | Link$playlistArgs<ExtArgs>
@@ -2746,6 +2761,7 @@ export namespace Prisma {
       createdAt: Date
       updatedAt: Date
       isPinned: boolean | null
+      clickCount: number
     }, ExtArgs["result"]["link"]>
     composites: {}
   }
@@ -3182,6 +3198,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"Link", 'DateTime'>
     readonly updatedAt: FieldRef<"Link", 'DateTime'>
     readonly isPinned: FieldRef<"Link", 'Boolean'>
+    readonly clickCount: FieldRef<"Link", 'Int'>
   }
     
 
@@ -5926,7 +5943,8 @@ export namespace Prisma {
     userId: 'userId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
-    isPinned: 'isPinned'
+    isPinned: 'isPinned',
+    clickCount: 'clickCount'
   };
 
   export type LinkScalarFieldEnum = (typeof LinkScalarFieldEnum)[keyof typeof LinkScalarFieldEnum]
@@ -6094,6 +6112,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Link"> | Date | string
     updatedAt?: DateTimeFilter<"Link"> | Date | string
     isPinned?: BoolNullableFilter<"Link"> | boolean | null
+    clickCount?: IntFilter<"Link"> | number
     tags?: TagListRelationFilter
     playlist?: XOR<PlaylistNullableScalarRelationFilter, PlaylistWhereInput> | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -6110,6 +6129,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     isPinned?: SortOrderInput | SortOrder
+    clickCount?: SortOrder
     tags?: TagOrderByRelationAggregateInput
     playlist?: PlaylistOrderByWithRelationInput
     user?: UserOrderByWithRelationInput
@@ -6129,6 +6149,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Link"> | Date | string
     updatedAt?: DateTimeFilter<"Link"> | Date | string
     isPinned?: BoolNullableFilter<"Link"> | boolean | null
+    clickCount?: IntFilter<"Link"> | number
     tags?: TagListRelationFilter
     playlist?: XOR<PlaylistNullableScalarRelationFilter, PlaylistWhereInput> | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -6145,6 +6166,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     isPinned?: SortOrderInput | SortOrder
+    clickCount?: SortOrder
     _count?: LinkCountOrderByAggregateInput
     _avg?: LinkAvgOrderByAggregateInput
     _max?: LinkMaxOrderByAggregateInput
@@ -6166,6 +6188,7 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"Link"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Link"> | Date | string
     isPinned?: BoolNullableWithAggregatesFilter<"Link"> | boolean | null
+    clickCount?: IntWithAggregatesFilter<"Link"> | number
   }
 
   export type PlaylistWhereInput = {
@@ -6372,6 +6395,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     isPinned?: boolean | null
+    clickCount?: number
     tags?: TagCreateNestedManyWithoutLinksInput
     playlist?: PlaylistCreateNestedOneWithoutLinksInput
     user: UserCreateNestedOneWithoutLinksInput
@@ -6388,6 +6412,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     isPinned?: boolean | null
+    clickCount?: number
     tags?: TagUncheckedCreateNestedManyWithoutLinksInput
   }
 
@@ -6399,6 +6424,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPinned?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    clickCount?: IntFieldUpdateOperationsInput | number
     tags?: TagUpdateManyWithoutLinksNestedInput
     playlist?: PlaylistUpdateOneWithoutLinksNestedInput
     user?: UserUpdateOneRequiredWithoutLinksNestedInput
@@ -6415,6 +6441,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPinned?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    clickCount?: IntFieldUpdateOperationsInput | number
     tags?: TagUncheckedUpdateManyWithoutLinksNestedInput
   }
 
@@ -6429,6 +6456,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     isPinned?: boolean | null
+    clickCount?: number
   }
 
   export type LinkUpdateManyMutationInput = {
@@ -6439,6 +6467,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPinned?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    clickCount?: IntFieldUpdateOperationsInput | number
   }
 
   export type LinkUncheckedUpdateManyInput = {
@@ -6452,6 +6481,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPinned?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    clickCount?: IntFieldUpdateOperationsInput | number
   }
 
   export type PlaylistCreateInput = {
@@ -6785,12 +6815,14 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     isPinned?: SortOrder
+    clickCount?: SortOrder
   }
 
   export type LinkAvgOrderByAggregateInput = {
     id?: SortOrder
     playlistId?: SortOrder
     userId?: SortOrder
+    clickCount?: SortOrder
   }
 
   export type LinkMaxOrderByAggregateInput = {
@@ -6804,6 +6836,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     isPinned?: SortOrder
+    clickCount?: SortOrder
   }
 
   export type LinkMinOrderByAggregateInput = {
@@ -6817,12 +6850,14 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     isPinned?: SortOrder
+    clickCount?: SortOrder
   }
 
   export type LinkSumOrderByAggregateInput = {
     id?: SortOrder
     playlistId?: SortOrder
     userId?: SortOrder
+    clickCount?: SortOrder
   }
 
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -7407,6 +7442,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     isPinned?: boolean | null
+    clickCount?: number
     tags?: TagCreateNestedManyWithoutLinksInput
     playlist?: PlaylistCreateNestedOneWithoutLinksInput
   }
@@ -7421,6 +7457,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     isPinned?: boolean | null
+    clickCount?: number
     tags?: TagUncheckedCreateNestedManyWithoutLinksInput
   }
 
@@ -7493,6 +7530,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Link"> | Date | string
     updatedAt?: DateTimeFilter<"Link"> | Date | string
     isPinned?: BoolNullableFilter<"Link"> | boolean | null
+    clickCount?: IntFilter<"Link"> | number
   }
 
   export type PlaylistUpsertWithWhereUniqueWithoutUserInput = {
@@ -7689,6 +7727,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     isPinned?: boolean | null
+    clickCount?: number
     tags?: TagCreateNestedManyWithoutLinksInput
     user: UserCreateNestedOneWithoutLinksInput
   }
@@ -7703,6 +7742,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     isPinned?: boolean | null
+    clickCount?: number
     tags?: TagUncheckedCreateNestedManyWithoutLinksInput
   }
 
@@ -7793,6 +7833,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     isPinned?: boolean | null
+    clickCount?: number
     playlist?: PlaylistCreateNestedOneWithoutLinksInput
     user: UserCreateNestedOneWithoutLinksInput
   }
@@ -7808,6 +7849,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     isPinned?: boolean | null
+    clickCount?: number
   }
 
   export type LinkCreateOrConnectWithoutTagsInput = {
@@ -7841,6 +7883,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     isPinned?: boolean | null
+    clickCount?: number
   }
 
   export type PlaylistCreateManyUserInput = {
@@ -7861,6 +7904,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPinned?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    clickCount?: IntFieldUpdateOperationsInput | number
     tags?: TagUpdateManyWithoutLinksNestedInput
     playlist?: PlaylistUpdateOneWithoutLinksNestedInput
   }
@@ -7875,6 +7919,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPinned?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    clickCount?: IntFieldUpdateOperationsInput | number
     tags?: TagUncheckedUpdateManyWithoutLinksNestedInput
   }
 
@@ -7888,6 +7933,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPinned?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    clickCount?: IntFieldUpdateOperationsInput | number
   }
 
   export type PlaylistUpdateWithoutUserInput = {
@@ -7951,6 +7997,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     isPinned?: boolean | null
+    clickCount?: number
   }
 
   export type LinkUpdateWithoutPlaylistInput = {
@@ -7961,6 +8008,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPinned?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    clickCount?: IntFieldUpdateOperationsInput | number
     tags?: TagUpdateManyWithoutLinksNestedInput
     user?: UserUpdateOneRequiredWithoutLinksNestedInput
   }
@@ -7975,6 +8023,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPinned?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    clickCount?: IntFieldUpdateOperationsInput | number
     tags?: TagUncheckedUpdateManyWithoutLinksNestedInput
   }
 
@@ -7988,6 +8037,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPinned?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    clickCount?: IntFieldUpdateOperationsInput | number
   }
 
   export type LinkUpdateWithoutTagsInput = {
@@ -7998,6 +8048,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPinned?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    clickCount?: IntFieldUpdateOperationsInput | number
     playlist?: PlaylistUpdateOneWithoutLinksNestedInput
     user?: UserUpdateOneRequiredWithoutLinksNestedInput
   }
@@ -8013,6 +8064,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPinned?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    clickCount?: IntFieldUpdateOperationsInput | number
   }
 
   export type LinkUncheckedUpdateManyWithoutTagsInput = {
@@ -8026,6 +8078,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isPinned?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    clickCount?: IntFieldUpdateOperationsInput | number
   }
 
 

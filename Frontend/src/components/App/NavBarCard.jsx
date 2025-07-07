@@ -9,8 +9,9 @@ import Fuse from 'fuse.js';
 import { ModeToggle } from '../mode-toggle';
 import { useNavigate } from 'react-router-dom';
 import { btn, btnFill } from '@/styles/styles';
-import { UserContext } from '@/App';
+import { UserContext } from '@/AppLayout';
 import { createPlaylist } from '@/api/playlist';
+import { getCurrentUser } from '@/api/user';
 
 const NavBarCard = ({ onToggle }) => {
   const [showLinkModal, setShowLinkModal] = useState(false);
@@ -128,8 +129,9 @@ const NavBarCard = ({ onToggle }) => {
   // Create playlist handler
   const handleCreatePlaylist = async (playlist) => {
     try {
+      const user = await getCurrentUser();
+      if (!user) throw new Error('User not authenticated');
       const [playlistsData] = await createPlaylist(
-        1, // userId
         playlist.name,
         playlist.description,
         playlist.iconLink
@@ -163,7 +165,7 @@ const NavBarCard = ({ onToggle }) => {
       {/* Main Navigation Bar */}
       <div className='px-5 py-5 md:px-8 md:py-3 flex items-center gap-3 md:gap-10 flex-wrap'>
         {/* Mobile Menu Toggle */}
-        <div className='text-3xl p-3 block md:hidden'>
+        <div className='text-3xl p-3 block md:hidden cursor-pointer'>
           <IoMenu onClick={onToggle} />
         </div>
 

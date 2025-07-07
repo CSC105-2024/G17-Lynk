@@ -1,12 +1,22 @@
 import { Axios } from '../../axiosInstance';
-
-// Helper function to format dates consistently
-const formatDate = (dateString) => new Date(dateString).toLocaleString();
+import { getCurrentUser } from './user';
 
 export const getPlaylists = async () => {
-  try {
-    const response = await Axios.get('playlists/user/1');
+  // const user = JSON.parse(localStorage.getItem('user'));
+  // const userId = user.id;
 
+  // // Helper function to format dates consistently
+  const formatDate = (dateString) => new Date(dateString).toLocaleString();
+  const user = await getCurrentUser();
+  if (!user) {
+    throw new Error('User not authenticated');
+  }
+  const userId = user.id;
+  try {
+    const response = await Axios.get(`playlists/user/${userId}`, {
+      withCredentials: true,
+    });
+    console.log('res', response);
     // Format dates for each playlist and their nested links
     const formattedData = response.data.data.map((playlist) => ({
       ...playlist,
@@ -42,7 +52,7 @@ export const getPlaylists = async () => {
 
 export const getUser = async () => {
   try {
-    const response = await Axios.get('user/1');
+    const response = await Axios.get(`user/${userId}`);
 
     // Format user dates if they exist
     const formattedData = response.data.data
@@ -78,13 +88,17 @@ export const getUser = async () => {
 };
 
 export const createPlaylist = async (userId, name, description, iconLink) => {
+  const user = await getCurrentUser();
+  if (!user) {
+    throw new Error('User not authenticated');
+  }
   try {
-    const response = await Axios.post('/playlists', {
-      userId,
-      name,
-      description,
-      iconLink,
-    });
+    const userId = user.id;
+    const response = await Axios.post(
+      '/playlists',
+      { userId, name, description, iconLink },
+      { withCredentials: true }
+    );
 
     // Format the newly created playlist's dates
     const formattedData = response.data.data

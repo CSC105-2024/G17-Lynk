@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import PopoverContent from './PopoverContent';
 import Button from '../Button';
 import EditLinkModal from '@/components/App/Edit';
-import { UserContext } from '@/App';
+import { UserContext } from '@/AppLayout';
 import { deleteLink, editLink, pinLink } from '@/api/links';
 
 /**
